@@ -219,15 +219,20 @@ const VirtualInterview: React.FC<{ onComplete: (data: InterviewData, interviewId
 
               <div className="form-group">
                 <label htmlFor="position">Position Applied For *</label>
-                <input
-                  type="text"
+                <select
                   id="position"
                   name="position"
                   value={formData.position}
                   onChange={handleInputChange}
                   className={errors.position ? 'error' : ''}
-                  placeholder="e.g., Full Stack Developer, DevOps Engineer"
-                />
+                >
+                  <option value="">Select a position</option>
+                  <option value="Backend Developer">Backend Developer</option>
+                  <option value="Frontend Developer">Frontend Developer</option>
+                  <option value="Full Stack Developer">Full Stack Developer</option>
+                  <option value="AI Integration Specialist">AI Integration Specialist</option>
+                  <option value="Project Manager">Project Manager</option>
+                </select>
                 {errors.position && <span className="error-message">{errors.position}</span>}
               </div>
 
