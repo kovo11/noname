@@ -125,7 +125,6 @@ Submission Date: ${timestamp}
 CANDIDATE INFORMATION:
 • Full Name: ${data.fullName}
 • Email: ${data.email}
-• Phone: ${data.phone}
 • Position Applied: ${data.position}
 • Experience Level: ${data.experience}
 
@@ -253,13 +252,11 @@ GitMatcher HR Department - Technical Interview System
       firstName: completedCandidateData.application?.firstName || '',
       lastName: completedCandidateData.application?.lastName || '',
       email: completedCandidateData.application?.email || '',
-      phone: completedCandidateData.application?.phone || '',
       address: completedCandidateData.application?.address || '',
       salaryAcceptable: completedCandidateData.application?.salaryAcceptable || false,
       salaryRequest: completedCandidateData.application?.salaryRequest || '',
       emergencyName: completedCandidateData.identity?.emergencyName || '',
       emergencyRelation: completedCandidateData.identity?.emergencyRelation || '',
-      emergencyPhone: completedCandidateData.identity?.emergencyPhone || '',
       emergencyEmail: completedCandidateData.identity?.emergencyEmail || '',
       consentCheck: completedCandidateData.legal?.consentCheck || false,
       transactionId: completedCandidateData.candidateId || generateCandidateId()

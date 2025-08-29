@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FormProps, ApplicationData } from '../types';
 import { useAuth } from '../contexts/AuthContext';
-import DataService from '../services/DataService';
 
 const ApplicationForm: React.FC<FormProps> = ({ onSubmit, initialData }) => {
   const { getUserPersonalInfo } = useAuth();
@@ -11,7 +10,6 @@ const ApplicationForm: React.FC<FormProps> = ({ onSubmit, initialData }) => {
     firstName: personalInfo?.firstName || '',
     lastName: personalInfo?.lastName || '',
     email: personalInfo?.email || '',
-    phone: personalInfo?.phone || '',
     address: '',
     salaryAcceptable: true,
     salaryRequest: ''
@@ -31,8 +29,7 @@ const ApplicationForm: React.FC<FormProps> = ({ onSubmit, initialData }) => {
         ...prev,
         firstName: personalInfo.firstName,
         lastName: personalInfo.lastName,
-        email: personalInfo.email,
-        phone: personalInfo.phone
+        email: personalInfo.email
       }));
     }
   }, [personalInfo]);
@@ -90,10 +87,6 @@ const ApplicationForm: React.FC<FormProps> = ({ onSubmit, initialData }) => {
               <div className="info-item">
                 <label>Email:</label>
                 <span className="info-value">{formData.email}</span>
-              </div>
-              <div className="info-item">
-                <label>Phone:</label>
-                <span className="info-value">{formData.phone}</span>
               </div>
             </div>
             <p className="info-note">

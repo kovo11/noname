@@ -17,7 +17,6 @@ const IdentityForm: React.FC<IdentityFormProps> = ({
   const [formData, setFormData] = useState({
     emergencyName: '',
     emergencyRelation: '',
-    emergencyPhone: '',
     emergencyEmail: '',
     salaryAcceptable: true,
     salaryRequest: ''
@@ -55,7 +54,6 @@ const IdentityForm: React.FC<IdentityFormProps> = ({
     // Required field validation
     if (!formData.emergencyName.trim()) newErrors.emergencyName = 'Emergency contact name is required';
     if (!formData.emergencyRelation.trim()) newErrors.emergencyRelation = 'Relationship is required';
-    if (!formData.emergencyPhone.trim()) newErrors.emergencyPhone = 'Emergency contact phone is required';
 
     // Email validation (optional field)
     if (formData.emergencyEmail) {
@@ -166,20 +164,6 @@ const IdentityForm: React.FC<IdentityFormProps> = ({
                 required
               />
               {errors.emergencyRelation && <span className="error-message">{errors.emergencyRelation}</span>}
-            </div>
-            
-            <div className="form-group">
-              <label htmlFor="emergencyPhone">Phone Number *</label>
-              <input
-                type="tel"
-                id="emergencyPhone"
-                name="emergencyPhone"
-                value={formData.emergencyPhone}
-                onChange={handleChange}
-                className={errors.emergencyPhone ? 'error' : ''}
-                required
-              />
-              {errors.emergencyPhone && <span className="error-message">{errors.emergencyPhone}</span>}
             </div>
             
             <div className="form-group">

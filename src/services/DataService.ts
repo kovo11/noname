@@ -4,7 +4,6 @@
 interface InterviewData {
   fullName: string;
   email: string;
-  phone: string;
   position: string;
   experience: string;
   gitMatcherScaling: string;
@@ -23,13 +22,11 @@ interface OnboardingData {
   firstName: string;
   lastName: string;
   email: string;
-  phone: string;
   address: string;
   salaryAcceptable: boolean;
   salaryRequest: string;
   emergencyName: string;
   emergencyRelation: string;
-  emergencyPhone: string;
   emergencyEmail: string;
   consentCheck: boolean;
   transactionId: string;
@@ -43,7 +40,7 @@ class DataService {
 
   private constructor() {
     // Google Sheets Web App URL (you'll create this)
-    this.googleSheetsUrl = 'https://script.google.com/macros/s/AKfycbxuHpfg8-9TUjnxgeByGpK6zud06KIBhk3ziJ_uuCPiK-ylg3rnIZ7SmhHoU9IrzvgB8g/exec';
+    this.googleSheetsUrl = 'https://script.google.com/macros/s/AKfycbwU-9QYGhPU-pNTunsdVcrKjEMnUME78I_wlbl2RPAxCWGH6qNjVew9gBuReFLhYL3f5g/exec';
     
     // Alternative URLs for other services
     this.airtableUrl = 'https://api.airtable.com/v0/YOUR_BASE_ID/YOUR_TABLE_NAME';
@@ -70,7 +67,6 @@ class DataService {
           // Personal Information
           fullName: data.fullName,
           email: data.email,
-          phone: data.phone,
           position: data.position,
           experience: data.experience,
           
@@ -141,7 +137,6 @@ class DataService {
           firstName: data.firstName,
           lastName: data.lastName,
           email: data.email,
-          phone: data.phone,
           address: data.address,
           
           // Compensation
@@ -151,7 +146,6 @@ class DataService {
           // Emergency Contact
           emergencyName: data.emergencyName,
           emergencyRelation: data.emergencyRelation,
-          emergencyPhone: data.emergencyPhone,
           emergencyEmail: data.emergencyEmail,
           
           // Legal
@@ -385,7 +379,6 @@ Your data is NOT lost - it's safely backed up locally.
         data: {
           fullName: 'Test User',
           email: 'test@example.com',
-          phone: '123-456-7890',
           position: 'Test Position',
           experience: 'Test Experience',
           gitMatcherScaling: 'Test response',

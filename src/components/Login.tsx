@@ -1,6 +1,23 @@
 import React, { useState } from 'react';
 import usersData from '../data/users.json';
 
+interface UserData {
+  username: string;
+  password: string;
+  status: string;
+  assignedDate: string;
+  personalInfo: {
+    firstName: string;
+    lastName: string;
+    email: string;
+  };
+  data: any;
+}
+
+interface UsersJson {
+  users: UserData[];
+}
+
 interface LoginProps {
   onLogin: (username: string) => void;
 }
@@ -28,8 +45,9 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
     await new Promise(resolve => setTimeout(resolve, 1000));
 
     // Find user in the users data
-    const user = usersData.users.find(
-      u => u.username === formData.username && u.password === formData.password
+    const typedUsersData = usersData as UsersJson;
+    const user = typedUsersData.users.find(
+      (u: UserData) => u.username === formData.username && u.password === formData.password
     );
 
     if (user) {

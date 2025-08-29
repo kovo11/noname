@@ -22,7 +22,6 @@ PERSONAL INFORMATION
 -------------------
 Name: ${data.application?.firstName} ${data.application?.lastName}
 Email: ${data.application?.email}
-Phone: ${data.application?.phone}
 Address: ${data.application?.address}
 
 COMPENSATION DETAILS
@@ -36,7 +35,6 @@ EMERGENCY CONTACT
 ----------------
 Name: ${data.identity?.emergencyName}
 Relationship: ${data.identity?.emergencyRelation}
-Phone: ${data.identity?.emergencyPhone}
 Email: ${data.identity?.emergencyEmail}
 
 DOCUMENTS SUBMITTED (Google Drive Links)

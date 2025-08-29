@@ -2,7 +2,6 @@ export interface ApplicationData {
   firstName: string;
   lastName: string;
   email: string;
-  phone: string;
   address: string;
   salaryAcceptable: boolean;
   salaryRequest: string;
@@ -18,7 +17,6 @@ export interface DocumentInfo {
 export interface IdentityData {
   emergencyName: string;
   emergencyRelation: string;
-  emergencyPhone: string;
   emergencyEmail?: string;
   documents: Record<string, DocumentInfo>;
 }

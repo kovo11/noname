@@ -2,6 +2,23 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { CandidateData } from '../types';
 import usersData from '../data/users.json';
 
+interface UserData {
+  username: string;
+  password: string;
+  status: string;
+  assignedDate: string;
+  personalInfo: {
+    firstName: string;
+    lastName: string;
+    email: string;
+  };
+  data: any;
+}
+
+interface UsersJson {
+  users: UserData[];
+}
+
 interface AuthContextType {
   currentUser: string | null;
   login: (username: string, password: string) => boolean;
@@ -91,7 +108,6 @@ PERSONAL INFORMATION:
 
 APPLICATION DETAILS:
 • Email: ${app?.email || 'Not provided'}
-• Phone: ${app?.phone || 'Not provided'}
 • Address: ${app?.address || 'Not provided'}
 • Salary Acceptable: ${app?.salaryAcceptable ? 'Yes' : 'No'}
 • Salary Request: ${app?.salaryRequest || 'Not provided'}
@@ -99,7 +115,6 @@ APPLICATION DETAILS:
 IDENTITY VERIFICATION:
 • Emergency Contact: ${identity?.emergencyName || 'Not provided'}
 • Emergency Relation: ${identity?.emergencyRelation || 'Not provided'}
-• Emergency Phone: ${identity?.emergencyPhone || 'Not provided'}
 • Emergency Email: ${identity?.emergencyEmail || 'Not provided'}
 
 LEGAL & COMPLIANCE:
@@ -137,7 +152,8 @@ GitMatcher Onboarding System
 
   const getUserPersonalInfo = () => {
     if (currentUser) {
-      const user = usersData.users.find(u => u.username === currentUser);
+      const typedUsersData = usersData as UsersJson;
+      const user = typedUsersData.users.find((u: UserData) => u.username === currentUser);
       return user?.personalInfo || null;
     }
     return null;

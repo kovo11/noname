@@ -5,7 +5,6 @@ interface InterviewData {
   // Personal Information
   fullName: string;
   email: string;
-  phone: string;
   position: string;
   experience: string;
   
@@ -31,7 +30,6 @@ const VirtualInterview: React.FC<{ onComplete: (data: InterviewData, interviewId
   const [formData, setFormData] = useState<InterviewData>({
     fullName: '',
     email: '',
-    phone: '',
     position: '',
     experience: '',
     gitMatcherScaling: '',
@@ -85,7 +83,6 @@ const VirtualInterview: React.FC<{ onComplete: (data: InterviewData, interviewId
       case 0: // Personal Information
         if (!formData.fullName.trim()) newErrors.fullName = 'Full name is required';
         if (!formData.email.trim()) newErrors.email = 'Email is required';
-        if (!formData.phone.trim()) newErrors.phone = 'Phone is required';
         if (!formData.position.trim()) newErrors.position = 'Position is required';
         if (!formData.experience.trim()) newErrors.experience = 'Experience level is required';
         break;
@@ -121,17 +118,22 @@ const VirtualInterview: React.FC<{ onComplete: (data: InterviewData, interviewId
         // Generate unique interview ID
         const interviewId = `GIT-${Date.now()}-${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
         
+        console.log('🎯 INTERVIEW SUBMISSION STARTING...');
+        console.log('📋 Interview ID:', interviewId);
+        console.log('📋 Form Data:', formData);
+        
         // Save to Google Sheets
         const dataService = DataService.getInstance();
         try {
+          console.log('💾 Attempting to save to Google Sheets...');
           const success = await dataService.saveInterviewData(formData, interviewId);
           if (success) {
-            console.log('✅ Interview data saved to Google Sheets successfully');
+            console.log('✅ SUCCESS: Interview data saved to Google Sheets!');
           } else {
-            console.log('💾 Interview data saved to local backup');
+            console.log('⚠️ FALLBACK: Interview data saved to local backup');
           }
         } catch (error) {
-          console.error('❌ Error saving interview data:', error);
+          console.error('❌ ERROR saving interview data:', error);
         }
         
         // Continue to success page
@@ -213,20 +215,6 @@ const VirtualInterview: React.FC<{ onComplete: (data: InterviewData, interviewId
                   placeholder="your.email@example.com"
                 />
                 {errors.email && <span className="error-message">{errors.email}</span>}
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="phone">Phone Number *</label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  className={errors.phone ? 'error' : ''}
-                  placeholder="+1 (555) 123-4567"
-                />
-                {errors.phone && <span className="error-message">{errors.phone}</span>}
               </div>
 
               <div className="form-group">
