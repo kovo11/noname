@@ -11,7 +11,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStartInterview, onGoToOnboa
       <div className="landing-container">
         <div className="landing-header">
           <div className="company-logo">
-            <i className="fas fa-code-branch"></i>
+            <i className="fas fa-code-branch" aria-hidden="true"></i>
             <h1>GitMatcher</h1>
           </div>
           <p className="company-tagline">Revolutionizing Git Repository Management</p>
@@ -28,7 +28,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStartInterview, onGoToOnboa
         <div className="action-cards">
           <div className="action-card interview-card">
             <div className="card-icon">
-              <i className="fas fa-video"></i>
+              <i className="fas fa-video" aria-hidden="true"></i>
             </div>
             <div className="card-content">
               <h3>Technical Interview</h3>
@@ -38,24 +38,25 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStartInterview, onGoToOnboa
                 and fit for our team.
               </p>
               <ul className="card-features">
-                <li><i className="fas fa-clock"></i> Takes approximately 1 hour</li>
-                <li><i className="fas fa-code"></i> Technical questions about scaling</li>
-                <li><i className="fas fa-microphone"></i> Video responses required</li>
-                <li><i className="fas fa-user-check"></i> No prior experience with GitMatcher needed</li>
+                <li><i className="fas fa-clock" aria-hidden="true"></i> Takes approximately 1 hour</li>
+                <li><i className="fas fa-code" aria-hidden="true"></i> Technical questions about scaling</li>
+                <li><i className="fas fa-microphone" aria-hidden="true"></i> Video responses required</li>
+                <li><i className="fas fa-user-check" aria-hidden="true"></i> No prior experience with GitMatcher needed</li>
               </ul>
             </div>
             <button 
               className="btn btn-primary btn-large"
               onClick={onStartInterview}
+              aria-label="Start virtual technical interview process"
             >
-              <i className="fas fa-play"></i>
-              Start Virtual Interview
+              <i className="fas fa-play" aria-hidden="true"></i>
+              <span>Start Virtual Interview</span>
             </button>
           </div>
 
           <div className="action-card onboarding-card">
             <div className="card-icon">
-              <i className="fas fa-user-tie"></i>
+              <i className="fas fa-user-tie" aria-hidden="true"></i>
             </div>
             <div className="card-content">
               <h3>Employee Onboarding</h3>
@@ -65,18 +66,19 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStartInterview, onGoToOnboa
                 identity verification, and legal documentation.
               </p>
               <ul className="card-features">
-                <li><i className="fas fa-id-card"></i> Identity verification</li>
-                <li><i className="fas fa-file-contract"></i> Legal documentation</li>
-                <li><i className="fas fa-shield-alt"></i> Background check consent</li>
-                <li><i className="fas fa-key"></i> Requires login credentials</li>
+                <li><i className="fas fa-id-card" aria-hidden="true"></i> Identity verification</li>
+                <li><i className="fas fa-file-contract" aria-hidden="true"></i> Legal documentation</li>
+                <li><i className="fas fa-shield-alt" aria-hidden="true"></i> Background check consent</li>
+                <li><i className="fas fa-key" aria-hidden="true"></i> Requires login credentials</li>
               </ul>
             </div>
             <button 
               className="btn btn-secondary btn-large"
               onClick={onGoToOnboarding}
+              aria-label="Login to employee onboarding portal"
             >
-              <i className="fas fa-sign-in-alt"></i>
-              Login to Onboarding
+              <i className="fas fa-sign-in-alt" aria-hidden="true"></i>
+              <span>Login to Onboarding</span>
             </button>
           </div>
         </div>
@@ -84,14 +86,14 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStartInterview, onGoToOnboa
         <div className="info-section">
           <div className="info-box">
             <div className="info-item">
-              <i className="fas fa-question-circle"></i>
+              <i className="fas fa-question-circle" aria-hidden="true"></i>
               <div>
                 <h4>New Candidate?</h4>
                 <p>Start with the virtual interview to showcase your technical skills</p>
               </div>
             </div>
             <div className="info-item">
-              <i className="fas fa-check-circle"></i>
+              <i className="fas fa-check-circle" aria-hidden="true"></i>
               <div>
                 <h4>Interview Completed?</h4>
                 <p>Use the onboarding portal with credentials provided by our US team</p>
@@ -104,37 +106,37 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStartInterview, onGoToOnboa
           <h3>GitMatcher Hiring Process</h3>
           <div className="flow-steps">
             <div className="flow-step">
-              <div className="step-circle">1</div>
+              <div className="step-circle" aria-label="Step 1">1</div>
               <div className="step-content">
                 <h4>Technical Interview</h4>
                 <p>Complete virtual assessment</p>
               </div>
             </div>
-            <div className="flow-arrow">
+            <div className="flow-arrow" aria-hidden="true">
               <i className="fas fa-arrow-right"></i>
             </div>
             <div className="flow-step">
-              <div className="step-circle">2</div>
+              <div className="step-circle" aria-label="Step 2">2</div>
               <div className="step-content">
                 <h4>Review Process</h4>
                 <p>Our team evaluates your submission</p>
               </div>
             </div>
-            <div className="flow-arrow">
+            <div className="flow-arrow" aria-hidden="true">
               <i className="fas fa-arrow-right"></i>
             </div>
             <div className="flow-step">
-              <div className="step-circle">3</div>
+              <div className="step-circle" aria-label="Step 3">3</div>
               <div className="step-content">
                 <h4>Employee Onboarding</h4>
                 <p>Complete hiring documentation</p>
               </div>
             </div>
-            <div className="flow-arrow">
+            <div className="flow-arrow" aria-hidden="true">
               <i className="fas fa-arrow-right"></i>
             </div>
             <div className="flow-step">
-              <div className="step-circle">4</div>
+              <div className="step-circle" aria-label="Step 4">4</div>
               <div className="step-content">
                 <h4>Welcome to GitMatcher!</h4>
                 <p>Start your new career</p>

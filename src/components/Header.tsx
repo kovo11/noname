@@ -22,27 +22,40 @@ const Header: React.FC<HeaderProps> = ({ currentPhase, currentUser, onLogout }) 
   return (
     <header className="header">
       <div className="logo">
-        <i className="fas fa-briefcase"></i>
+        <i className="fas fa-briefcase" aria-hidden="true"></i>
         <h1>Onboarding Portal</h1>
       </div>
-      <div className="progress-indicator">
+      <div className="progress-indicator" role="progressbar" 
+           aria-valuenow={currentPhase} 
+           aria-valuemin={1} 
+           aria-valuemax={3}
+           aria-label={`Step ${currentPhase} of 3`}>
         {steps.map((step) => (
-          <div key={step.number} className={getStepClass(step.number)} data-step={step.number}>
-            <div className="step-number">{step.number}</div>
-            <span>{step.label}</span>
+          <div key={step.number} 
+               className={getStepClass(step.number)} 
+               data-step={step.number}
+               aria-current={step.number === currentPhase ? 'step' : undefined}>
+            <div className="step-number" aria-label={`Step ${step.number}`}>
+              {step.number < currentPhase ? '' : step.number}
+            </div>
+            <span className="mobile-hidden">{step.label}</span>
           </div>
         ))}
       </div>
       {currentUser && (
         <div className="user-info">
           <span className="username">
-            <i className="fas fa-user"></i>
+            <i className="fas fa-user" aria-hidden="true"></i>
+            <span className="mobile-hidden">Welcome, </span>
             {currentUser}
           </span>
           {onLogout && (
-            <button onClick={onLogout} className="logout-btn" title="Sign Out">
-              <i className="fas fa-sign-out-alt"></i>
-              Sign Out
+            <button onClick={onLogout} 
+                    className="logout-btn" 
+                    title="Sign Out"
+                    aria-label="Sign out of your account">
+              <i className="fas fa-sign-out-alt" aria-hidden="true"></i>
+              <span className="mobile-hidden">Sign Out</span>
             </button>
           )}
         </div>
