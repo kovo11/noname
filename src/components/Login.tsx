@@ -54,7 +54,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
       if (user.status === 'active') {
         onLogin(formData.username);
       } else {
-        setError('This account is not active. Please contact HR.');
+        setError('This account is not active. Please contact us.');
       }
     } else {
       setError('Invalid credentials. Please check your username and password.');
@@ -134,7 +134,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
         <div className="login-footer">
           <p>
             <i className="fas fa-info-circle"></i>
-            Don't have credentials? Contact HR for your assigned username and password.
+            Don't have credentials? Contact us for your assigned username and password.
           </p>
         </div>
       </div>

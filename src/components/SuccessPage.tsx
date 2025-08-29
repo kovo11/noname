@@ -4,10 +4,13 @@ import { useAuth } from '../contexts/AuthContext';
 
 interface SuccessPageProps {
   candidateData: CandidateData;
+  onLogout?: () => void;
 }
 
-const SuccessPage: React.FC<SuccessPageProps> = ({ candidateData }) => {
+const SuccessPage: React.FC<SuccessPageProps> = ({ candidateData, onLogout }) => {
   const { logout } = useAuth();
+  
+  const handleLogout = onLogout || logout;
   const generateApplicationSummary = (): string => {
     const data = candidateData;
     
@@ -122,7 +125,7 @@ Thank you for your patience during the review process.
             Download Application Summary
           </button>
           
-          <button className="btn btn-secondary" onClick={logout} style={{ marginLeft: '1rem' }}>
+          <button className="btn btn-secondary" onClick={handleLogout} style={{ marginLeft: '1rem' }}>
             <i className="fas fa-sign-out-alt"></i>
             Sign Out
           </button>

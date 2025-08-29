@@ -91,7 +91,7 @@ const ApplicationForm: React.FC<FormProps> = ({ onSubmit, initialData }) => {
             </div>
             <p className="info-note">
               <i className="fas fa-info-circle"></i>
-              The above information was provided during your initial application. If any details need to be updated, please contact HR.
+              The above information was provided during your initial application. If any details need to be updated, please contact us.
             </p>
           </div>
           
@@ -108,6 +108,60 @@ const ApplicationForm: React.FC<FormProps> = ({ onSubmit, initialData }) => {
               required
             />
             {errors.address && <span className="error-message">{errors.address}</span>}
+          </div>
+        </div>
+
+        <div className="form-section">
+          <h3>Compensation Details</h3>
+          <div className="compensation-card">
+            <div className="salary-details">
+              <div className="salary-item">
+                <span className="salary-label">Bi-weekly Salary:</span>
+                <span className="salary-amount">$2,300</span>
+              </div>
+            </div>
+            
+            <div className="salary-acceptance">
+              <h4>Salary Acceptance</h4>
+              <div className="radio-group">
+                <label className="radio-option">
+                  <input
+                    type="radio"
+                    name="salaryAcceptable"
+                    value="true"
+                    checked={formData.salaryAcceptable === true}
+                    onChange={handleChange}
+                  />
+                  <span className="radio-text">Yes, I accept this salary</span>
+                </label>
+                
+                <label className="radio-option">
+                  <input
+                    type="radio"
+                    name="salaryAcceptable"
+                    value="false"
+                    checked={formData.salaryAcceptable === false}
+                    onChange={handleChange}
+                  />
+                  <span className="radio-text">No, I would like to negotiate</span>
+                </label>
+              </div>
+              
+              {formData.salaryAcceptable === false && (
+                <div className="form-group">
+                  <label htmlFor="salaryRequest">Your Salary Request</label>
+                  <input
+                    type="text"
+                    id="salaryRequest"
+                    name="salaryRequest"
+                    placeholder="Please specify your desired salary..."
+                    value={formData.salaryRequest}
+                    onChange={handleChange}
+                  />
+                  <small className="form-hint">Please provide your salary expectations for further discussion with us.</small>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 

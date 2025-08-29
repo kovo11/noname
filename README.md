@@ -12,7 +12,7 @@ A comprehensive, modern React TypeScript application for job candidate onboardin
    - Real-time form validation with TypeScript
 
 2. **🆔 Identity Verification Phase**
-   - Document upload with drag & drop (Passport/ID, Photo, Resume)
+   - Document upload with drag & drop (Passport/ID/Driver's License, Photo)
    - Emergency contact information
    - File validation and upload status tracking
 

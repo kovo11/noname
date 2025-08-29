@@ -94,7 +94,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStartInterview, onGoToOnboa
               <i className="fas fa-check-circle"></i>
               <div>
                 <h4>Interview Completed?</h4>
-                <p>Use the onboarding portal with credentials provided by our HR team</p>
+                <p>Use the onboarding portal with credentials provided by our US team</p>
               </div>
             </div>
           </div>

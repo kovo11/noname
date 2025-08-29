@@ -17,15 +17,13 @@ const IdentityForm: React.FC<IdentityFormProps> = ({
   const [formData, setFormData] = useState({
     emergencyName: '',
     emergencyRelation: '',
-    emergencyEmail: '',
-    salaryAcceptable: true,
-    salaryRequest: ''
+    emergencyEmail: ''
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [fileErrors, setFileErrors] = useState<Record<string, string>>({});
 
-  const requiredFiles = ['passport', 'photo', 'resume'];
+  const requiredFiles = ['passport', 'photo'];
 
   useEffect(() => {
     if (initialData) {
@@ -34,13 +32,9 @@ const IdentityForm: React.FC<IdentityFormProps> = ({
   }, [initialData]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value, type } = e.target;
+    const { name, value } = e.target;
     
-    if (type === 'radio') {
-      setFormData({ ...formData, [name]: value === 'true' });
-    } else {
-      setFormData({ ...formData, [name]: value });
-    }
+    setFormData({ ...formData, [name]: value });
     
     if (errors[name]) {
       setErrors({ ...errors, [name]: '' });
@@ -61,11 +55,6 @@ const IdentityForm: React.FC<IdentityFormProps> = ({
       if (!emailRegex.test(formData.emergencyEmail)) {
         newErrors.emergencyEmail = 'Please enter a valid email address';
       }
-    }
-
-    // Salary validation - if not acceptable, request is required
-    if (!formData.salaryAcceptable && !formData.salaryRequest.trim()) {
-      newErrors.salaryRequest = 'Please explain your salary requirements';
     }
 
     // File validation
@@ -91,21 +80,15 @@ const IdentityForm: React.FC<IdentityFormProps> = ({
   const uploadConfigs = [
     {
       id: 'passport',
-      icon: 'fas fa-passport',
-      title: 'Passport / National ID',
-      description: 'Upload to Google Drive and share the link'
+      icon: 'fas fa-id-card',
+      title: 'Passport / National ID / Driver\'s License',
+      description: 'Upload any valid government-issued ID (Google Drive link)'
     },
     {
       id: 'photo',
       icon: 'fas fa-camera',
       title: 'Professional Photo',
       description: 'Recent headshot photo (Google Drive link)'
-    },
-    {
-      id: 'resume',
-      icon: 'fas fa-file-text',
-      title: 'Resume/CV',
-      description: 'PDF format preferred (Google Drive link)'
     }
   ];
 
@@ -178,60 +161,6 @@ const IdentityForm: React.FC<IdentityFormProps> = ({
               />
               {errors.emergencyEmail && <span className="error-message">{errors.emergencyEmail}</span>}
             </div>
-          </div>
-        </div>
-
-        <div className="form-section">
-          <h3>Compensation Confirmation</h3>
-          <div className="salary-offer">
-            <div className="offer-box">
-              <h4>Your Bi-Weekly Salary</h4>
-              <div className="salary-amount">$2,300</div>
-              <p>This equals $59,800 annually</p>
-            </div>
-            
-            <div className="form-group">
-              <label>Is this salary acceptable to you?</label>
-              <div className="radio-group">
-                <label className="radio-label">
-                  <input
-                    type="radio"
-                    name="salaryAcceptable"
-                    value="true"
-                    checked={formData.salaryAcceptable === true}
-                    onChange={handleChange}
-                  />
-                  Yes, I accept this salary
-                </label>
-                <label className="radio-label">
-                  <input
-                    type="radio"
-                    name="salaryAcceptable"
-                    value="false"
-                    checked={formData.salaryAcceptable === false}
-                    onChange={handleChange}
-                  />
-                  No, I would like to negotiate
-                </label>
-              </div>
-            </div>
-            
-            {!formData.salaryAcceptable && (
-              <div className="form-group">
-                <label htmlFor="salaryRequest">Please explain your salary expectations and reasoning *</label>
-                <textarea
-                  id="salaryRequest"
-                  name="salaryRequest"
-                  rows={4}
-                  placeholder="Please explain why you need a higher salary and what amount you're expecting..."
-                  value={formData.salaryRequest}
-                  onChange={handleChange}
-                  className={errors.salaryRequest ? 'error' : ''}
-                  required={!formData.salaryAcceptable}
-                />
-                {errors.salaryRequest && <span className="error-message">{errors.salaryRequest}</span>}
-              </div>
-            )}
           </div>
         </div>
 

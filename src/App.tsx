@@ -36,6 +36,17 @@ function AppContent() {
   const [uploadedFiles, setUploadedFiles] = useState<Record<string, DocumentInfo>>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  // Enhanced logout function that redirects to landing page
+  const handleLogout = () => {
+    logout();
+    setAppState('landing');
+    setCurrentPhase(1);
+    setCandidateData({});
+    setUploadedFiles({});
+    setInterviewData(null);
+    setInterviewId('');
+  };
+
     // Initialize data service and retry failed syncs
   useEffect(() => {
     const dataService = DataService.getInstance();
@@ -172,7 +183,7 @@ Status: AWAITING REVIEW
 Next Action: Technical team review and assessment
 
 ===============================================
-GitMatcher HR Department - Technical Interview System
+GitMatcher US Department - Technical Interview System
 ===============================================
 `;
 
@@ -222,7 +233,7 @@ GitMatcher HR Department - Technical Interview System
       ...candidateData,
       identity: {
         ...data,
-        documents: processUploadedFiles(['passport', 'addressProof', 'photo', 'resume'])
+        documents: processUploadedFiles(['passport', 'photo'])
       }
     });
 
@@ -330,6 +341,7 @@ GitMatcher HR Department - Technical Interview System
         return (
           <SuccessPage
             candidateData={candidateData}
+            onLogout={handleLogout}
           />
         );
       default:
@@ -388,7 +400,7 @@ GitMatcher HR Department - Technical Interview System
             <h2><i className="fas fa-user-check"></i> Employee Onboarding Portal</h2>
             <p>
               Congratulations! You have successfully completed the technical interview phase. 
-              Please log in with the credentials provided by our HR team to continue with employee onboarding.
+              Please log in with the credentials provided by our US team to continue with employee onboarding.
             </p>
           </div>
         </div>
@@ -409,7 +421,7 @@ GitMatcher HR Department - Technical Interview System
     return (
       <div className="app">
         <div className="container">
-          <Header currentPhase={currentPhase} currentUser={currentUser} onLogout={logout} />
+          <Header currentPhase={currentPhase} currentUser={currentUser} onLogout={handleLogout} />
           {renderCurrentPhase()}
           {isLoading && <LoadingOverlay />}
         </div>

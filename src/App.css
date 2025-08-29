@@ -2182,3 +2182,115 @@ body {
   color: #0ea5e9;
   margin-top: 3px;
 }
+
+/* Compensation Card Styles */
+.compensation-card {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border: 2px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 25px;
+  margin: 20px 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.salary-details {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #cbd5e1;
+}
+
+.salary-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.salary-label {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.salary-amount {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1e293b;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.salary-acceptance h4 {
+  margin: 0 0 15px 0;
+  color: #1e293b;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.radio-option:hover {
+  border-color: #667eea;
+  background: #f8fafc;
+}
+
+.radio-option input[type="radio"] {
+  margin-right: 12px;
+  transform: scale(1.2);
+  accent-color: #667eea;
+}
+
+.radio-option input[type="radio"]:checked + .radio-text {
+  color: #667eea;
+  font-weight: 600;
+}
+
+.radio-option:has(input[type="radio"]:checked) {
+  border-color: #667eea;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.15);
+}
+
+.radio-text {
+  font-size: 1rem;
+  color: #334155;
+  transition: all 0.3s ease;
+}
+
+.form-hint {
+  color: #64748b;
+  font-style: italic;
+  margin-top: 5px;
+}
+
+@media (max-width: 768px) {
+  .salary-details {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .salary-amount {
+    font-size: 1.5rem;
+  }
+}
