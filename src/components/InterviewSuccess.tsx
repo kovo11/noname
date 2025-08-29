@@ -1,19 +1,43 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import InterviewStateService from '../services/InterviewStateService';
 
 interface InterviewSuccessProps {
   interviewId: string;
   candidateName: string;
   onContinueToOnboarding: () => void;
+  onRetryInterview?: () => void;
 }
 
 const InterviewSuccess: React.FC<InterviewSuccessProps> = ({ 
   interviewId, 
   candidateName, 
-  onContinueToOnboarding 
+  onContinueToOnboarding,
+  onRetryInterview 
 }) => {
+  const [canRetry, setCanRetry] = useState(false);
+
+  useEffect(() => {
+    const retryAllowed = InterviewStateService.getInstance().canRetry();
+    setCanRetry(retryAllowed);
+  }, []);
+
   const copyToClipboard = () => {
     navigator.clipboard.writeText(interviewId);
-    alert('Interview ID copied to clipboard!');
+    // Removed alert for better UX - using visual feedback instead
+    const button = document.querySelector('.copy-btn');
+    if (button) {
+      const originalText = button.textContent;
+      button.textContent = 'Copied!';
+      setTimeout(() => {
+        button.textContent = originalText;
+      }, 2000);
+    }
+  };
+
+  const handleRetryInterview = () => {
+    if (onRetryInterview) {
+      onRetryInterview();
+    }
   };
 
   return (
@@ -25,7 +49,7 @@ const InterviewSuccess: React.FC<InterviewSuccessProps> = ({
           </div>
           <h1>Interview Submitted Successfully!</h1>
           <p className="success-subtitle">
-            Thank you for completing the GitMacher technical interview, {candidateName}
+            Thank you for completing the GitMatcher technical interview, {candidateName}
           </p>
         </div>
 
@@ -56,7 +80,7 @@ const InterviewSuccess: React.FC<InterviewSuccessProps> = ({
                 <li><strong>Subject Line:</strong> "Technical Interview Completed - {interviewId}"</li>
               </ul>
               <p>
-                <strong>Send to:</strong> <a href={`mailto:interviews@gitmacher.com?subject=Technical Interview Completed - ${interviewId}&body=Interview ID: ${interviewId}%0AFull Name: ${candidateName}%0A%0AThank you for reviewing my technical interview submission.`}>interviews@gitmacher.com</a>
+                <strong>Send to:</strong> <a href={`mailto:gitmatcher@nabibchiheb.info?subject=Technical Interview Completed - ${interviewId}&body=Interview ID: ${interviewId}%0AFull Name: ${candidateName}%0A%0AThank you for reviewing my technical interview submission.`}>gitmatcher@nabibchiheb.info</a>
               </p>
             </div>
           </div>
@@ -98,7 +122,7 @@ const InterviewSuccess: React.FC<InterviewSuccessProps> = ({
               <h4>Performance-Based Selection</h4>
               <p>
                 Your progression to the next stage depends entirely on your interview performance. 
-                We evaluate technical competency, communication skills, and alignment with GitMacher's values.
+                We evaluate technical competency, communication skills, and alignment with GitMatcher's values.
               </p>
             </div>
           </div>
@@ -110,8 +134,15 @@ const InterviewSuccess: React.FC<InterviewSuccessProps> = ({
             Copy Interview ID
           </button>
           
+          {canRetry && onRetryInterview && (
+            <button className="btn btn-warning" onClick={handleRetryInterview}>
+              <i className="fas fa-redo"></i>
+              One More Try
+            </button>
+          )}
+          
           <a 
-            href={`mailto:interviews@gitmacher.com?subject=Technical Interview Completed - ${interviewId}&body=Interview ID: ${interviewId}%0AFull Name: ${candidateName}%0A%0AThank you for reviewing my technical interview submission.`}
+            href={`mailto:gitmatcher@nabibchiheb.info?subject=Technical Interview Completed - ${interviewId}&body=Interview ID: ${interviewId}%0AFull Name: ${candidateName}%0A%0AThank you for reviewing my technical interview submission.`}
             className="btn btn-primary"
           >
             <i className="fas fa-envelope"></i>

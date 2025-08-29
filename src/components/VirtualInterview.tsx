@@ -10,10 +10,10 @@ interface InterviewData {
   experience: string;
   
   // Technical Questions
-  gitMacherScaling: string;
-  techStack: string;
-  problemSolving: string;
-  projectManagement: string;
+  gitMatcherScaling: string;
+  collaborationBalance: string;
+  infrastructureDesign: string;
+  uiDesign: string;
   
   // Multiple Choice Questions
   preferredLanguage: string;
@@ -23,7 +23,6 @@ interface InterviewData {
   // Video Questions (Google Drive links)
   introVideo: string;
   technicalVideo: string;
-  challengeVideo: string;
 }
 
 const VirtualInterview: React.FC<{ onComplete: (data: InterviewData, interviewId: string) => void }> = ({ onComplete }) => {
@@ -35,16 +34,15 @@ const VirtualInterview: React.FC<{ onComplete: (data: InterviewData, interviewId
     phone: '',
     position: '',
     experience: '',
-    gitMacherScaling: '',
-    techStack: '',
-    problemSolving: '',
-    projectManagement: '',
+    gitMatcherScaling: '',
+    collaborationBalance: '',
+    infrastructureDesign: '',
+    uiDesign: '',
     preferredLanguage: '',
     workStyle: '',
     teamSize: '',
     introVideo: '',
-    technicalVideo: '',
-    challengeVideo: ''
+    technicalVideo: ''
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -93,9 +91,10 @@ const VirtualInterview: React.FC<{ onComplete: (data: InterviewData, interviewId
         break;
       
       case 1: // Technical Questions
-        if (!formData.gitMacherScaling.trim()) newErrors.gitMacherScaling = 'This answer is required';
-        if (!formData.techStack.trim()) newErrors.techStack = 'This answer is required';
-        if (!formData.problemSolving.trim()) newErrors.problemSolving = 'This answer is required';
+        if (!formData.gitMatcherScaling.trim()) newErrors.gitMatcherScaling = 'This answer is required';
+        if (!formData.collaborationBalance.trim()) newErrors.collaborationBalance = 'This answer is required';
+        if (!formData.infrastructureDesign.trim()) newErrors.infrastructureDesign = 'This answer is required';
+        if (!formData.uiDesign.trim()) newErrors.uiDesign = 'This answer is required';
         break;
       
       case 2: // Multiple Choice
@@ -107,7 +106,6 @@ const VirtualInterview: React.FC<{ onComplete: (data: InterviewData, interviewId
       case 3: // Video Questions
         if (!formData.introVideo.trim()) newErrors.introVideo = 'Introduction video link is required';
         if (!formData.technicalVideo.trim()) newErrors.technicalVideo = 'Technical video link is required';
-        if (!formData.challengeVideo.trim()) newErrors.challengeVideo = 'Challenge video link is required';
         break;
     }
 
@@ -159,7 +157,7 @@ const VirtualInterview: React.FC<{ onComplete: (data: InterviewData, interviewId
     <div className="virtual-interview">
       <div className="interview-header">
         <div className="company-branding">
-          <h1><i className="fas fa-code-branch"></i> GitMacher</h1>
+          <h1><i className="fas fa-code-branch"></i> GitMatcher</h1>
           <p>Virtual Technical Interview</p>
         </div>
         
@@ -183,7 +181,7 @@ const VirtualInterview: React.FC<{ onComplete: (data: InterviewData, interviewId
       <div className="interview-content">
         {currentStep === 0 && (
           <div className="interview-step">
-            <h2>Welcome to GitMacher Technical Interview</h2>
+            <h2>Welcome to GitMatcher Technical Interview</h2>
             <p className="step-description">
               Please provide your basic information to begin the technical assessment.
             </p>
@@ -271,59 +269,71 @@ const VirtualInterview: React.FC<{ onComplete: (data: InterviewData, interviewId
           <div className="interview-step">
             <h2>Technical Assessment</h2>
             <p className="step-description">
-              Please provide detailed answers to the following technical questions about GitMacher.
+              Please provide detailed answers to the following technical questions about GitMatcher.
             </p>
 
             <div className="question-block">
-              <label htmlFor="gitMacherScaling">
-                <strong>Question 1:</strong> GitMacher is experiencing rapid growth. Based on your technical expertise, 
-                how would you approach scaling our Git repository management platform to handle 10x more users and repositories? 
-                Consider performance, reliability, and cost-effectiveness. *
+              <label htmlFor="gitMatcherScaling">
+                <strong>Question 1:</strong> How would you design a system that analyzes developer activity on GitHub and generates insights (e.g., coding style, frequency, language preferences)? Consider scalability, API rate limits, and data processing. *
               </label>
               <textarea
-                id="gitMacherScaling"
-                name="gitMacherScaling"
-                value={formData.gitMacherScaling}
+                id="gitMatcherScaling"
+                name="gitMatcherScaling"
+                value={formData.gitMatcherScaling}
                 onChange={handleInputChange}
-                className={errors.gitMacherScaling ? 'error' : ''}
+                className={errors.gitMatcherScaling ? 'error' : ''}
                 rows={6}
-                placeholder="Discuss your approach to scaling architecture, database optimization, caching strategies, microservices, etc..."
+                placeholder="Discuss your approach to GitHub API integration, data analysis pipelines, caching strategies, etc..."
               />
-              {errors.gitMacherScaling && <span className="error-message">{errors.gitMacherScaling}</span>}
+              {errors.gitMatcherScaling && <span className="error-message">{errors.gitMatcherScaling}</span>}
             </div>
 
             <div className="question-block">
-              <label htmlFor="techStack">
-                <strong>Question 2:</strong> What technology stack would you recommend for GitMacher's next major feature: 
-                real-time collaborative code editing? Explain your choice and implementation strategy. *
+              <label htmlFor="collaborationBalance">
+                <strong>Question 2:</strong> GitMatcher is about matching people, not just code. How would you balance technical scoring with softer metrics like collaboration style when creating developer profiles? *
               </label>
               <textarea
-                id="techStack"
-                name="techStack"
-                value={formData.techStack}
+                id="collaborationBalance"
+                name="collaborationBalance"
+                value={formData.collaborationBalance}
                 onChange={handleInputChange}
-                className={errors.techStack ? 'error' : ''}
+                className={errors.collaborationBalance ? 'error' : ''}
                 rows={5}
-                placeholder="Discuss WebSocket technologies, CRDT, conflict resolution, frontend/backend technologies..."
+                placeholder="Discuss approaches to measure collaboration, code review quality, communication patterns, etc..."
               />
-              {errors.techStack && <span className="error-message">{errors.techStack}</span>}
+              {errors.collaborationBalance && <span className="error-message">{errors.collaborationBalance}</span>}
             </div>
 
             <div className="question-block">
-              <label htmlFor="problemSolving">
-                <strong>Question 3:</strong> Describe a complex technical problem you've solved recently. 
-                How would you apply similar problem-solving approaches at GitMacher? *
+              <label htmlFor="infrastructureDesign">
+                <strong>Question 3:</strong> Our app needs to constantly sync data from GitHub. How would you design an infrastructure that scales with traffic and doesn't break when GitHub rate-limits us? *
               </label>
               <textarea
-                id="problemSolving"
-                name="problemSolving"
-                value={formData.problemSolving}
+                id="infrastructureDesign"
+                name="infrastructureDesign"
+                value={formData.infrastructureDesign}
                 onChange={handleInputChange}
-                className={errors.problemSolving ? 'error' : ''}
+                className={errors.infrastructureDesign ? 'error' : ''}
                 rows={5}
-                placeholder="Describe the problem, your approach, implementation, and lessons learned..."
+                placeholder="Discuss queue systems, retry mechanisms, caching, monitoring, and rate limit handling..."
               />
-              {errors.problemSolving && <span className="error-message">{errors.problemSolving}</span>}
+              {errors.infrastructureDesign && <span className="error-message">{errors.infrastructureDesign}</span>}
+            </div>
+
+            <div className="question-block">
+              <label htmlFor="uiDesign">
+                <strong>Question 4:</strong> GitMatcher matches developers visually. How would you design a UI that clearly displays compatibility (skills overlap, coding style, activity patterns)? *
+              </label>
+              <textarea
+                id="uiDesign"
+                name="uiDesign"
+                value={formData.uiDesign}
+                onChange={handleInputChange}
+                className={errors.uiDesign ? 'error' : ''}
+                rows={5}
+                placeholder="Discuss data visualization, user experience, frameworks, and state management approaches..."
+              />
+              {errors.uiDesign && <span className="error-message">{errors.uiDesign}</span>}
             </div>
           </div>
         )}
@@ -428,7 +438,7 @@ const VirtualInterview: React.FC<{ onComplete: (data: InterviewData, interviewId
             <div className="question-block">
               <label htmlFor="introVideo">
                 <strong>Video 1: Introduction</strong><br/>
-                Please introduce yourself, your background, and why you want to work at GitMacher. (2-3 minutes) *
+                Please introduce yourself, your background, and why you want to work at GitMatcher. Explain your experience with developer tools and team collaboration. (2-3 minutes) *
               </label>
               <input
                 type="url"
@@ -444,9 +454,8 @@ const VirtualInterview: React.FC<{ onComplete: (data: InterviewData, interviewId
 
             <div className="question-block">
               <label htmlFor="technicalVideo">
-                <strong>Video 2: Technical Expertise</strong><br/>
-                Explain a technical project you're proud of. Walk us through your approach, 
-                challenges faced, and solutions implemented. (2-3 minutes) *
+                <strong>Video 2: Technical Design</strong><br/>
+                If you had to build a "developer profile card" with dynamic data (commits, repos, skills), what framework and state management would you use? Walk through your technical approach. (2-3 minutes) *
               </label>
               <input
                 type="url"
@@ -458,24 +467,6 @@ const VirtualInterview: React.FC<{ onComplete: (data: InterviewData, interviewId
                 placeholder="https://drive.google.com/file/d/..."
               />
               {errors.technicalVideo && <span className="error-message">{errors.technicalVideo}</span>}
-            </div>
-
-            <div className="question-block">
-              <label htmlFor="challengeVideo">
-                <strong>Video 3: Problem-Solving Challenge</strong><br/>
-                Describe how you would debug a performance issue where GitMacher's repository 
-                cloning is taking 10x longer than usual. Walk through your debugging process. (2-3 minutes) *
-              </label>
-              <input
-                type="url"
-                id="challengeVideo"
-                name="challengeVideo"
-                value={formData.challengeVideo}
-                onChange={handleInputChange}
-                className={errors.challengeVideo ? 'error' : ''}
-                placeholder="https://drive.google.com/file/d/..."
-              />
-              {errors.challengeVideo && <span className="error-message">{errors.challengeVideo}</span>}
             </div>
           </div>
         )}

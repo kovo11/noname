@@ -63,9 +63,9 @@ function setupInterviewSheet(sheet) {
   const headers = [
     'Interview ID', 'Submission Date', 'Status',
     'Full Name', 'Email', 'Phone', 'Position', 'Experience',
-    'Git/Scaling Question', 'Tech Stack', 'Problem Solving',
+    'GitMatcher Scaling', 'Collaboration Balance', 'Infrastructure Design', 'UI Design',
     'Preferred Language', 'Work Style', 'Team Size',
-    'Intro Video', 'Technical Video', 'Challenge Video',
+    'Intro Video', 'Technical Video',
     'Notes', 'Reviewer', 'Decision'
   ];
   
@@ -157,15 +157,15 @@ function handleInterviewData(spreadsheet, data) {
     data.data.phone,
     data.data.position,
     data.data.experience,
-    data.data.gitMacherScaling,
-    data.data.techStack,
-    data.data.problemSolving,
+    data.data.gitMatcherScaling,
+    data.data.collaborationBalance,
+    data.data.infrastructureDesign,
+    data.data.uiDesign,
     data.data.preferredLanguage,
     data.data.workStyle,
     data.data.teamSize,
     data.data.introVideo,
     data.data.technicalVideo,
-    data.data.challengeVideo,
     '', // Notes (empty for HR to fill)
     '', // Reviewer (empty for HR to fill)
     ''  // Decision (empty for HR to fill)
@@ -187,13 +187,10 @@ function handleInterviewData(spreadsheet, data) {
   
   // Make video links clickable
   if (data.data.introVideo) {
-    sheet.getRange(lastRow, 15).setFormula(`=HYPERLINK("${data.data.introVideo}","View Video")`);
+    sheet.getRange(lastRow, 16).setFormula(`=HYPERLINK("${data.data.introVideo}","View Video")`);
   }
   if (data.data.technicalVideo) {
-    sheet.getRange(lastRow, 16).setFormula(`=HYPERLINK("${data.data.technicalVideo}","View Video")`);
-  }
-  if (data.data.challengeVideo) {
-    sheet.getRange(lastRow, 17).setFormula(`=HYPERLINK("${data.data.challengeVideo}","View Video")`);
+    sheet.getRange(lastRow, 17).setFormula(`=HYPERLINK("${data.data.technicalVideo}","View Video")`);
   }
   
   return ContentService
@@ -274,7 +271,6 @@ A new candidate has completed the virtual interview:
 🎥 Video Responses:
 • Intro: ${data.data.introVideo}
 • Technical: ${data.data.technicalVideo}
-• Challenge: ${data.data.challengeVideo}
 
 📊 View full details in the Interview Responses spreadsheet.
     `;
@@ -313,15 +309,15 @@ function testSetup() {
       phone: '123-456-7890',
       position: 'Software Engineer',
       experience: '3 years',
-      gitMacherScaling: 'Git helps with version control...',
-      techStack: 'React, Node.js, TypeScript',
-      problemSolving: 'I would analyze the problem...',
+      gitMatcherScaling: 'I would design a scalable GitHub analysis system using...',
+      collaborationBalance: 'To balance technical and soft metrics, I would...',
+      infrastructureDesign: 'For handling GitHub rate limits, I would implement...',
+      uiDesign: 'For the developer profile UI, I would use React with...',
       preferredLanguage: 'TypeScript',
       workStyle: 'Hybrid',
       teamSize: '5-10',
       introVideo: 'https://example.com/video1',
       technicalVideo: 'https://example.com/video2',
-      challengeVideo: 'https://example.com/video3',
       submissionDate: new Date().toLocaleString(),
       status: 'AWAITING_REVIEW'
     }

@@ -15,6 +15,7 @@ import InterviewSuccess from './components/InterviewSuccess';
 import LandingPage from './components/LandingPage';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import DataService from './services/DataService';
+import InterviewStateService from './services/InterviewStateService';
 import './App.css';
 
 function App() {
@@ -76,13 +77,36 @@ function AppContent() {
     }
   }, [candidateData, isAuthenticated, saveUserData]);
 
+  // Handle retry interview
+  const handleRetryInterview = () => {
+    const interviewState = InterviewStateService.getInstance();
+    
+    if (interviewState.canRetry()) {
+      // Reset interview data but keep onboarding
+      setInterviewData(null);
+      setInterviewId('');
+      
+      // Generate new interview ID for retry
+      const newInterviewId = `INT-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+      
+      // Save retry attempt
+      interviewState.saveRetryAttempt(newInterviewId);
+      
+      // Go back to interview
+      setAppState('interview');
+    }
+  };
+
   // Handle interview completion
   const handleInterviewComplete = (data: any, id: string) => {
     setInterviewData(data);
     setInterviewId(id);
     
-    // Save interview data to text file
-    saveInterviewToFile(data, id);
+    // Save interview completion state
+    InterviewStateService.getInstance().saveInterviewCompletion(id, data.candidateInfo?.name || 'Anonymous');
+    
+    // Save interview data to cloud (Google Sheets) with enhanced debugging
+    DataService.getInstance().saveInterviewData(data, id);
     
     setAppState('interview-success');
   };
@@ -92,7 +116,7 @@ function AppContent() {
     const timestamp = new Date().toLocaleString();
     const textContent = `
 ===============================================
-GITMACHER VIRTUAL INTERVIEW SUBMISSION
+GITMATCHER VIRTUAL INTERVIEW SUBMISSION
 ===============================================
 Interview ID: ${id}
 Submission Date: ${timestamp}
@@ -109,8 +133,8 @@ CANDIDATE INFORMATION:
 TECHNICAL ASSESSMENT RESPONSES:
 ===============================================
 
-QUESTION 1 - GitMacher Scaling Strategy:
-${data.gitMacherScaling}
+QUESTION 1 - GitMatcher Scaling Strategy:
+${data.gitMatcherScaling}
 
 QUESTION 2 - Technology Stack Recommendation:
 ${data.techStack}
@@ -149,22 +173,12 @@ Status: AWAITING REVIEW
 Next Action: Technical team review and assessment
 
 ===============================================
-GitMacher HR Department - Technical Interview System
+GitMatcher HR Department - Technical Interview System
 ===============================================
 `;
 
-    // Download the text file automatically
-    const dataBlob = new Blob([textContent], { type: 'text/plain;charset=utf-8;' });
-    const url = URL.createObjectURL(dataBlob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `interview_${id}_${data.fullName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.txt`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-    
-    console.log(`✅ Interview data saved: interview_${id}_${data.fullName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.txt`);
+    // Note: Data is now automatically saved to Google Sheets
+    console.log(`✅ Interview data processed for: ${data.fullName}`);
   };
 
   const handleContinueToOnboarding = () => {
@@ -355,6 +369,7 @@ GitMacher HR Department - Technical Interview System
           interviewId={interviewId}
           candidateName={interviewData?.fullName || 'Candidate'}
           onContinueToOnboarding={handleContinueToOnboarding}
+          onRetryInterview={handleRetryInterview}
         />
       </div>
     );

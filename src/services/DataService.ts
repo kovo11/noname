@@ -7,16 +7,15 @@ interface InterviewData {
   phone: string;
   position: string;
   experience: string;
-  gitMacherScaling: string;
-  techStack: string;
-  problemSolving: string;
-  projectManagement: string;
+  gitMatcherScaling: string;
+  collaborationBalance: string;
+  infrastructureDesign: string;
+  uiDesign: string;
   preferredLanguage: string;
   workStyle: string;
   teamSize: string;
   introVideo: string;
   technicalVideo: string;
-  challengeVideo: string;
 }
 
 interface OnboardingData {
@@ -44,7 +43,7 @@ class DataService {
 
   private constructor() {
     // Google Sheets Web App URL (you'll create this)
-    this.googleSheetsUrl = 'https://script.google.com/macros/s/AKfycbx_GzfMLBR8xP2jzwhRTtPavnnqFTHRNt72frSoOMUt1dSx3DJGpq-SMfHNUWug31F7FQ/exec';
+    this.googleSheetsUrl = 'https://script.google.com/macros/s/AKfycbxuHpfg8-9TUjnxgeByGpK6zud06KIBhk3ziJ_uuCPiK-ylg3rnIZ7SmhHoU9IrzvgB8g/exec';
     
     // Alternative URLs for other services
     this.airtableUrl = 'https://api.airtable.com/v0/YOUR_BASE_ID/YOUR_TABLE_NAME';
@@ -60,6 +59,8 @@ class DataService {
 
   // Save interview data to Google Sheets
   async saveInterviewData(data: InterviewData, interviewId: string): Promise<boolean> {
+    console.log('🚀 Starting saveInterviewData with:', { interviewId, data });
+    
     try {
       const payload = {
         type: 'interview',
@@ -74,9 +75,10 @@ class DataService {
           experience: data.experience,
           
           // Technical Responses
-          gitMacherScaling: data.gitMacherScaling,
-          techStack: data.techStack,
-          problemSolving: data.problemSolving,
+          gitMatcherScaling: data.gitMatcherScaling,
+          collaborationBalance: data.collaborationBalance,
+          infrastructureDesign: data.infrastructureDesign,
+          uiDesign: data.uiDesign,
           
           // Work Preferences
           preferredLanguage: data.preferredLanguage,
@@ -86,13 +88,15 @@ class DataService {
           // Video Links
           introVideo: data.introVideo,
           technicalVideo: data.technicalVideo,
-          challengeVideo: data.challengeVideo,
           
           // Metadata
           submissionDate: new Date().toLocaleString(),
           status: 'AWAITING_REVIEW'
         }
       };
+
+      console.log('📤 Sending payload to Google Sheets:', payload);
+      console.log('🔗 Using URL:', this.googleSheetsUrl);
 
       // Method 1: Google Sheets via Web App (Recommended)
       const response = await fetch(this.googleSheetsUrl, {
@@ -103,11 +107,17 @@ class DataService {
         body: JSON.stringify(payload)
       });
 
+      console.log('📥 Response status:', response.status);
+      console.log('📥 Response ok:', response.ok);
+      
+      const responseText = await response.text();
+      console.log('📥 Response body:', responseText);
+
       if (response.ok) {
         console.log('✅ Interview data saved to Google Sheets successfully');
         return true;
       } else {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        throw new Error(`HTTP error! status: ${response.status}, body: ${responseText}`);
       }
     } catch (error) {
       console.error('❌ Error saving interview data:', error);
@@ -272,24 +282,30 @@ class DataService {
   // Show instructions for manual data sync
   private showCloudSyncInstructions() {
     const instructions = `
-🔄 CLOUD SYNC INSTRUCTIONS:
+🔄 CLOUD SYNC ISSUE DETECTED:
 
-Your data was saved locally but couldn't sync to the cloud service.
-To manually sync:
+Your interview data was saved locally but couldn't sync to Google Sheets.
 
+TROUBLESHOOTING STEPS:
 1. Check your internet connection
-2. Verify your Google Sheets/API configuration
-3. The data is safely stored in localStorage and will auto-retry on next submission
-4. Contact support if the issue persists
+2. Verify the Google Apps Script URL is correct
+3. Make sure the Google Apps Script has "Anyone" access permissions
+4. The data is safely stored in localStorage and will auto-retry
 
-The system will automatically retry syncing when the service is available.
+Your data is NOT lost - it's safely backed up locally.
     `;
     
     console.warn(instructions);
     
-    // You could also show a user-friendly notification here
+    // Log backup status for debugging (no user popup)
     if (typeof window !== 'undefined') {
-      window.alert('Data saved locally. Cloud sync will retry automatically. Check console for details.');
+      console.log('� Interview data saved to localStorage backup');
+      console.table({
+        'Data Status': '✅ Saved Locally',
+        'Cloud Sync': '❌ Failed',
+        'Auto Retry': '✅ Enabled',
+        'Data Lost': '❌ No - Data is Safe'
+      });
     }
   }
 
@@ -299,10 +315,15 @@ The system will automatically retry syncing when the service is available.
     
     const keys = Object.keys(localStorage).filter(key => key.includes('_backup_'));
     
+    if (keys.length > 0) {
+      console.log(`🔄 Found ${keys.length} backup items to retry sync:`, keys);
+    }
+    
     for (const key of keys) {
       try {
         const backup = JSON.parse(localStorage.getItem(key) || '{}');
         if (backup.needsSync) {
+          console.log(`🔄 Retrying sync for: ${key}`);
           const success = backup.type === 'interview' 
             ? await this.saveInterviewData(backup.data, backup.id)
             : await this.saveOnboardingData(backup.data);
@@ -310,6 +331,8 @@ The system will automatically retry syncing when the service is available.
           if (success) {
             localStorage.removeItem(key);
             console.log(`✅ Successfully synced backup: ${key}`);
+          } else {
+            console.log(`❌ Still failed to sync: ${key}`);
           }
         }
       } catch (error) {
@@ -317,6 +340,105 @@ The system will automatically retry syncing when the service is available.
       }
     }
   }
+
+  // Debug method to show what's in localStorage
+  public showBackupData(): void {
+    if (typeof window === 'undefined' || !window.localStorage) {
+      console.log('❌ localStorage not available');
+      return;
+    }
+    
+    const backupKeys = Object.keys(localStorage).filter(key => key.includes('_backup_'));
+    
+    if (backupKeys.length === 0) {
+      console.log('ℹ️ No backup data found in localStorage');
+      return;
+    }
+    
+    console.log(`📊 Found ${backupKeys.length} backup items:`);
+    
+    backupKeys.forEach(key => {
+      try {
+        const backup = JSON.parse(localStorage.getItem(key) || '{}');
+        console.log(`📁 ${key}:`, {
+          type: backup.type,
+          timestamp: backup.timestamp,
+          needsSync: backup.needsSync,
+          id: backup.id
+        });
+      } catch (error) {
+        console.error(`❌ Error parsing backup ${key}:`, error);
+      }
+    });
+  }
+
+  // Test Google Sheets connection
+  public async testConnection(): Promise<boolean> {
+    console.log('🧪 Testing Google Sheets connection...');
+    console.log('🔗 URL:', this.googleSheetsUrl);
+    
+    try {
+      const testPayload = {
+        type: 'interview',
+        interviewId: 'TEST_CONNECTION',
+        timestamp: new Date().toISOString(),
+        data: {
+          fullName: 'Test User',
+          email: 'test@example.com',
+          phone: '123-456-7890',
+          position: 'Test Position',
+          experience: 'Test Experience',
+          gitMatcherScaling: 'Test response',
+          collaborationBalance: 'Test response',
+          infrastructureDesign: 'Test response',
+          uiDesign: 'Test response',
+          preferredLanguage: 'JavaScript',
+          workStyle: 'Remote',
+          teamSize: '5-10',
+          introVideo: 'https://example.com/video1',
+          technicalVideo: 'https://example.com/video2',
+          submissionDate: new Date().toLocaleString(),
+          status: 'TEST'
+        }
+      };
+
+      const response = await fetch(this.googleSheetsUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(testPayload)
+      });
+
+      const responseText = await response.text();
+      
+      console.log('🧪 Test Response Status:', response.status);
+      console.log('🧪 Test Response Body:', responseText);
+
+      if (response.ok) {
+        console.log('✅ Google Sheets connection test PASSED');
+        return true;
+      } else {
+        console.log('❌ Google Sheets connection test FAILED');
+        return false;
+      }
+    } catch (error) {
+      console.error('❌ Connection test error:', error);
+      return false;
+    }
+  }
+}
+
+// Make DataService available globally for debugging
+declare global {
+  interface Window {
+    debugDataService: DataService;
+  }
+}
+
+// Expose for debugging in development
+if (typeof window !== 'undefined') {
+  window.debugDataService = DataService.getInstance();
 }
 
 export default DataService;
