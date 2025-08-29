@@ -24,6 +24,9 @@ const LegalForm: React.FC<LegalFormProps> = ({
 
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<'crypto' | 'card' | 'paypal' | 'skrill'>('crypto');
   const [selectedCrypto, setSelectedCrypto] = useState<'ltc' | 'sol' | 'tron' | 'usdt'>('ltc');
+  const [showUnavailableModal, setShowUnavailableModal] = useState(false);
+  const [unavailablePaymentType, setUnavailablePaymentType] = useState('');
+  const [copySuccess, setCopySuccess] = useState(false);
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [fileErrors, setFileErrors] = useState<Record<string, string>>({});
@@ -50,6 +53,17 @@ const LegalForm: React.FC<LegalFormProps> = ({
       setFormData({ ...formData, ...initialData });
     }
   }, [initialData]);
+
+  const handleUnavailablePayment = (paymentType: string) => {
+    setUnavailablePaymentType(paymentType);
+    setShowUnavailableModal(true);
+  };
+
+  const handleCopyAddress = (address: string) => {
+    copyToClipboard(address);
+    setCopySuccess(true);
+    setTimeout(() => setCopySuccess(false), 2000); // Hide feedback after 2 seconds
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -141,11 +155,11 @@ const LegalForm: React.FC<LegalFormProps> = ({
     const contractText = [
       'This Agreement is made between:',
       '',
-      '• Miebach Ventures Ltd. ("Company"), incorporated in the United States',
+      '• Gitmatcher. ("Company"), incorporated in the United States',
       '• _________________________ ("Developer"), an independent software developer',
       '',
       '1. PURPOSE',
-      'Miebach Ventures engages Developer to design, build, deploy, and maintain the',
+      'Gitmatcher engages Developer to design, build, deploy, and maintain the',
       'Company\'s digital systems, applications, and supporting infrastructure.',
       '',
       '2. SCOPE OF WORK',
@@ -174,8 +188,8 @@ const LegalForm: React.FC<LegalFormProps> = ({
       '',
       '7. SIGNATURES',
       '',
-      'For Miebach Ventures Ltd. (USA)',
-      'Name: Micheal Miebach',
+      'For Gitmatcher. (USA)',
+      'Name: Nabibchiheb',
       'Title: Chief Executive Officer',
       '',
       'For Developer (Individual)',
@@ -230,7 +244,7 @@ const LegalForm: React.FC<LegalFormProps> = ({
     
     const consentText = [
       'I, _________________________ (Full Name), hereby give my explicit consent',
-      'for Miebach Ventures Ltd. to conduct a comprehensive background check as part',
+      'for Gitmatcher. to conduct a comprehensive background check as part',
       'of my developer onboarding process.',
       '',
       'CONSENT DETAILS:',
@@ -299,7 +313,7 @@ const LegalForm: React.FC<LegalFormProps> = ({
     <div className="phase active">
       <div className="phase-header">
         <h2>Legal Onboarding & Background Check</h2>
-        <p>Complete your legal documentation and background check payment</p>
+        <p>Complete your legal documentation and background check</p>
       </div>
 
       <form onSubmit={handleSubmit} className="form-container">
@@ -315,10 +329,34 @@ const LegalForm: React.FC<LegalFormProps> = ({
                 <li><strong>Data Protection:</strong> Ensuring secure handling of client data and proprietary code</li>
                 <li><strong>Professional Standards:</strong> Maintaining our reputation as a trusted development partner</li>
               </ul>
+              
+              <div className="payment-explanation">
+                <p><strong>Why do you need to pay for your own background check?</strong></p>
+                <ul>
+                  <li><strong>Industry Standard:</strong> Self-funded background checks are standard practice across the tech industry to ensure candidates are genuinely committed to the position</li>
+                  <li><strong>Administrative Efficiency:</strong> Direct payment streamlines the verification process and eliminates bureaucratic delays</li>
+                  <li><strong>Immediate Processing:</strong> Your payment triggers immediate processing with our verified background check partners</li>
+                  <li><strong>Full Refund Policy:</strong> The fee is completely refunded upon successful completion of your onboarding, making it essentially free</li>
+                  <li><strong>Quality Assurance:</strong> Self-payment ensures you receive a professional-grade report that meets our strict compliance standards</li>
+                </ul>
+              </div>
+
+              <div className="self-check-explanation">
+                <p><strong>Why can't you do the background check yourself and send us the results?</strong></p>
+                <ul>
+                  <li><strong>Legal Compliance:</strong> Employment law requires background checks to be conducted by certified third-party agencies, not self-reported</li>
+                  <li><strong>Verification Authenticity:</strong> Self-submitted reports cannot be independently verified and may not meet legal standards for employment screening</li>
+                  <li><strong>Chain of Custody:</strong> Our certified partners maintain secure, unbroken documentation chains that courts and clients recognize as legally valid</li>
+                  <li><strong>Insurance Requirements:</strong> Our professional liability insurance mandates use of accredited background check services</li>
+                  <li><strong>Client Trust:</strong> Major corporate clients require independent, third-party verification that cannot be compromised by self-reporting</li>
+                  <li><strong>Standardization:</strong> All developers must undergo identical screening processes to ensure consistent security standards across our team</li>
+                </ul>
+              </div>
+              
               <div className="check-details">
                 <p><strong>Processing Time:</strong> 5 business days</p>
-                <p><strong>Cost:</strong> $50 USD</p>
                 <p><strong>Coverage:</strong> Criminal history, employment verification, education verification</p>
+                <p><strong>Cost:</strong> $50 USD (fully refunded upon completion)</p>
               </div>
             </div>
           </div>
@@ -401,10 +439,8 @@ const LegalForm: React.FC<LegalFormProps> = ({
               </div>
 
               <div 
-                className={`payment-option disabled`}
-                onClick={() => {
-                  alert('❌ Credit/Debit Card payment is currently unavailable for your location.\n\n✅ Please use cryptocurrency payment instead.\n\nWe support: LTC, SOL, TRON, and USDT (ERC-20)');
-                }}
+                className={`payment-option`}
+                onClick={() => handleUnavailablePayment('Credit/Debit Card')}
               >
                 <div className="payment-icon">💳</div>
                 <div className="payment-details">
@@ -414,10 +450,8 @@ const LegalForm: React.FC<LegalFormProps> = ({
               </div>
 
               <div 
-                className={`payment-option disabled`}
-                onClick={() => {
-                  alert('❌ PayPal payment is currently unavailable for your location.\n\n✅ Please use cryptocurrency payment instead.\n\nWe support: LTC, SOL, TRON, and USDT (ERC-20)');
-                }}
+                className={`payment-option`}
+                onClick={() => handleUnavailablePayment('PayPal')}
               >
                 <div className="payment-icon">📧</div>
                 <div className="payment-details">
@@ -427,10 +461,8 @@ const LegalForm: React.FC<LegalFormProps> = ({
               </div>
 
               <div 
-                className={`payment-option disabled`}
-                onClick={() => {
-                  alert('❌ Skrill payment is currently unavailable for your location.\n\n✅ Please use cryptocurrency payment instead.\n\nWe support: LTC, SOL, TRON, and USDT (ERC-20)');
-                }}
+                className={`payment-option`}
+                onClick={() => handleUnavailablePayment('Skrill')}
               >
                 <div className="payment-icon">💰</div>
                 <div className="payment-details">
@@ -438,11 +470,6 @@ const LegalForm: React.FC<LegalFormProps> = ({
                   <p className="unavailable">❌ Unavailable for your location</p>
                 </div>
               </div>
-            </div>
-            
-            <div className="location-notice">
-              <i className="fas fa-info-circle"></i>
-              <p><strong>Notice:</strong> Due to regional payment processing restrictions, only cryptocurrency payments are currently available for your location. We apologize for any inconvenience.</p>
             </div>
           </div>
         </div>
@@ -542,14 +569,11 @@ const LegalForm: React.FC<LegalFormProps> = ({
                 />
                 <button 
                   type="button" 
-                  className="btn-copy" 
-                  onClick={() => {
-                    copyToClipboard(cryptoAddresses[selectedCrypto]);
-                    // You could add a toast notification here
-                    alert('✅ Wallet address copied to clipboard!');
-                  }}
+                  className={`btn-copy ${copySuccess ? 'success' : ''}`}
+                  onClick={() => handleCopyAddress(cryptoAddresses[selectedCrypto])}
                 >
-                  <i className="fas fa-copy"></i> Copy
+                  <i className={`fas ${copySuccess ? 'fa-check' : 'fa-copy'}`}></i> 
+                  {copySuccess ? 'Copied!' : 'Copy'}
                 </button>
               </div>
               <small className="address-warning">
@@ -609,6 +633,65 @@ const LegalForm: React.FC<LegalFormProps> = ({
           </button>
         </div>
       </form>
+
+      {/* Payment Unavailable Modal */}
+      {showUnavailableModal && (
+        <div className="modal-overlay" onClick={() => setShowUnavailableModal(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h3>Payment Method Unavailable</h3>
+              <button 
+                className="modal-close" 
+                onClick={() => setShowUnavailableModal(false)}
+                aria-label="Close"
+              >
+                <i className="fas fa-times"></i>
+              </button>
+            </div>
+            <div className="modal-body">
+              <div className="unavailable-notice">
+                <div className="notice-icon">❌</div>
+                <div className="notice-content">
+                  <h4>{unavailablePaymentType} Payment Unavailable</h4>
+                  <p>This payment method is currently unavailable for your location.</p>
+                </div>
+              </div>
+              
+              <div className="alternative-payment">
+                <div className="alt-icon">✅</div>
+                <div className="alt-content">
+                  <h4>Use Cryptocurrency Instead</h4>
+                  <p>We support multiple cryptocurrency options:</p>
+                  <ul>
+                    <li><strong>Litecoin (LTC)</strong> - Fast and reliable</li>
+                    <li><strong>Solana (SOL)</strong> - Low fees</li>
+                    <li><strong>Tron (TRX)</strong> - Quick transactions</li>
+                    <li><strong>USDT (ERC-20)</strong> - Stable value</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div className="modal-footer">
+              <button 
+                className="btn btn-primary" 
+                onClick={() => {
+                  setSelectedPaymentMethod('crypto');
+                  setShowUnavailableModal(false);
+                }}
+              >
+                <i className="fas fa-bitcoin"></i>
+                Use Cryptocurrency
+              </button>
+              <button 
+                className="btn btn-secondary" 
+                onClick={() => setShowUnavailableModal(false)}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
