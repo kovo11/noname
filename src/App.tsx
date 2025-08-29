@@ -1,0 +1,412 @@
+import React, { useState, useEffect } from 'react';
+import { 
+  Header, 
+  ApplicationForm, 
+  IdentityForm, 
+  LegalForm, 
+  SuccessPage, 
+  LoadingOverlay,
+  Login,
+  type CandidateData,
+  type DocumentInfo
+} from './components';
+import VirtualInterview from './components/VirtualInterview';
+import InterviewSuccess from './components/InterviewSuccess';
+import LandingPage from './components/LandingPage';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
+import DataService from './services/DataService';
+import './App.css';
+
+function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
+  );
+}
+
+function AppContent() {
+  const { isAuthenticated, currentUser, login, logout, saveUserData, loadUserData } = useAuth();
+  const [appState, setAppState] = useState<'landing' | 'interview' | 'interview-success' | 'login' | 'onboarding'>('landing');
+  const [interviewData, setInterviewData] = useState<any>(null);
+  const [interviewId, setInterviewId] = useState<string>('');
+  const [currentPhase, setCurrentPhase] = useState<number>(1);
+  const [candidateData, setCandidateData] = useState<CandidateData>({});
+  const [uploadedFiles, setUploadedFiles] = useState<Record<string, DocumentInfo>>({});
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    // Initialize data service and retry failed syncs
+  useEffect(() => {
+    const dataService = DataService.getInstance();
+    dataService.retryFailedSyncs().catch(error => {
+      console.warn('Failed to retry sync on startup:', error);
+    });
+  }, []);
+
+  // Load user data on authentication
+  useEffect(() => {
+    if (isAuthenticated && currentUser) {
+      const savedData = loadUserData();
+      if (savedData) {
+        setCandidateData(savedData);
+        // Restore the phase based on saved data
+        if (savedData.legal && savedData.legal.transactionId) {
+          setCurrentPhase(4); // Success - legal completed
+        } else if (savedData.identity) {
+          setCurrentPhase(3); // Go to legal phase
+        } else if (savedData.application) {
+          setCurrentPhase(2); // Go to identity phase
+        }
+        
+        // Restore uploaded files
+        if (savedData.identity?.documents) {
+          setUploadedFiles(prev => ({ ...prev, ...savedData.identity!.documents }));
+        }
+        if (savedData.legal?.documents) {
+          setUploadedFiles(prev => ({ ...prev, ...savedData.legal!.documents }));
+        }
+      }
+    }
+  }, [isAuthenticated, currentUser, loadUserData]);
+
+  // Save data whenever candidateData changes
+  useEffect(() => {
+    if (isAuthenticated && Object.keys(candidateData).length > 0) {
+      saveUserData(candidateData);
+    }
+  }, [candidateData, isAuthenticated, saveUserData]);
+
+  // Handle interview completion
+  const handleInterviewComplete = (data: any, id: string) => {
+    setInterviewData(data);
+    setInterviewId(id);
+    
+    // Save interview data to text file
+    saveInterviewToFile(data, id);
+    
+    setAppState('interview-success');
+  };
+
+  // Save interview data to text file in codebase
+  const saveInterviewToFile = (data: any, id: string) => {
+    const timestamp = new Date().toLocaleString();
+    const textContent = `
+===============================================
+GITMACHER VIRTUAL INTERVIEW SUBMISSION
+===============================================
+Interview ID: ${id}
+Submission Date: ${timestamp}
+===============================================
+
+CANDIDATE INFORMATION:
+• Full Name: ${data.fullName}
+• Email: ${data.email}
+• Phone: ${data.phone}
+• Position Applied: ${data.position}
+• Experience Level: ${data.experience}
+
+===============================================
+TECHNICAL ASSESSMENT RESPONSES:
+===============================================
+
+QUESTION 1 - GitMacher Scaling Strategy:
+${data.gitMacherScaling}
+
+QUESTION 2 - Technology Stack Recommendation:
+${data.techStack}
+
+QUESTION 3 - Problem-Solving Experience:
+${data.problemSolving}
+
+QUESTION 4 - Project Management Experience:
+${data.projectManagement || 'No response provided'}
+
+===============================================
+WORK PREFERENCES & MULTIPLE CHOICE:
+===============================================
+
+Preferred Programming Language: ${data.preferredLanguage}
+Work Style: ${data.workStyle}
+Preferred Team Size: ${data.teamSize}
+
+===============================================
+VIDEO RESPONSES (GOOGLE DRIVE LINKS):
+===============================================
+
+Introduction Video: ${data.introVideo}
+Technical Expertise Video: ${data.technicalVideo}
+Problem-Solving Challenge Video: ${data.challengeVideo}
+
+===============================================
+INTERVIEW METADATA:
+===============================================
+Interview ID: ${id}
+Candidate Name: ${data.fullName}
+Email Contact: ${data.email}
+Submission Timestamp: ${timestamp}
+
+Status: AWAITING REVIEW
+Next Action: Technical team review and assessment
+
+===============================================
+GitMacher HR Department - Technical Interview System
+===============================================
+`;
+
+    // Download the text file automatically
+    const dataBlob = new Blob([textContent], { type: 'text/plain;charset=utf-8;' });
+    const url = URL.createObjectURL(dataBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `interview_${id}_${data.fullName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    
+    console.log(`✅ Interview data saved: interview_${id}_${data.fullName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.txt`);
+  };
+
+  const handleContinueToOnboarding = () => {
+    setAppState('onboarding');
+  };
+
+  // Landing page handlers
+  const handleStartInterview = () => {
+    setAppState('interview');
+  };
+
+  const handleGoToOnboarding = () => {
+    setAppState('login');
+  };
+
+  const goToPhase = (phase: number) => {
+    setCurrentPhase(phase);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleApplicationSubmit = (data: any) => {
+    setIsLoading(true);
+    const candidateId = generateCandidateId();
+    
+    setCandidateData({
+      ...candidateData,
+      application: data,
+      submissionDate: new Date().toISOString(),
+      candidateId
+    });
+
+    setTimeout(() => {
+      setIsLoading(false);
+      goToPhase(2);
+    }, 1500);
+  };
+
+  const handleIdentitySubmit = (data: any) => {
+    setIsLoading(true);
+    
+    setCandidateData({
+      ...candidateData,
+      identity: {
+        ...data,
+        documents: processUploadedFiles(['passport', 'addressProof', 'photo', 'resume'])
+      }
+    });
+
+    setTimeout(() => {
+      setIsLoading(false);
+      goToPhase(3);
+    }, 1500);
+  };
+
+  const handleLegalSubmit = async (data: any) => {
+    setIsLoading(true);
+    
+    const completedCandidateData = {
+      ...candidateData,
+      legal: {
+        ...data,
+        documents: processUploadedFiles(['contract', 'nda'])
+      },
+      completionDate: new Date().toISOString()
+    };
+    
+    setCandidateData(completedCandidateData);
+
+    // Prepare onboarding data for Google Sheets
+    const onboardingData = {
+      username: currentUser || 'unknown',
+      firstName: completedCandidateData.application?.firstName || '',
+      lastName: completedCandidateData.application?.lastName || '',
+      email: completedCandidateData.application?.email || '',
+      phone: completedCandidateData.application?.phone || '',
+      address: completedCandidateData.application?.address || '',
+      salaryAcceptable: completedCandidateData.application?.salaryAcceptable || false,
+      salaryRequest: completedCandidateData.application?.salaryRequest || '',
+      emergencyName: completedCandidateData.identity?.emergencyName || '',
+      emergencyRelation: completedCandidateData.identity?.emergencyRelation || '',
+      emergencyPhone: completedCandidateData.identity?.emergencyPhone || '',
+      emergencyEmail: completedCandidateData.identity?.emergencyEmail || '',
+      consentCheck: completedCandidateData.legal?.consentCheck || false,
+      transactionId: completedCandidateData.candidateId || generateCandidateId()
+    };
+
+    // Save to Google Sheets
+    const dataService = DataService.getInstance();
+    try {
+      const success = await dataService.saveOnboardingData(onboardingData);
+      if (success) {
+        console.log('✅ Onboarding data saved to Google Sheets successfully');
+      } else {
+        console.log('💾 Onboarding data saved to local backup');
+      }
+    } catch (error) {
+      console.error('❌ Error saving onboarding data:', error);
+    }
+
+    setTimeout(() => {
+      setIsLoading(false);
+      setCurrentPhase(4); // Success page
+    }, 2000);
+  };
+
+  const generateCandidateId = (): string => {
+    const timestamp = Date.now().toString(36);
+    const random = Math.random().toString(36).substring(2, 8);
+    return `CAND-${timestamp}-${random}`.toUpperCase();
+  };
+
+    const processUploadedFiles = (fileTypes: string[]) => {
+    const result: Record<string, DocumentInfo> = {};
+    fileTypes.forEach(fileType => {
+      if (uploadedFiles[fileType]) {
+        result[fileType] = uploadedFiles[fileType];
+      }
+    });
+    return result;
+  };
+
+  const renderCurrentPhase = () => {
+    switch (currentPhase) {
+      case 1:
+        return (
+          <ApplicationForm
+            onSubmit={handleApplicationSubmit}
+            initialData={candidateData.application}
+          />
+        );
+      case 2:
+        return (
+          <IdentityForm
+            onSubmit={handleIdentitySubmit}
+            onBack={() => goToPhase(1)}
+            uploadedFiles={uploadedFiles}
+            setUploadedFiles={setUploadedFiles}
+            initialData={candidateData.identity}
+          />
+        );
+      case 3:
+        return (
+          <LegalForm
+            onSubmit={handleLegalSubmit}
+            onBack={() => goToPhase(2)}
+            uploadedFiles={uploadedFiles}
+            setUploadedFiles={setUploadedFiles}
+            initialData={candidateData.legal}
+          />
+        );
+      case 4:
+        return (
+          <SuccessPage
+            candidateData={candidateData}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
+  // Show landing page first
+  if (appState === 'landing') {
+    return (
+      <div className="app">
+        <LandingPage 
+          onStartInterview={handleStartInterview}
+          onGoToOnboarding={handleGoToOnboarding}
+        />
+      </div>
+    );
+  }
+
+  // Show interview flow (no authentication required)
+  if (appState === 'interview') {
+    return (
+      <div className="app">
+        <VirtualInterview onComplete={handleInterviewComplete} />
+      </div>
+    );
+  }
+
+  // Show interview success page
+  if (appState === 'interview-success') {
+    return (
+      <div className="app">
+        <InterviewSuccess 
+          interviewId={interviewId}
+          candidateName={interviewData?.fullName || 'Candidate'}
+          onContinueToOnboarding={handleContinueToOnboarding}
+        />
+      </div>
+    );
+  }
+
+  // Show login page for onboarding
+  if (appState === 'login' && !isAuthenticated) {
+    const handleLogin = (username: string) => {
+      const success = login(username, 'OnboardSecure2024!');
+      if (success) {
+        setAppState('onboarding');
+      }
+    };
+    
+    return (
+      <div className="app">
+        <div className="onboarding-notice">
+          <div className="notice-box">
+            <h2><i className="fas fa-user-check"></i> Employee Onboarding Portal</h2>
+            <p>
+              Congratulations! You have successfully completed the technical interview phase. 
+              Please log in with the credentials provided by our HR team to continue with employee onboarding.
+            </p>
+          </div>
+        </div>
+        <Login onLogin={handleLogin} />
+      </div>
+    );
+  }
+
+  // Handle authenticated onboarding state
+  if ((appState === 'login' && isAuthenticated) || appState === 'onboarding') {
+    if (appState !== 'onboarding') {
+      setAppState('onboarding');
+    }
+  }
+
+  // Show authenticated onboarding flow (default case)
+  if (isAuthenticated) {
+    return (
+      <div className="app">
+        <div className="container">
+          <Header currentPhase={currentPhase} currentUser={currentUser} onLogout={logout} />
+          {renderCurrentPhase()}
+          {isLoading && <LoadingOverlay />}
+        </div>
+      </div>
+    );
+  }
+
+  // Fallback (should not reach here)
+  return null;
+}
+
+export default App;

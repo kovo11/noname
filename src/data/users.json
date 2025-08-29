@@ -1,0 +1,264 @@
+{
+  "users": [
+    {
+      "username": "Candidate7K9M",
+      "password": "OnboardSecure2024!",
+      "status": "active",
+      "assignedDate": "2024-01-15",
+      "personalInfo": {
+        "firstName": "Samuel",
+        "lastName": "Justin",
+        "email": "[EMAIL@COMPANY.COM]",
+        "phone": "[PHONE_NUMBER]"
+      },
+      "data": null
+    },
+    {
+      "username": "Candidate3X7Q",
+      "password": "OnboardSecure2024!",
+      "status": "active", 
+      "assignedDate": "2024-01-16",
+      "personalInfo": {
+        "firstName": "[FIRST_NAME]",
+        "lastName": "[LAST_NAME]",
+        "email": "[EMAIL@COMPANY.COM]",
+        "phone": "[PHONE_NUMBER]"
+      },
+      "data": null
+    },
+    {
+      "username": "Candidate9P2R",
+      "password": "OnboardSecure2024!",
+      "status": "active",
+      "assignedDate": "2024-01-17",
+      "personalInfo": {
+        "firstName": "[FIRST_NAME]",
+        "lastName": "[LAST_NAME]",
+        "email": "[EMAIL@COMPANY.COM]",
+        "phone": "[PHONE_NUMBER]"
+      },
+      "data": null
+    },
+    {
+      "username": "Candidate5F8W",
+      "password": "OnboardSecure2024!",
+      "status": "active",
+      "assignedDate": "2024-01-18",
+      "personalInfo": {
+        "firstName": "[FIRST_NAME]",
+        "lastName": "[LAST_NAME]",
+        "email": "[EMAIL@COMPANY.COM]",
+        "phone": "[PHONE_NUMBER]"
+      },
+      "data": null
+    },
+    {
+      "username": "Candidate1N4T",
+      "password": "OnboardSecure2024!",
+      "status": "active",
+      "assignedDate": "2024-01-19",
+      "personalInfo": {
+        "firstName": "[FIRST_NAME]",
+        "lastName": "[LAST_NAME]",
+        "email": "[EMAIL@COMPANY.COM]",
+        "phone": "[PHONE_NUMBER]"
+      },
+      "data": null
+    },
+    {
+      "username": "Candidate6H3Y",
+      "password": "OnboardSecure2024!",
+      "status": "active",
+      "assignedDate": "2024-01-20",
+      "personalInfo": {
+        "firstName": "[FIRST_NAME]",
+        "lastName": "[LAST_NAME]",
+        "email": "[EMAIL@COMPANY.COM]",
+        "phone": "[PHONE_NUMBER]"
+      },
+      "data": null
+    },
+    {
+      "username": "Candidate2L9V",
+      "password": "OnboardSecure2024!",
+      "status": "active",
+      "assignedDate": "2024-01-21",
+      "personalInfo": {
+        "firstName": "[FIRST_NAME]",
+        "lastName": "[LAST_NAME]",
+        "email": "[EMAIL@COMPANY.COM]",
+        "phone": "[PHONE_NUMBER]"
+      },
+      "data": null
+    },
+    {
+      "username": "Candidate8D5B",
+      "password": "OnboardSecure2024!",
+      "status": "active",
+      "assignedDate": "2024-01-22",
+      "personalInfo": {
+        "firstName": "[FIRST_NAME]",
+        "lastName": "[LAST_NAME]",
+        "email": "[EMAIL@COMPANY.COM]",
+        "phone": "[PHONE_NUMBER]"
+      },
+      "data": null
+    },
+    {
+      "username": "Candidate4Z6C",
+      "password": "OnboardSecure2024!",
+      "status": "active",
+      "assignedDate": "2024-01-23",
+      "personalInfo": {
+        "firstName": "[FIRST_NAME]",
+        "lastName": "[LAST_NAME]",
+        "email": "[EMAIL@COMPANY.COM]",
+        "phone": "[PHONE_NUMBER]"
+      },
+      "data": null
+    },
+    {
+      "username": "Candidate0J1E",
+      "password": "OnboardSecure2024!",
+      "status": "active",
+      "assignedDate": "2024-01-24",
+      "personalInfo": {
+        "firstName": "[FIRST_NAME]",
+        "lastName": "[LAST_NAME]",
+        "email": "[EMAIL@COMPANY.COM]",
+        "phone": "[PHONE_NUMBER]"
+      },
+      "data": null
+    },
+    {
+      "username": "CandidateM8X2",
+      "password": "OnboardSecure2024!",
+      "status": "active",
+      "assignedDate": "2024-01-25",
+      "personalInfo": {
+        "firstName": "[FIRST_NAME]",
+        "lastName": "[LAST_NAME]",
+        "email": "[EMAIL@COMPANY.COM]",
+        "phone": "[PHONE_NUMBER]"
+      },
+      "data": null
+    },
+    {
+      "username": "CandidateQ3Z7",
+      "password": "OnboardSecure2024!",
+      "status": "active",
+      "assignedDate": "2024-01-26",
+      "personalInfo": {
+        "firstName": "[FIRST_NAME]",
+        "lastName": "[LAST_NAME]",
+        "email": "[EMAIL@COMPANY.COM]",
+        "phone": "[PHONE_NUMBER]"
+      },
+      "data": null
+    },
+    {
+      "username": "CandidateA9R1",
+      "password": "OnboardSecure2024!",
+      "status": "active",
+      "assignedDate": "2024-01-27",
+      "personalInfo": {
+        "firstName": "[FIRST_NAME]",
+        "lastName": "[LAST_NAME]",
+        "email": "[EMAIL@COMPANY.COM]",
+        "phone": "[PHONE_NUMBER]"
+      },
+      "data": null
+    },
+    {
+      "username": "CandidateT4P5",
+      "password": "OnboardSecure2024!",
+      "status": "active",
+      "assignedDate": "2024-01-28",
+      "personalInfo": {
+        "firstName": "[FIRST_NAME]",
+        "lastName": "[LAST_NAME]",
+        "email": "[EMAIL@COMPANY.COM]",
+        "phone": "[PHONE_NUMBER]"
+      },
+      "data": null
+    },
+    {
+      "username": "CandidateK6W7",
+      "password": "OnboardSecure2024!",
+      "status": "active",
+      "assignedDate": "2024-01-29",
+      "personalInfo": {
+        "firstName": "[FIRST_NAME]",
+        "lastName": "[LAST_NAME]",
+        "email": "[EMAIL@COMPANY.COM]",
+        "phone": "[PHONE_NUMBER]"
+      },
+      "data": null
+    },
+    {
+      "username": "CandidateB9F1",
+      "password": "OnboardSecure2024!",
+      "status": "active",
+      "assignedDate": "2024-01-30",
+      "personalInfo": {
+        "firstName": "[FIRST_NAME]",
+        "lastName": "[LAST_NAME]",
+        "email": "[EMAIL@COMPANY.COM]",
+        "phone": "[PHONE_NUMBER]"
+      },
+      "data": null
+    },
+    {
+      "username": "CandidateE8L2",
+      "password": "OnboardSecure2024!",
+      "status": "active",
+      "assignedDate": "2024-01-31",
+      "personalInfo": {
+        "firstName": "[FIRST_NAME]",
+        "lastName": "[LAST_NAME]",
+        "email": "[EMAIL@COMPANY.COM]",
+        "phone": "[PHONE_NUMBER]"
+      },
+      "data": null
+    },
+    {
+      "username": "CandidateY5U3",
+      "password": "OnboardSecure2024!",
+      "status": "active",
+      "assignedDate": "2024-02-01",
+      "personalInfo": {
+        "firstName": "[FIRST_NAME]",
+        "lastName": "[LAST_NAME]",
+        "email": "[EMAIL@COMPANY.COM]",
+        "phone": "[PHONE_NUMBER]"
+      },
+      "data": null
+    },
+    {
+      "username": "CandidateS4H6",
+      "password": "OnboardSecure2024!",
+      "status": "active",
+      "assignedDate": "2024-02-02",
+      "personalInfo": {
+        "firstName": "[FIRST_NAME]",
+        "lastName": "[LAST_NAME]",
+        "email": "[EMAIL@COMPANY.COM]",
+        "phone": "[PHONE_NUMBER]"
+      },
+      "data": null
+    },
+    {
+      "username": "CandidateN7C8",
+      "password": "OnboardSecure2024!",
+      "status": "active",
+      "assignedDate": "2024-02-03",
+      "personalInfo": {
+        "firstName": "[FIRST_NAME]",
+        "lastName": "[LAST_NAME]",
+        "email": "[EMAIL@COMPANY.COM]",
+        "phone": "[PHONE_NUMBER]"
+      },
+      "data": null
+    }
+  ]
+}
