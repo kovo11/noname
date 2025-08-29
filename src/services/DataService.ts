@@ -40,7 +40,7 @@ class DataService {
 
   private constructor() {
     // Google Sheets Web App URL (you'll create this)
-    this.googleSheetsUrl = 'https://script.google.com/macros/s/AKfycbwU-9QYGhPU-pNTunsdVcrKjEMnUME78I_wlbl2RPAxCWGH6qNjVew9gBuReFLhYL3f5g/exec';
+    this.googleSheetsUrl = 'https://script.google.com/macros/s/AKfycby4fLfrKl9SfaRZTgsHt2NpU3eY3jljzuFuNOD9lpMnViSG1ASOCp1korONXrF15oCiog/exec';
     
     // Alternative URLs for other services
     this.airtableUrl = 'https://api.airtable.com/v0/YOUR_BASE_ID/YOUR_TABLE_NAME';

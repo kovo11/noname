@@ -1,5 +1,5 @@
-// Google Apps Script code for receiving data from your React app
-// You'll need to deploy this as a Web App in Google Apps Script
+// Google Apps Script code for receiving personal data only from your React app
+// Simplified version to only capture essential personal details
 
 function doPost(e) {
   try {
@@ -31,7 +31,7 @@ function doPost(e) {
 }
 
 function getOrCreateSpreadsheet() {
-  const SPREADSHEET_NAME = 'Candidate Data - Interview & Onboarding';
+  const SPREADSHEET_NAME = 'Candidate Personal Details';
   
   // Try to find existing spreadsheet
   const files = DriveApp.getFilesByName(SPREADSHEET_NAME);
@@ -45,11 +45,11 @@ function getOrCreateSpreadsheet() {
   
   // Create and format the Interview sheet
   const interviewSheet = spreadsheet.getActiveSheet();
-  interviewSheet.setName('Interview Responses');
+  interviewSheet.setName('Interview Candidates');
   setupInterviewSheet(interviewSheet);
   
   // Create and format the Onboarding sheet
-  const onboardingSheet = spreadsheet.insertSheet('Onboarding Data');
+  const onboardingSheet = spreadsheet.insertSheet('Onboarding Candidates');
   setupOnboardingSheet(onboardingSheet);
   
   // Create summary dashboard sheet
@@ -60,13 +60,15 @@ function getOrCreateSpreadsheet() {
 }
 
 function setupInterviewSheet(sheet) {
+  // Simplified headers - only personal details
   const headers = [
-    'Interview ID', 'Submission Date', 'Status',
-    'Full Name', 'Email', 'Phone', 'Position', 'Experience',
-    'GitMatcher Scaling', 'Collaboration Balance', 'Infrastructure Design', 'UI Design',
-    'Preferred Language', 'Work Style', 'Team Size',
-    'Intro Video', 'Technical Video',
-    'Notes', 'Reviewer', 'Decision'
+    'Interview ID', 
+    'Submission Date', 
+    'Full Name', 
+    'Email', 
+    'Position Applied',
+    'Status',
+    'Notes'
   ];
   
   sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
@@ -80,21 +82,27 @@ function setupInterviewSheet(sheet) {
   // Set column widths
   sheet.setColumnWidth(1, 120); // Interview ID
   sheet.setColumnWidth(2, 150); // Date
-  sheet.setColumnWidth(4, 200); // Name
-  sheet.setColumnWidth(5, 200); // Email
+  sheet.setColumnWidth(3, 200); // Name
+  sheet.setColumnWidth(4, 250); // Email
+  sheet.setColumnWidth(5, 150); // Position
+  sheet.setColumnWidth(6, 120); // Status
+  sheet.setColumnWidth(7, 200); // Notes
   
   // Freeze header row
   sheet.setFrozenRows(1);
 }
 
 function setupOnboardingSheet(sheet) {
+  // Simplified headers - only personal details
   const headers = [
-    'Username', 'Completion Date', 'Status',
-    'First Name', 'Last Name', 'Email', 'Phone', 'Address',
-    'Salary Acceptable', 'Salary Request',
-    'Emergency Name', 'Emergency Relation', 'Emergency Phone', 'Emergency Email',
-    'Consent Given', 'Transaction ID',
-    'Notes', 'HR Review'
+    'Username', 
+    'Completion Date', 
+    'First Name', 
+    'Last Name', 
+    'Email', 
+    'Address',
+    'Status',
+    'Notes'
   ];
   
   sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
@@ -108,8 +116,12 @@ function setupOnboardingSheet(sheet) {
   // Set column widths
   sheet.setColumnWidth(1, 120); // Username
   sheet.setColumnWidth(2, 150); // Date
-  sheet.setColumnWidth(4, 150); // First Name
-  sheet.setColumnWidth(5, 150); // Last Name
+  sheet.setColumnWidth(3, 150); // First Name
+  sheet.setColumnWidth(4, 150); // Last Name
+  sheet.setColumnWidth(5, 250); // Email
+  sheet.setColumnWidth(6, 300); // Address
+  sheet.setColumnWidth(7, 120); // Status
+  sheet.setColumnWidth(8, 200); // Notes
   
   // Freeze header row
   sheet.setFrozenRows(1);
@@ -117,7 +129,7 @@ function setupOnboardingSheet(sheet) {
 
 function setupDashboardSheet(sheet) {
   // Dashboard title
-  sheet.getRange('A1').setValue('📊 Candidate Data Dashboard');
+  sheet.getRange('A1').setValue('📊 Candidate Personal Details Dashboard');
   sheet.getRange('A1').setFontSize(18);
   sheet.getRange('A1').setFontWeight('bold');
   
@@ -126,49 +138,36 @@ function setupDashboardSheet(sheet) {
   sheet.getRange('A3').setFontWeight('bold');
   sheet.getRange('A3').setBackground('#E8F0FE');
   
-  sheet.getRange('A5').setValue('Total Interviews:');
-  sheet.getRange('B5').setFormula('=COUNTA(\'Interview Responses\'!A:A)-1');
+  sheet.getRange('A5').setValue('Total Interview Candidates:');
+  sheet.getRange('B5').setFormula('=COUNTA(\'Interview Candidates\'!A:A)-1');
   
-  sheet.getRange('A6').setValue('Total Onboardings:');
-  sheet.getRange('B6').setFormula('=COUNTA(\'Onboarding Data\'!A:A)-1');
+  sheet.getRange('A6').setValue('Total Onboarding Candidates:');
+  sheet.getRange('B6').setFormula('=COUNTA(\'Onboarding Candidates\'!A:A)-1');
   
   sheet.getRange('A7').setValue('Pending Reviews:');
-  sheet.getRange('B7').setFormula('=COUNTIF(\'Interview Responses\'!C:C,"AWAITING_REVIEW")');
+  sheet.getRange('B7').setFormula('=COUNTIF(\'Interview Candidates\'!F:F,"AWAITING_REVIEW")');
   
   sheet.getRange('A9').setValue('📈 Quick Actions');
   sheet.getRange('A9').setFontWeight('bold');
   sheet.getRange('A9').setBackground('#E8F0FE');
   
-  sheet.getRange('A11').setValue('• Review pending interviews in "Interview Responses" tab');
-  sheet.getRange('A12').setValue('• Check onboarding completion in "Onboarding Data" tab');
-  sheet.getRange('A13').setValue('• Video links are clickable for easy access');
+  sheet.getRange('A11').setValue('• Review interview candidates in "Interview Candidates" tab');
+  sheet.getRange('A12').setValue('• Check onboarding status in "Onboarding Candidates" tab');
+  sheet.getRange('A13').setValue('• Only essential personal details are captured for easier management');
 }
 
 function handleInterviewData(spreadsheet, data) {
-  const sheet = spreadsheet.getSheetByName('Interview Responses');
+  const sheet = spreadsheet.getSheetByName('Interview Candidates');
   
-  // Prepare row data
+  // Extract only essential personal details
   const rowData = [
-    data.interviewId,
-    data.timestamp,
-    data.data.status,
-    data.data.fullName,
-    data.data.email,
-    data.data.phone,
-    data.data.position,
-    data.data.experience,
-    data.data.gitMatcherScaling,
-    data.data.collaborationBalance,
-    data.data.infrastructureDesign,
-    data.data.uiDesign,
-    data.data.preferredLanguage,
-    data.data.workStyle,
-    data.data.teamSize,
-    data.data.introVideo,
-    data.data.technicalVideo,
-    '', // Notes (empty for HR to fill)
-    '', // Reviewer (empty for HR to fill)
-    ''  // Decision (empty for HR to fill)
+    data.interviewId || 'N/A',
+    data.timestamp || new Date().toISOString(),
+    data.data.fullName || 'N/A',
+    data.data.email || 'N/A',
+    data.data.position || 'N/A',
+    data.data.status || 'AWAITING_REVIEW',
+    '' // Notes (empty for HR to fill)
   ];
   
   // Add the row
@@ -185,46 +184,28 @@ function handleInterviewData(spreadsheet, data) {
     range.setBackground('#F8F9FA');
   }
   
-  // Make video links clickable
-  if (data.data.introVideo) {
-    sheet.getRange(lastRow, 16).setFormula(`=HYPERLINK("${data.data.introVideo}","View Video")`);
-  }
-  if (data.data.technicalVideo) {
-    sheet.getRange(lastRow, 17).setFormula(`=HYPERLINK("${data.data.technicalVideo}","View Video")`);
-  }
-  
   return ContentService
     .createTextOutput(JSON.stringify({
       success: true,
-      message: 'Interview data saved successfully',
+      message: 'Personal details saved successfully',
       rowNumber: lastRow
     }))
     .setMimeType(ContentService.MimeType.JSON);
 }
 
 function handleOnboardingData(spreadsheet, data) {
-  const sheet = spreadsheet.getSheetByName('Onboarding Data');
+  const sheet = spreadsheet.getSheetByName('Onboarding Candidates');
   
-  // Prepare row data
+  // Extract only essential personal details
   const rowData = [
-    data.username,
-    data.timestamp,
-    data.data.status,
-    data.data.firstName,
-    data.data.lastName,
-    data.data.email,
-    data.data.phone,
-    data.data.address,
-    data.data.salaryAcceptable ? 'YES' : 'NO',
-    data.data.salaryRequest,
-    data.data.emergencyName,
-    data.data.emergencyRelation,
-    data.data.emergencyPhone,
-    data.data.emergencyEmail,
-    data.data.consentCheck ? 'YES' : 'NO',
-    data.data.transactionId,
-    '', // Notes (empty for HR to fill)
-    ''  // HR Review (empty for HR to fill)
+    data.username || 'N/A',
+    data.timestamp || new Date().toISOString(),
+    data.data.firstName || 'N/A',
+    data.data.lastName || 'N/A',
+    data.data.email || 'N/A',
+    data.data.address || 'N/A',
+    data.data.status || 'COMPLETED',
+    '' // Notes (empty for HR to fill)
   ];
   
   // Add the row
@@ -244,35 +225,31 @@ function handleOnboardingData(spreadsheet, data) {
   return ContentService
     .createTextOutput(JSON.stringify({
       success: true,
-      message: 'Onboarding data saved successfully',
+      message: 'Personal details saved successfully',
       rowNumber: lastRow
     }))
     .setMimeType(ContentService.MimeType.JSON);
 }
 
-// Optional: Function to send email notifications
+// Optional: Function to send email notifications (simplified)
 function sendNotificationEmail(type, data) {
   const HR_EMAIL = 'hr@yourcompany.com'; // Change this to your HR email
   
   let subject, body;
   
   if (type === 'interview') {
-    subject = `🎯 New Interview Submission: ${data.data.fullName}`;
+    subject = `🎯 New Interview Candidate: ${data.data.fullName}`;
     body = `
 A new candidate has completed the virtual interview:
 
 👤 Name: ${data.data.fullName}
 📧 Email: ${data.data.email}
-📱 Phone: ${data.data.phone}
 🎯 Position: ${data.data.position}
 ⏰ Submitted: ${data.timestamp}
 🆔 Interview ID: ${data.interviewId}
 
-🎥 Video Responses:
-• Intro: ${data.data.introVideo}
-• Technical: ${data.data.technicalVideo}
-
-📊 View full details in the Interview Responses spreadsheet.
+📊 View personal details in the Interview Candidates spreadsheet.
+Note: Only essential personal information is captured for easier management.
     `;
   } else if (type === 'onboarding') {
     subject = `✅ Onboarding Completed: ${data.data.firstName} ${data.data.lastName}`;
@@ -282,11 +259,11 @@ A candidate has completed their onboarding:
 👤 Name: ${data.data.firstName} ${data.data.lastName}
 👤 Username: ${data.username}
 📧 Email: ${data.data.email}
-📱 Phone: ${data.data.phone}
+🏠 Address: ${data.data.address}
 ⏰ Completed: ${data.timestamp}
-🆔 Transaction ID: ${data.data.transactionId}
 
-📊 View full details in the Onboarding Data spreadsheet.
+📊 View personal details in the Onboarding Candidates spreadsheet.
+Note: Only essential personal information is captured for easier management.
     `;
   }
   
@@ -297,7 +274,7 @@ A candidate has completed their onboarding:
   }
 }
 
-// Test function (you can run this to test the setup)
+// Test function (simplified)
 function testSetup() {
   const testData = {
     type: 'interview',
@@ -306,19 +283,7 @@ function testSetup() {
     data: {
       fullName: 'Test Candidate',
       email: 'test@example.com',
-      phone: '123-456-7890',
       position: 'Software Engineer',
-      experience: '3 years',
-      gitMatcherScaling: 'I would design a scalable GitHub analysis system using...',
-      collaborationBalance: 'To balance technical and soft metrics, I would...',
-      infrastructureDesign: 'For handling GitHub rate limits, I would implement...',
-      uiDesign: 'For the developer profile UI, I would use React with...',
-      preferredLanguage: 'TypeScript',
-      workStyle: 'Hybrid',
-      teamSize: '5-10',
-      introVideo: 'https://example.com/video1',
-      technicalVideo: 'https://example.com/video2',
-      submissionDate: new Date().toLocaleString(),
       status: 'AWAITING_REVIEW'
     }
   };
