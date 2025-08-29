@@ -27,7 +27,7 @@ function App() {
 }
 
 function AppContent() {
-  const { isAuthenticated, currentUser, login, logout, saveUserData, loadUserData } = useAuth();
+  const { isAuthenticated, currentUser, login, logout, saveUserData, loadUserData, isUserCompleted } = useAuth();
   const [appState, setAppState] = useState<'landing' | 'interview' | 'interview-success' | 'login' | 'onboarding'>('landing');
   const [interviewData, setInterviewData] = useState<any>(null);
   const [interviewId, setInterviewId] = useState<string>('');
@@ -58,6 +58,34 @@ function AppContent() {
   // Load user data on authentication
   useEffect(() => {
     if (isAuthenticated && currentUser) {
+      // Check if user has completed the onboarding process
+      if (isUserCompleted()) {
+        console.log(`🎉 User ${currentUser} has completed onboarding - showing success page`);
+        setCurrentPhase(4); // Go directly to success page
+        
+        // Load any available data for the success page
+        const savedData = loadUserData();
+        if (savedData) {
+          setCandidateData(savedData);
+        } else {
+          // Create minimal data for success page display
+          setCandidateData({
+            candidateId: `ONBD-${currentUser}`,
+            completionDate: new Date().toISOString(),
+            application: {
+              firstName: 'User',
+              lastName: 'Completed',
+              email: 'completed@onboarding.com',
+              address: 'Onboarding Complete',
+              salaryAcceptable: true,
+              salaryRequest: ''
+            }
+          });
+        }
+        return;
+      }
+      
+      // For non-completed users, load normal data and set phase
       const savedData = loadUserData();
       if (savedData) {
         setCandidateData(savedData);
@@ -79,7 +107,7 @@ function AppContent() {
         }
       }
     }
-  }, [isAuthenticated, currentUser, loadUserData]);
+  }, [isAuthenticated, currentUser, isUserCompleted, loadUserData]);
 
   // Save data whenever candidateData changes
   useEffect(() => {
