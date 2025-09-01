@@ -112,12 +112,154 @@ const ApplicationForm: React.FC<FormProps> = ({ onSubmit, initialData }) => {
         </div>
 
         <div className="form-section">
+          <h3>Position Details & Work Environment</h3>
+          <div className="job-details-card">
+            <div className="job-overview">
+              <div className="job-header">
+                <i className="fas fa-briefcase"></i>
+                <h4>Remote Work Structure</h4>
+              </div>
+              <p className="job-description">
+                You'll be joining our fully remote team as a GitMatcher developer, working collaboratively 
+                across different time zones while maintaining strong communication and project delivery standards.
+              </p>
+            </div>
+
+            <div className="work-schedule">
+              <div className="schedule-header">
+                <i className="fas fa-clock"></i>
+                <h4>Working Hours & Schedule</h4>
+              </div>
+              <div className="schedule-grid">
+                <div className="schedule-item">
+                  <span className="schedule-label">Time Zone:</span>
+                  <span className="schedule-value">US Eastern Standard Time (EST)</span>
+                </div>
+                <div className="schedule-item">
+                  <span className="schedule-label">Core Hours:</span>
+                  <span className="schedule-value">9:00 AM - 6:00 PM EST</span>
+                </div>
+                <div className="schedule-item">
+                  <span className="schedule-label">Daily Stand-up:</span>
+                  <span className="schedule-value">Morning team calls (9:30 AM EST)</span>
+                </div>
+                <div className="schedule-item">
+                  <span className="schedule-label">Flexibility:</span>
+                  <span className="schedule-value">Adjustable based on project needs</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="communication-tools">
+              <div className="tools-header">
+                <i className="fas fa-comments"></i>
+                <h4>Communication & Collaboration</h4>
+              </div>
+              <div className="tools-grid">
+                <div className="tool-item primary">
+                  <i className="fab fa-slack"></i>
+                  <div>
+                    <strong>Slack</strong>
+                    <span>Primary communication platform for team chat, updates, and quick discussions</span>
+                  </div>
+                </div>
+                <div className="tool-item">
+                  <i className="fas fa-video"></i>
+                  <div>
+                    <strong>Video Meetings</strong>
+                    <span>Daily stand-ups, weekly planning, and project reviews</span>
+                  </div>
+                </div>
+                <div className="tool-item">
+                  <i className="fas fa-code-branch"></i>
+                  <div>
+                    <strong>Git/GitHub</strong>
+                    <span>Code collaboration, version control, and project management</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="expectations">
+              <div className="expectations-header">
+                <i className="fas fa-target"></i>
+                <h4>What We Expect</h4>
+              </div>
+              <ul className="expectations-list">
+                <li><i className="fas fa-check-circle"></i> Active participation in daily morning stand-up calls</li>
+                <li><i className="fas fa-check-circle"></i> Responsive communication during US business hours</li>
+                <li><i className="fas fa-check-circle"></i> Collaborative approach to problem-solving and development</li>
+                <li><i className="fas fa-check-circle"></i> Commitment to project deadlines and quality standards</li>
+                <li><i className="fas fa-check-circle"></i> Proactive communication about challenges or blockers</li>
+              </ul>
+            </div>
+
+            <div className="next-steps-info">
+              <div className="next-steps-header">
+                <i className="fas fa-phone-alt"></i>
+                <h4>Post-Onboarding Process</h4>
+              </div>
+              <div className="next-steps-content">
+                <p>
+                  <strong>Personalized Discussion:</strong> After completing this onboarding process, 
+                  you'll have a detailed call with our team to discuss any questions or concerns you may have.
+                </p>
+                <div className="flexibility-note">
+                  <i className="fas fa-handshake"></i>
+                  <div>
+                    <strong>Contract Flexibility</strong>
+                    <p>
+                      Your employment contract can be adjusted based on your preferences and our mutual agreement 
+                      during the post-onboarding call. We believe in finding the right fit for both parties.
+                    </p>
+                  </div>
+                </div>
+                <div className="contact-info">
+                  <p>
+                    <i className="fas fa-info-circle"></i>
+                    <strong>Questions?</strong> More detailed information about policies, benefits, and specific 
+                    role expectations will be provided during your onboarding call.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="form-section">
           <h3>Compensation Details</h3>
           <div className="compensation-card">
             <div className="salary-details">
               <div className="salary-item">
-                <span className="salary-label">Bi-weekly Salary:</span>
+                <span className="salary-label">Base Bi-weekly Salary:</span>
                 <span className="salary-amount">$2,300</span>
+              </div>
+              <div className="bonus-section">
+                <div className="bonus-header">
+                  <i className="fas fa-plus-circle"></i>
+                  <strong>Additional Benefits</strong>
+                </div>
+                <div className="bonus-item">
+                  <span className="bonus-label">Monthly Performance Bonus:</span>
+                  <span className="bonus-amount">Up to $1,000</span>
+                </div>
+                <div className="bonus-description">
+                  <p><strong>Bonus Coverage Includes:</strong></p>
+                  <ul>
+                    <li><i className="fas fa-wifi"></i> Internet subscription reimbursement</li>
+                    <li><i className="fas fa-clock"></i> Extra work hours compensation</li>
+                    <li><i className="fas fa-chart-line"></i> Performance-based incentives</li>
+                  </ul>
+                </div>
+              </div>
+              <div className="total-compensation">
+                <div className="total-item">
+                  <span className="total-label">Total Monthly Potential:</span>
+                  <span className="total-amount">$5,600 + $1,000 bonus</span>
+                </div>
+                <div className="annual-note">
+                  <small>Annual range: $67,200 - $79,200 (including bonuses)</small>
+                </div>
               </div>
             </div>
             

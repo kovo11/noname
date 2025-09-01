@@ -3743,7 +3743,7 @@ a {
 
 .salary-details {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   margin-bottom: 25px;
   padding-bottom: 20px;
   border-bottom: 1px solid #cbd5e1;
@@ -3754,6 +3754,7 @@ a {
   flex-direction: column;
   align-items: center;
   text-align: center;
+  margin-bottom: 20px;
 }
 
 .salary-label {
@@ -3771,6 +3772,122 @@ a {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+/* Bonus Section Styles */
+.bonus-section {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border: 2px solid #0ea5e9;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.bonus-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  color: #0369a1;
+  font-size: 1.1rem;
+}
+
+.bonus-header i {
+  font-size: 1.2rem;
+}
+
+.bonus-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 10px 0;
+  border-bottom: 1px solid #bae6fd;
+}
+
+.bonus-label {
+  font-size: 1rem;
+  color: #0369a1;
+  font-weight: 500;
+}
+
+.bonus-amount {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #0c4a6e;
+  background: linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bonus-description {
+  margin-top: 10px;
+}
+
+.bonus-description p {
+  color: #0369a1;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.bonus-description ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.bonus-description li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 0;
+  color: #0c4a6e;
+  font-size: 0.95rem;
+}
+
+.bonus-description li i {
+  color: #0ea5e9;
+  width: 16px;
+}
+
+/* Total Compensation */
+.total-compensation {
+  background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+  border: 2px solid #d1d5db;
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.total-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.total-label {
+  font-size: 1.1rem;
+  color: #374151;
+  font-weight: 600;
+}
+
+.total-amount {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.annual-note {
+  color: #6b7280;
+  font-style: italic;
+  margin-top: 8px;
 }
 
 .salary-acceptance h4 {
@@ -3840,6 +3957,30 @@ a {
   
   .salary-amount {
     font-size: 1.5rem;
+  }
+
+  .bonus-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .bonus-amount {
+    font-size: 1.1rem;
+  }
+
+  .total-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .total-amount {
+    font-size: 1.3rem;
+  }
+
+  .bonus-description li {
+    font-size: 0.9rem;
   }
 }
 
