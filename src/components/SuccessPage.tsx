@@ -98,9 +98,10 @@ Thank you for your patience during the review process.
           <h3>What happens next?</h3>
           <ul>
             <li><strong>Initial Review:</strong> Our team will review your application and documents within 24-48 hours</li>
+            <li><strong>Team Contact:</strong> We will reach out to you within 3-5 business days with updates on your application status</li>
+            <li><strong>Team Meeting:</strong> You will join us for a meeting where we will go into details about this position and introduce you to the rest of the team</li>
             <li><strong>Background Verification:</strong> Background check processing will commence within 5 business days</li>
             <li><strong>Document Verification:</strong> All submitted documents will be verified for authenticity and completeness</li>
-            <li><strong>Team Contact:</strong> We will reach out to you within 3-5 business days with updates on your application status</li>
             <li><strong>Final Approval:</strong> Upon successful verification, you will receive your contract and start date confirmation</li>
           </ul>
           
