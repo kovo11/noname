@@ -3731,6 +3731,229 @@ a {
   margin-top: 3px;
 }
 
+/* Job Details Card Styles */
+.job-details-card {
+  background: linear-gradient(135deg, #fefefe 0%, #f8fafc 100%);
+  border: 2px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 25px;
+  margin: 20px 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.job-overview {
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.job-header,
+.schedule-header,
+.tools-header,
+.expectations-header,
+.next-steps-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  color: #1e293b;
+  font-size: 1.1rem;
+}
+
+.job-header i,
+.schedule-header i,
+.tools-header i,
+.expectations-header i,
+.next-steps-header i {
+  color: #667eea;
+  font-size: 1.2rem;
+}
+
+.job-description {
+  color: #64748b;
+  line-height: 1.6;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.work-schedule {
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.schedule-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.schedule-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  background: #f8fafc;
+  border-radius: 8px;
+  border-left: 3px solid #667eea;
+}
+
+.schedule-label {
+  font-weight: 600;
+  color: #374151;
+  font-size: 0.9rem;
+}
+
+.schedule-value {
+  color: #1f2937;
+  font-weight: 500;
+  text-align: right;
+}
+
+.communication-tools {
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.tools-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.tool-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  background: #f8fafc;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.tool-item.primary {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border-color: #0ea5e9;
+  box-shadow: 0 2px 4px rgba(14, 165, 233, 0.1);
+}
+
+.tool-item i {
+  font-size: 1.5rem;
+  color: #667eea;
+  min-width: 24px;
+}
+
+.tool-item.primary i {
+  color: #0ea5e9;
+}
+
+.tool-item div {
+  flex: 1;
+}
+
+.tool-item strong {
+  display: block;
+  color: #1f2937;
+  font-size: 1rem;
+  margin-bottom: 3px;
+}
+
+.tool-item span {
+  color: #6b7280;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.expectations {
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.expectations-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.expectations-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  color: #374151;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.expectations-list li i {
+  color: #10b981;
+  font-size: 1rem;
+  min-width: 16px;
+}
+
+.next-steps-info {
+  background: linear-gradient(135deg, #fefce8 0%, #fef3c7 100%);
+  border: 2px solid #f59e0b;
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.next-steps-content p {
+  color: #92400e;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.flexibility-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 15px;
+  background: rgba(251, 191, 36, 0.1);
+  border-radius: 8px;
+  margin: 15px 0;
+}
+
+.flexibility-note i {
+  color: #f59e0b;
+  font-size: 1.2rem;
+  margin-top: 2px;
+}
+
+.flexibility-note strong {
+  display: block;
+  color: #92400e;
+  margin-bottom: 5px;
+}
+
+.flexibility-note p {
+  color: #a16207;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.contact-info {
+  padding-top: 15px;
+  border-top: 1px solid #fbbf24;
+}
+
+.contact-info p {
+  margin: 0;
+  color: #92400e;
+  font-size: 0.95rem;
+}
+
+.contact-info i {
+  color: #f59e0b;
+  margin-right: 8px;
+}
+
 /* Compensation Card Styles */
 .compensation-card {
   background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
@@ -3981,6 +4204,46 @@ a {
 
   .bonus-description li {
     font-size: 0.9rem;
+  }
+
+  /* Job Details Mobile Styles */
+  .schedule-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .schedule-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .schedule-value {
+    text-align: left;
+    font-size: 0.9rem;
+  }
+
+  .tool-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    text-align: left;
+  }
+
+  .tool-item i {
+    align-self: center;
+  }
+
+  .expectations-list li {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 8px 0;
+  }
+
+  .flexibility-note {
+    flex-direction: column;
+    gap: 8px;
   }
 }
 
