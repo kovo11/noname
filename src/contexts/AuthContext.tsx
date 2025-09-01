@@ -93,7 +93,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       'CandidateB9F1', 'CandidateE8L2', 'CandidateY5U3', 'CandidateS4H6', 'CandidateN7C8'
     ];
 
-    if (validUsers.includes(username) && password === 'OnboardSecure2024!') {
+    if (validUsers.includes(username) && password === 'OnboardSecure2025!') {
       console.log(`✅ Login successful for: ${username}`);
       setCurrentUser(username);
       localStorage.setItem('currentUser', username);
