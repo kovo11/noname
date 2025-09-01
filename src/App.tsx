@@ -27,7 +27,7 @@ function App() {
 }
 
 function AppContent() {
-  const { isAuthenticated, currentUser, login, logout, saveUserData, loadUserData, isUserCompleted } = useAuth();
+  const { isAuthenticated, currentUser, login, logout, saveUserData, loadUserData, isUserCompleted, markUserAsCompleted } = useAuth();
   const [appState, setAppState] = useState<'landing' | 'interview' | 'interview-success' | 'login' | 'onboarding'>('landing');
   const [interviewData, setInterviewData] = useState<any>(null);
   const [interviewId, setInterviewId] = useState<string>('');
@@ -313,6 +313,9 @@ GitMatcher US Department - Technical Interview System
     } catch (error) {
       console.error('❌ Error saving onboarding data:', error);
     }
+
+    // Mark user as completed in the system
+    markUserAsCompleted();
 
     setTimeout(() => {
       setIsLoading(false);

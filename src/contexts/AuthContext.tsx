@@ -7,6 +7,7 @@ interface UserData {
   password: string;
   status: string;
   assignedDate: string;
+  completed: boolean;
   personalInfo: {
     firstName: string;
     lastName: string;
@@ -28,6 +29,7 @@ interface AuthContextType {
   loadUserData: () => CandidateData | null;
   getUserPersonalInfo: () => any;
   isUserCompleted: () => boolean;
+  markUserAsCompleted: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -344,6 +346,13 @@ GitMatcher Onboarding System
   const isUserCompleted = (): boolean => {
     if (!currentUser) return false;
     
+    // First check the JSON data for completion status
+    const typedUsersData = usersData as UsersJson;
+    const user = typedUsersData.users.find((u: UserData) => u.username === currentUser);
+    if (user?.completed === true) {
+      return true;
+    }
+    
     // Check completion flag in localStorage
     const completionFlag = localStorage.getItem(`completed_${currentUser}`);
     if (completionFlag === 'true') {
@@ -361,6 +370,26 @@ GitMatcher Onboarding System
     return false;
   };
 
+  const markUserAsCompleted = (): void => {
+    if (!currentUser) return;
+    
+    try {
+      // Mark as completed in localStorage for immediate effect
+      localStorage.setItem(`completed_${currentUser}`, 'true');
+      
+      // In a real application, you would update the JSON file on the server
+      // For now, we'll just log this action
+      console.log(`✅ User ${currentUser} marked as completed in system`);
+      
+      // Note: In production, this would involve an API call to update the users.json
+      // file on the server to set completed: true for this user
+      console.log(`📝 Backend update needed: Set completed=true for user ${currentUser}`);
+      
+    } catch (error) {
+      console.error('❌ Error marking user as completed:', error);
+    }
+  };
+
   const value = {
     currentUser,
     login,
@@ -369,7 +398,8 @@ GitMatcher Onboarding System
     saveUserData,
     loadUserData,
     getUserPersonalInfo,
-    isUserCompleted
+    isUserCompleted,
+    markUserAsCompleted
   };
 
   return (
