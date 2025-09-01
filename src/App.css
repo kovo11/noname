@@ -2284,6 +2284,77 @@ body {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Validation Styles for Virtual Interview */
+.input-with-validation {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-with-validation input {
+  width: 100%;
+  padding: 12px 40px 12px 12px;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.input-with-validation input.valid {
+  border-color: #28a745;
+  background-color: #f8fff9;
+}
+
+.input-with-validation input.error {
+  border-color: #dc3545;
+  background-color: #fff5f5;
+}
+
+.validation-icon {
+  position: absolute;
+  right: 12px;
+  font-size: 1.2rem;
+  pointer-events: none;
+}
+
+.validation-icon.valid {
+  color: #28a745;
+}
+
+.validation-icon.invalid {
+  color: #dc3545;
+}
+
+.example-link {
+  margin-top: 10px;
+  padding: 10px;
+  background: #f0f8ff;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: #1976d2;
+  border-left: 3px solid #2196f3;
+}
+
+.example-link strong {
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* Enhanced error messages */
+.error-message {
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.error-message::before {
+  content: "⚠";
+  font-weight: bold;
+}
+
 /* Interview Success Styles */
 .interview-success {
   min-height: 100vh;
