@@ -428,7 +428,7 @@ GitMatcher US Department - Technical Interview System
             <h2><i className="fas fa-user-check"></i> Employee Onboarding Portal</h2>
             <p>
               Congratulations! You have successfully completed the technical interview phase. 
-              Please log in with the credentials provided by our US team to continue with employee onboarding.
+              Please log in with the credentials provided by our team to continue with employee onboarding.
             </p>
           </div>
         </div>
