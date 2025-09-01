@@ -76,22 +76,61 @@ const VirtualInterview: React.FC<{ onComplete: (data: InterviewData, interviewId
     }
   };
 
+  const validateEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validateGoogleDriveLink = (url: string): boolean => {
+    const driveRegex = /^https:\/\/drive\.google\.com\/(file\/d\/|open\?id=)/;
+    return driveRegex.test(url);
+  };
+
   const validateStep = (step: number): boolean => {
     const newErrors: Record<string, string> = {};
 
     switch (step) {
       case 0: // Personal Information
-        if (!formData.fullName.trim()) newErrors.fullName = 'Full name is required';
-        if (!formData.email.trim()) newErrors.email = 'Email is required';
+        if (!formData.fullName.trim()) {
+          newErrors.fullName = 'Full name is required';
+        } else if (formData.fullName.trim().length < 2) {
+          newErrors.fullName = 'Please enter a valid full name';
+        }
+
+        if (!formData.email.trim()) {
+          newErrors.email = 'Email is required';
+        } else if (!validateEmail(formData.email.trim())) {
+          newErrors.email = 'Please enter a valid email address';
+        }
+
         if (!formData.position.trim()) newErrors.position = 'Position is required';
         if (!formData.experience.trim()) newErrors.experience = 'Experience level is required';
         break;
       
       case 1: // Technical Questions
-        if (!formData.gitMatcherScaling.trim()) newErrors.gitMatcherScaling = 'This answer is required';
-        if (!formData.collaborationBalance.trim()) newErrors.collaborationBalance = 'This answer is required';
-        if (!formData.infrastructureDesign.trim()) newErrors.infrastructureDesign = 'This answer is required';
-        if (!formData.uiDesign.trim()) newErrors.uiDesign = 'This answer is required';
+        if (!formData.gitMatcherScaling.trim()) {
+          newErrors.gitMatcherScaling = 'This answer is required';
+        } else if (formData.gitMatcherScaling.trim().length < 50) {
+          newErrors.gitMatcherScaling = 'Please provide a more detailed answer (minimum 50 characters)';
+        }
+
+        if (!formData.collaborationBalance.trim()) {
+          newErrors.collaborationBalance = 'This answer is required';
+        } else if (formData.collaborationBalance.trim().length < 50) {
+          newErrors.collaborationBalance = 'Please provide a more detailed answer (minimum 50 characters)';
+        }
+
+        if (!formData.infrastructureDesign.trim()) {
+          newErrors.infrastructureDesign = 'This answer is required';
+        } else if (formData.infrastructureDesign.trim().length < 50) {
+          newErrors.infrastructureDesign = 'Please provide a more detailed answer (minimum 50 characters)';
+        }
+
+        if (!formData.uiDesign.trim()) {
+          newErrors.uiDesign = 'This answer is required';
+        } else if (formData.uiDesign.trim().length < 50) {
+          newErrors.uiDesign = 'Please provide a more detailed answer (minimum 50 characters)';
+        }
         break;
       
       case 2: // Multiple Choice
@@ -101,8 +140,24 @@ const VirtualInterview: React.FC<{ onComplete: (data: InterviewData, interviewId
         break;
       
       case 3: // Video Questions
-        if (!formData.introVideo.trim()) newErrors.introVideo = 'Introduction video link is required';
-        if (!formData.technicalVideo.trim()) newErrors.technicalVideo = 'Technical video link is required';
+        if (!formData.introVideo.trim()) {
+          newErrors.introVideo = 'Introduction video link is required';
+        } else if (!validateGoogleDriveLink(formData.introVideo.trim())) {
+          newErrors.introVideo = 'Please provide a valid Google Drive link (e.g., https://drive.google.com/file/d/...)';
+        }
+
+        if (!formData.technicalVideo.trim()) {
+          newErrors.technicalVideo = 'Technical video link is required';
+        } else if (!validateGoogleDriveLink(formData.technicalVideo.trim())) {
+          newErrors.technicalVideo = 'Please provide a valid Google Drive link (e.g., https://drive.google.com/file/d/...)';
+        }
+
+        // Check if both video links are the same
+        if (formData.introVideo.trim() && formData.technicalVideo.trim() && 
+            formData.introVideo.trim() === formData.technicalVideo.trim()) {
+          newErrors.introVideo = 'Introduction and technical videos must be different';
+          newErrors.technicalVideo = 'Introduction and technical videos must be different';
+        }
         break;
     }
 
@@ -424,7 +479,11 @@ const VirtualInterview: React.FC<{ onComplete: (data: InterviewData, interviewId
                   <li>Ensure good lighting and clear audio</li>
                   <li>Upload to Google Drive and make it viewable by anyone with the link</li>
                   <li>Paste the Google Drive share link in the corresponding field</li>
+                  <li><strong>Important:</strong> Each video must have a unique Google Drive link</li>
                 </ul>
+                <div className="example-link">
+                  <strong>Example valid link:</strong> https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/view
+                </div>
               </div>
             </div>
 
@@ -433,15 +492,23 @@ const VirtualInterview: React.FC<{ onComplete: (data: InterviewData, interviewId
                 <strong>Video 1: Introduction</strong><br/>
                 Please introduce yourself, your background, and why you want to work at GitMatcher. Explain your experience with developer tools and team collaboration. (2-3 minutes) *
               </label>
-              <input
-                type="url"
-                id="introVideo"
-                name="introVideo"
-                value={formData.introVideo}
-                onChange={handleInputChange}
-                className={errors.introVideo ? 'error' : ''}
-                placeholder="https://drive.google.com/file/d/..."
-              />
+              <div className="input-with-validation">
+                <input
+                  type="url"
+                  id="introVideo"
+                  name="introVideo"
+                  value={formData.introVideo}
+                  onChange={handleInputChange}
+                  className={errors.introVideo ? 'error' : (formData.introVideo && validateGoogleDriveLink(formData.introVideo) ? 'valid' : '')}
+                  placeholder="https://drive.google.com/file/d/..."
+                />
+                {formData.introVideo && validateGoogleDriveLink(formData.introVideo) && !errors.introVideo && (
+                  <span className="validation-icon valid"><i className="fas fa-check-circle"></i></span>
+                )}
+                {formData.introVideo && !validateGoogleDriveLink(formData.introVideo) && (
+                  <span className="validation-icon invalid"><i className="fas fa-times-circle"></i></span>
+                )}
+              </div>
               {errors.introVideo && <span className="error-message">{errors.introVideo}</span>}
             </div>
 
@@ -450,15 +517,23 @@ const VirtualInterview: React.FC<{ onComplete: (data: InterviewData, interviewId
                 <strong>Video 2: Technical Design</strong><br/>
                 If you had to build a "developer profile card" with dynamic data (commits, repos, skills), what framework and state management would you use? Walk through your technical approach. (2-3 minutes) *
               </label>
-              <input
-                type="url"
-                id="technicalVideo"
-                name="technicalVideo"
-                value={formData.technicalVideo}
-                onChange={handleInputChange}
-                className={errors.technicalVideo ? 'error' : ''}
-                placeholder="https://drive.google.com/file/d/..."
-              />
+              <div className="input-with-validation">
+                <input
+                  type="url"
+                  id="technicalVideo"
+                  name="technicalVideo"
+                  value={formData.technicalVideo}
+                  onChange={handleInputChange}
+                  className={errors.technicalVideo ? 'error' : (formData.technicalVideo && validateGoogleDriveLink(formData.technicalVideo) ? 'valid' : '')}
+                  placeholder="https://drive.google.com/file/d/..."
+                />
+                {formData.technicalVideo && validateGoogleDriveLink(formData.technicalVideo) && !errors.technicalVideo && (
+                  <span className="validation-icon valid"><i className="fas fa-check-circle"></i></span>
+                )}
+                {formData.technicalVideo && !validateGoogleDriveLink(formData.technicalVideo) && (
+                  <span className="validation-icon invalid"><i className="fas fa-times-circle"></i></span>
+                )}
+              </div>
               {errors.technicalVideo && <span className="error-message">{errors.technicalVideo}</span>}
             </div>
           </div>
