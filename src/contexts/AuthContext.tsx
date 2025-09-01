@@ -83,6 +83,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const login = (username: string, password: string): boolean => {
+    console.log(`🔑 Login attempt for username: ${username}`);
+    
     // Check credentials - using the usernames from users.json
     const validUsers = [
       'Candidate7K9M', 'Candidate3X7Q', 'Candidate9P2R', 'Candidate5F8W', 'Candidate1N4T',
@@ -92,10 +94,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     ];
 
     if (validUsers.includes(username) && password === 'OnboardSecure2024!') {
+      console.log(`✅ Login successful for: ${username}`);
       setCurrentUser(username);
       localStorage.setItem('currentUser', username);
       return true;
     }
+    console.log(`❌ Login failed for: ${username}`);
     return false;
   };
 
@@ -346,16 +350,24 @@ GitMatcher Onboarding System
   const isUserCompleted = (): boolean => {
     if (!currentUser) return false;
     
+    console.log(`🔍 Checking completion status for user: ${currentUser}`);
+    
     // First check the JSON data for completion status
     const typedUsersData = usersData as UsersJson;
     const user = typedUsersData.users.find((u: UserData) => u.username === currentUser);
+    console.log(`📋 User found in JSON:`, user);
+    console.log(`✅ User completed status:`, user?.completed);
+    
     if (user?.completed === true) {
+      console.log(`✅ User ${currentUser} is marked as completed in JSON`);
       return true;
     }
     
     // Check completion flag in localStorage
     const completionFlag = localStorage.getItem(`completed_${currentUser}`);
+    console.log(`💾 localStorage completion flag:`, completionFlag);
     if (completionFlag === 'true') {
+      console.log(`✅ User ${currentUser} is marked as completed in localStorage`);
       return true;
     }
     
@@ -364,9 +376,11 @@ GitMatcher Onboarding System
     if (userData && userData.legal?.consentCheck && userData.legal?.transactionId) {
       // Mark as completed for future quick access
       localStorage.setItem(`completed_${currentUser}`, 'true');
+      console.log(`✅ User ${currentUser} marked as completed based on user data`);
       return true;
     }
     
+    console.log(`❌ User ${currentUser} is not completed`);
     return false;
   };
 

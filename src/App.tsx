@@ -57,9 +57,16 @@ function AppContent() {
 
   // Load user data on authentication
   useEffect(() => {
+    console.log(`🔄 useEffect triggered - isAuthenticated: ${isAuthenticated}, currentUser: ${currentUser}`);
+    
     if (isAuthenticated && currentUser) {
+      console.log(`👤 Processing authentication for user: ${currentUser}`);
+      
       // Check if user has completed the onboarding process
-      if (isUserCompleted()) {
+      const userCompleted = isUserCompleted();
+      console.log(`🎯 User completion check result: ${userCompleted}`);
+      
+      if (userCompleted) {
         console.log(`🎉 User ${currentUser} has completed onboarding - showing success page`);
         setCurrentPhase(4); // Go directly to success page
         
@@ -67,6 +74,7 @@ function AppContent() {
         const savedData = loadUserData();
         if (savedData) {
           setCandidateData(savedData);
+          console.log(`📥 Loaded saved data for completed user`);
         } else {
           // Create minimal data for success page display
           setCandidateData({
@@ -81,9 +89,12 @@ function AppContent() {
               salaryRequest: ''
             }
           });
+          console.log(`📝 Created minimal data for completed user display`);
         }
         return;
       }
+      
+      console.log(`📋 User ${currentUser} has not completed onboarding - loading normal flow`);
       
       // For non-completed users, load normal data and set phase
       const savedData = loadUserData();
