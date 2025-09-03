@@ -196,7 +196,8 @@ body {
 
 .phase-header p {
   font-size: 1.1rem;
-  color: #6b7280;
+  color: #4b5563;
+  font-weight: 500;
 }
 
 /* Form Styles */

@@ -96,10 +96,8 @@ const IdentityForm: React.FC<IdentityFormProps> = ({
   const handlePrivacyAccept = () => {
     setPrivacyAccepted(true);
     setShowPrivacyPolicy(false);
-    // Trigger form submission after privacy policy acceptance
-    setTimeout(() => {
-      onSubmit(formData);
-    }, 100);
+    // Don't auto-submit - let user complete and submit the form manually
+    console.log('✅ Privacy policy accepted - user can now submit the form');
   };
 
   const handlePrivacyDecline = () => {
@@ -111,7 +109,9 @@ const IdentityForm: React.FC<IdentityFormProps> = ({
       <div className="form-container">
         <div className="phase-header">
           <h2>Identity Verification</h2>
-          <p>Please provide your identity documents and emergency contact information for verification purposes.</p>
+          <p style={{ color: '#374151', fontWeight: '500' }}>
+            Please provide your identity documents and emergency contact information for verification purposes.
+          </p>
         </div>
 
         <div className="privacy-notice">

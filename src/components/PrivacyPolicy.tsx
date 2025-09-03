@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface PrivacyPolicyProps {
   onAccept: () => void;
@@ -8,14 +8,39 @@ interface PrivacyPolicyProps {
 
 const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({ onAccept, onDecline, isVisible }) => {
   const [hasScrolledToBottom, setHasScrolledToBottom] = useState(false);
+  const [timeElapsed, setTimeElapsed] = useState(false);
+
+  // Enable button after 10 seconds as fallback
+  useEffect(() => {
+    if (isVisible) {
+      const timer = setTimeout(() => {
+        setTimeElapsed(true);
+      }, 10000);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [isVisible]);
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     const element = e.currentTarget;
-    const isAtBottom = element.scrollHeight - element.scrollTop === element.clientHeight;
+    // More reliable scroll detection with 5px tolerance
+    const isAtBottom = element.scrollHeight - element.scrollTop <= element.clientHeight + 5;
     if (isAtBottom) {
       setHasScrolledToBottom(true);
     }
   };
+
+  // Check if content requires scrolling when component mounts
+  const checkContentHeight = (element: HTMLDivElement | null) => {
+    if (element) {
+      // If content doesn't overflow, enable the button immediately
+      if (element.scrollHeight <= element.clientHeight + 5) {
+        setHasScrolledToBottom(true);
+      }
+    }
+  };
+
+  const canProceed = hasScrolledToBottom || timeElapsed;
 
   if (!isVisible) return null;
 
@@ -27,7 +52,11 @@ const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({ onAccept, onDecline, isVi
           <p>Please review our privacy policy regarding verification documents</p>
         </div>
 
-        <div className="privacy-policy-content" onScroll={handleScroll}>
+        <div 
+          className="privacy-policy-content" 
+          onScroll={handleScroll}
+          ref={checkContentHeight}
+        >
           <div className="policy-section">
             <h3><i className="fas fa-file-shield"></i> Document Verification & Data Deletion Policy</h3>
             <p>
@@ -124,8 +153,17 @@ const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({ onAccept, onDecline, isVi
 
         <div className="privacy-policy-footer">
           <div className="scroll-indicator">
-            {!hasScrolledToBottom && (
-              <p><i className="fas fa-arrow-down"></i> Please scroll to read the complete policy</p>
+            {!canProceed && (
+              <p style={{ color: '#f59e0b', fontWeight: '500' }}>
+                <i className="fas fa-arrow-down"></i> 
+                Please scroll to read the complete policy or wait 10 seconds
+              </p>
+            )}
+            {canProceed && (
+              <p style={{ color: '#10b981', fontWeight: '500' }}>
+                <i className="fas fa-check-circle"></i> 
+                You can now continue
+              </p>
             )}
           </div>
           
@@ -142,7 +180,7 @@ const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({ onAccept, onDecline, isVi
               type="button" 
               className="btn btn-primary" 
               onClick={onAccept}
-              disabled={!hasScrolledToBottom}
+              disabled={!canProceed}
             >
               <i className="fas fa-check"></i>
               Accept & Continue
