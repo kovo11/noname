@@ -57,67 +57,71 @@ function AppContent() {
 
   // Load user data on authentication
   useEffect(() => {
-    console.log(`🔄 useEffect triggered - isAuthenticated: ${isAuthenticated}, currentUser: ${currentUser}`);
-    
-    if (isAuthenticated && currentUser) {
-      console.log(`👤 Processing authentication for user: ${currentUser}`);
+    const loadUserDataAsync = async () => {
+      console.log(`🔄 useEffect triggered - isAuthenticated: ${isAuthenticated}, currentUser: ${currentUser}`);
       
-      // Check if user has completed the onboarding process
-      const userCompleted = isUserCompleted();
-      console.log(`🎯 User completion check result: ${userCompleted}`);
-      
-      if (userCompleted) {
-        console.log(`🎉 User ${currentUser} has completed onboarding - showing success page`);
-        setCurrentPhase(4); // Go directly to success page
+      if (isAuthenticated && currentUser) {
+        console.log(`👤 Processing authentication for user: ${currentUser}`);
         
-        // Load any available data for the success page
+        // Check if user has completed the onboarding process
+        const userCompleted = await isUserCompleted();
+        console.log(`🎯 User completion check result: ${userCompleted}`);
+        
+        if (userCompleted) {
+          console.log(`🎉 User ${currentUser} has completed onboarding - showing success page`);
+          setCurrentPhase(4); // Go directly to success page
+          
+          // Load any available data for the success page
+          const savedData = loadUserData();
+          if (savedData) {
+            setCandidateData(savedData);
+            console.log(`📥 Loaded saved data for completed user`);
+          } else {
+            // Create minimal data for success page display
+            setCandidateData({
+              candidateId: `ONBD-${currentUser}`,
+              completionDate: new Date().toISOString(),
+              application: {
+                firstName: 'User',
+                lastName: 'Completed',
+                email: 'completed@onboarding.com',
+                address: 'Onboarding Complete',
+                salaryAcceptable: true,
+                salaryRequest: ''
+              }
+            });
+            console.log(`📝 Created minimal data for completed user display`);
+          }
+          return;
+        }
+        
+        console.log(`📋 User ${currentUser} has not completed onboarding - loading normal flow`);
+        
+        // For non-completed users, load normal data and set phase
         const savedData = loadUserData();
         if (savedData) {
           setCandidateData(savedData);
-          console.log(`📥 Loaded saved data for completed user`);
-        } else {
-          // Create minimal data for success page display
-          setCandidateData({
-            candidateId: `ONBD-${currentUser}`,
-            completionDate: new Date().toISOString(),
-            application: {
-              firstName: 'User',
-              lastName: 'Completed',
-              email: 'completed@onboarding.com',
-              address: 'Onboarding Complete',
-              salaryAcceptable: true,
-              salaryRequest: ''
-            }
-          });
-          console.log(`📝 Created minimal data for completed user display`);
-        }
-        return;
-      }
-      
-      console.log(`📋 User ${currentUser} has not completed onboarding - loading normal flow`);
-      
-      // For non-completed users, load normal data and set phase
-      const savedData = loadUserData();
-      if (savedData) {
-        setCandidateData(savedData);
-        // Restore the phase based on saved data
-        if (savedData.legal && savedData.legal.transactionId) {
-          setCurrentPhase(4); // Success - legal completed
-        } else if (savedData.identity) {
-          setCurrentPhase(3); // Go to legal phase
-        } else if (savedData.application) {
-          setCurrentPhase(2); // Go to identity phase
-        }
-        
-        // Restore uploaded files
-        if (savedData.identity?.documents) {
-          setUploadedFiles(prev => ({ ...prev, ...savedData.identity!.documents }));
-        }
-        if (savedData.legal?.documents) {
-          setUploadedFiles(prev => ({ ...prev, ...savedData.legal!.documents }));
+          // Restore the phase based on saved data
+          if (savedData.legal && savedData.legal.transactionId) {
+            setCurrentPhase(4); // Success - legal completed
+          } else if (savedData.identity) {
+            setCurrentPhase(3); // Go to legal phase
+          } else if (savedData.application) {
+            setCurrentPhase(2); // Go to identity phase
+          }
+          
+          // Restore uploaded files
+          if (savedData.identity?.documents) {
+            setUploadedFiles(prev => ({ ...prev, ...savedData.identity!.documents }));
+          }
+          if (savedData.legal?.documents) {
+            setUploadedFiles(prev => ({ ...prev, ...savedData.legal!.documents }));
+          }
         }
       }
-    }
+    };
+
+    loadUserDataAsync();
   }, [isAuthenticated, currentUser, isUserCompleted, loadUserData]);
 
   // Save data whenever candidateData changes
@@ -428,14 +432,19 @@ GitMatcher US Department - Technical Interview System
 
   // Show login page for onboarding
   if (appState === 'login' && !isAuthenticated) {
-    const handleLogin = (username: string, password: string) => {
-      const success = login(username, password);
-      if (success) {
-        setAppState('onboarding');
-        return { success: true };
-      } else {
-        const error = getLastLoginError() || 'Login failed. Please try again.';
-        return { success: false, error };
+    const handleLogin = async (username: string, password: string) => {
+      try {
+        const success = await login(username, password);
+        if (success) {
+          setAppState('onboarding');
+          return { success: true };
+        } else {
+          const error = getLastLoginError() || 'Login failed. Please try again.';
+          return { success: false, error };
+        }
+      } catch (error) {
+        console.error('Login error:', error);
+        return { success: false, error: 'Authentication error. Please try again.' };
       }
     };
     

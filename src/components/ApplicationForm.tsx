@@ -4,12 +4,12 @@ import { useAuth } from '../contexts/AuthContext';
 
 const ApplicationForm: React.FC<FormProps> = ({ onSubmit, initialData }) => {
   const { getUserPersonalInfo } = useAuth();
-  const personalInfo = getUserPersonalInfo();
+  const [personalInfo, setPersonalInfo] = useState<any>(null);
   
   const [formData, setFormData] = useState<ApplicationData>({
-    firstName: personalInfo?.firstName || '',
-    lastName: personalInfo?.lastName || '',
-    email: personalInfo?.email || '',
+    firstName: '',
+    lastName: '',
+    email: '',
     address: '',
     salaryAcceptable: true,
     salaryRequest: ''
@@ -18,21 +18,31 @@ const ApplicationForm: React.FC<FormProps> = ({ onSubmit, initialData }) => {
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   useEffect(() => {
-    if (initialData) {
-      setFormData({ ...formData, ...initialData });
-    }
-  }, [initialData]);
+    const loadPersonalInfo = async () => {
+      try {
+        const info = await getUserPersonalInfo();
+        if (info) {
+          setPersonalInfo(info);
+          setFormData(prev => ({
+            ...prev,
+            firstName: info.firstName || '',
+            lastName: info.lastName || '',
+            email: info.email || ''
+          }));
+        }
+      } catch (error) {
+        console.error('Error loading personal info:', error);
+      }
+    };
+    
+    loadPersonalInfo();
+  }, [getUserPersonalInfo]);
 
   useEffect(() => {
-    if (personalInfo) {
-      setFormData(prev => ({
-        ...prev,
-        firstName: personalInfo.firstName,
-        lastName: personalInfo.lastName,
-        email: personalInfo.email
-      }));
+    if (initialData) {
+      setFormData(prev => ({ ...prev, ...initialData }));
     }
-  }, [personalInfo]);
+  }, [initialData]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;

@@ -5187,3 +5187,32 @@ a {
   color: #f44336;
   font-weight: 500;
 }
+
+/* Demo credentials styling for development */
+.demo-credentials {
+  background: linear-gradient(135deg, #e8f5e8 0%, #f0f9ff 100%);
+  border: 2px solid #10b981;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.demo-credentials p {
+  margin: 0 0 5px 0;
+  color: #059669;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.demo-credentials small {
+  color: #047857;
+  font-family: 'Courier New', monospace;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid #a7f3d0;
+}

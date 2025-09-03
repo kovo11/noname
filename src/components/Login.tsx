@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import AuthService from '../services/AuthService';
 
 interface LoginProps {
-  onLogin: (username: string, password: string) => { success: boolean; error?: string };
+  onLogin: (username: string, password: string) => Promise<{ success: boolean; error?: string }>;
 }
 
 const Login: React.FC<LoginProps> = ({ onLogin }) => {
@@ -11,6 +12,19 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
   });
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [showDemoCredentials, setShowDemoCredentials] = useState(false);
+
+  // Get demo credentials for development
+  useEffect(() => {
+    const authService = AuthService.getInstance();
+    const demoCredentials = authService.getDemoCredentials();
+    
+    // Auto-fill demo credentials in development
+    if (process.env.NODE_ENV === 'development') {
+      setFormData(demoCredentials);
+      setShowDemoCredentials(true);
+    }
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -23,17 +37,19 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
     setIsLoading(true);
     setError('');
 
-    // Simulate authentication delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
-    // Call the parent's login handler
-    const result = onLogin(formData.username, formData.password);
-    
-    if (!result.success) {
-      setError(result.error || 'Login failed. Please try again.');
+    try {
+      // Call the parent's login handler and await the result
+      const result = await onLogin(formData.username, formData.password);
+      
+      if (!result.success) {
+        setError(result.error || 'Login failed. Please try again.');
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      setError('Authentication error. Please try again.');
+    } finally {
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
 
   return (
@@ -105,6 +121,15 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
         </form>
 
         <div className="login-footer">
+          {showDemoCredentials && (
+            <div className="demo-credentials">
+              <p>
+                <i className="fas fa-flask"></i>
+                <strong>Development Mode:</strong> Demo credentials pre-filled
+              </p>
+              <small>Username: {formData.username} | Password: {formData.password}</small>
+            </div>
+          )}
           <p>
             <i className="fas fa-info-circle"></i>
             Don't have credentials? Contact us for your assigned username and password.
