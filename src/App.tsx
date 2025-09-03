@@ -6,10 +6,10 @@ import {
   LegalForm, 
   SuccessPage, 
   LoadingOverlay,
-  Login,
   type CandidateData,
   type DocumentInfo
 } from './components';
+import Login from './components/Login';
 import VirtualInterview from './components/VirtualInterview';
 import InterviewSuccess from './components/InterviewSuccess';
 import LandingPage from './components/LandingPage';
@@ -27,7 +27,7 @@ function App() {
 }
 
 function AppContent() {
-  const { isAuthenticated, currentUser, login, logout, saveUserData, loadUserData, isUserCompleted, markUserAsCompleted } = useAuth();
+  const { isAuthenticated, currentUser, login, logout, saveUserData, loadUserData, isUserCompleted, markUserAsCompleted, getLastLoginError } = useAuth();
   const [appState, setAppState] = useState<'landing' | 'interview' | 'interview-success' | 'login' | 'onboarding'>('landing');
   const [interviewData, setInterviewData] = useState<any>(null);
   const [interviewId, setInterviewId] = useState<string>('');
@@ -428,10 +428,14 @@ GitMatcher US Department - Technical Interview System
 
   // Show login page for onboarding
   if (appState === 'login' && !isAuthenticated) {
-    const handleLogin = (username: string) => {
-      const success = login(username, 'OnboardSecure2024!');
+    const handleLogin = (username: string, password: string) => {
+      const success = login(username, password);
       if (success) {
         setAppState('onboarding');
+        return { success: true };
+      } else {
+        const error = getLastLoginError() || 'Login failed. Please try again.';
+        return { success: false, error };
       }
     };
     

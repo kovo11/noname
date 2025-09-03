@@ -30,6 +30,7 @@ interface AuthContextType {
   getUserPersonalInfo: () => any;
   isUserCompleted: () => boolean;
   markUserAsCompleted: () => void;
+  getLastLoginError: () => string | null;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -44,6 +45,7 @@ export const useAuth = () => {
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<string | null>(null);
+  const [lastLoginError, setLastLoginError] = useState<string | null>(null);
 
   useEffect(() => {
     const savedUser = localStorage.getItem('currentUser');
@@ -84,23 +86,37 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const login = (username: string, password: string): boolean => {
     console.log(`🔑 Login attempt for username: ${username}`);
+    setLastLoginError(null);
     
-    // Check credentials - using the usernames from users.json
-    const validUsers = [
-      'Candidate7K9M', 'Candidate3X7Q', 'Candidate9P2R', 'Candidate5F8W', 'Candidate1N4T',
-      'Candidate6H3Y', 'Candidate2L9V', 'Candidate8D5B', 'Candidate4Z6C', 'Candidate0J1E',
-      'CandidateM8X2', 'CandidateQ3Z7', 'CandidateA9R1', 'CandidateT4P5', 'CandidateK6W7',
-      'CandidateB9F1', 'CandidateE8L2', 'CandidateY5U3', 'CandidateS4H6', 'CandidateN7C8'
-    ];
+    // Find user in users.json to validate credentials and status
+    const typedUsersData = usersData as UsersJson;
+    const user = typedUsersData.users.find(
+      (u: UserData) => u.username === username
+    );
 
-    if (validUsers.includes(username) && password === 'OnboardSecure2025!') {
-      console.log(`✅ Login successful for: ${username}`);
-      setCurrentUser(username);
-      localStorage.setItem('currentUser', username);
-      return true;
+    if (!user) {
+      console.log(`❌ Login failed - user not found: ${username}`);
+      setLastLoginError('Username not found. Please check your credentials.');
+      return false;
     }
-    console.log(`❌ Login failed for: ${username}`);
-    return false;
+
+    if (user.password !== password) {
+      console.log(`❌ Login failed - invalid password for: ${username}`);
+      setLastLoginError('Invalid password. Please check your credentials.');
+      return false;
+    }
+
+    if (user.status !== 'active') {
+      console.log(`❌ Login failed - account not active for: ${username}`);
+      setLastLoginError('This account is not active. Please contact support.');
+      return false;
+    }
+
+    console.log(`✅ Login successful for: ${username}`);
+    setCurrentUser(username);
+    localStorage.setItem('currentUser', username);
+    setLastLoginError(null);
+    return true;
   };
 
   const logout = () => {
@@ -404,6 +420,10 @@ GitMatcher Onboarding System
     }
   };
 
+  const getLastLoginError = (): string | null => {
+    return lastLoginError;
+  };
+
   const value = {
     currentUser,
     login,
@@ -413,7 +433,8 @@ GitMatcher Onboarding System
     loadUserData,
     getUserPersonalInfo,
     isUserCompleted,
-    markUserAsCompleted
+    markUserAsCompleted,
+    getLastLoginError
   };
 
   return (

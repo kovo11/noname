@@ -1,25 +1,7 @@
 import React, { useState } from 'react';
-import usersData from '../data/users.json';
-
-interface UserData {
-  username: string;
-  password: string;
-  status: string;
-  assignedDate: string;
-  personalInfo: {
-    firstName: string;
-    lastName: string;
-    email: string;
-  };
-  data: any;
-}
-
-interface UsersJson {
-  users: UserData[];
-}
 
 interface LoginProps {
-  onLogin: (username: string) => void;
+  onLogin: (username: string, password: string) => { success: boolean; error?: string };
 }
 
 const Login: React.FC<LoginProps> = ({ onLogin }) => {
@@ -44,20 +26,11 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
     // Simulate authentication delay
     await new Promise(resolve => setTimeout(resolve, 1000));
 
-    // Find user in the users data
-    const typedUsersData = usersData as UsersJson;
-    const user = typedUsersData.users.find(
-      (u: UserData) => u.username === formData.username && u.password === formData.password
-    );
-
-    if (user) {
-      if (user.status === 'active') {
-        onLogin(formData.username);
-      } else {
-        setError('This account is not active. Please contact us.');
-      }
-    } else {
-      setError('Invalid credentials. Please check your username and password.');
+    // Call the parent's login handler
+    const result = onLogin(formData.username, formData.password);
+    
+    if (!result.success) {
+      setError(result.error || 'Login failed. Please try again.');
     }
 
     setIsLoading(false);

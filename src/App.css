@@ -4509,3 +4509,681 @@ a {
   margin: 4px 0;
   font-weight: 500;
 }
+
+/* Privacy Policy styles */
+.privacy-policy-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.privacy-policy-modal {
+  background: white;
+  border-radius: 12px;
+  max-width: 800px;
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.privacy-policy-header {
+  padding: 2rem;
+  border-bottom: 1px solid #e9ecef;
+  text-align: center;
+}
+
+.privacy-policy-header h2 {
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.privacy-policy-header h2 i {
+  color: #27ae60;
+  margin-right: 0.5rem;
+}
+
+.privacy-policy-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem 2rem;
+  max-height: 60vh;
+}
+
+.policy-section {
+  margin-bottom: 2rem;
+}
+
+.policy-section h3 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.policy-section h4 {
+  color: #34495e;
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+}
+
+.policy-section h3 i,
+.policy-section h4 i {
+  margin-right: 0.5rem;
+  color: #3498db;
+}
+
+.policy-section ul {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.policy-section li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+.retention-timeline {
+  margin: 1rem 0;
+  position: relative;
+  padding-left: 2rem;
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+}
+
+.timeline-point {
+  position: absolute;
+  left: -2rem;
+  top: 0.25rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #3498db;
+  border: 3px solid white;
+  box-shadow: 0 0 0 2px #3498db;
+}
+
+.timeline-point.success {
+  background: #27ae60;
+  box-shadow: 0 0 0 2px #27ae60;
+}
+
+.timeline-content {
+  padding-left: 1rem;
+}
+
+.policy-section.highlight {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border-left: 4px solid #e74c3c;
+}
+
+.privacy-policy-footer {
+  padding: 1.5rem 2rem;
+  border-top: 1px solid #e9ecef;
+  text-align: center;
+}
+
+.scroll-indicator {
+  margin-bottom: 1rem;
+  color: #7f8c8d;
+  font-style: italic;
+}
+
+.scroll-indicator i {
+  animation: bounce 2s infinite;
+}
+
+.policy-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.policy-actions .btn {
+  padding: 0.75rem 2rem;
+  min-width: 150px;
+}
+
+/* Digital Signing Instructions styles */
+.signing-instructions-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.signing-instructions-modal {
+  background: white;
+  border-radius: 12px;
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.signing-instructions-header {
+  padding: 2rem;
+  border-bottom: 1px solid #e9ecef;
+  text-align: center;
+  position: relative;
+}
+
+.signing-instructions-header h2 {
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.signing-instructions-header h2 i {
+  color: #e74c3c;
+  margin-right: 0.5rem;
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #7f8c8d;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+  background: #f8f9fa;
+  color: #2c3e50;
+}
+
+.signing-methods {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.method-tabs {
+  display: flex;
+  border-bottom: 1px solid #e9ecef;
+  background: #f8f9fa;
+}
+
+.method-tab {
+  flex: 1;
+  padding: 1rem;
+  border: none;
+  background: none;
+  color: #7f8c8d;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.method-tab:hover {
+  background: #e9ecef;
+  color: #2c3e50;
+}
+
+.method-tab.active {
+  background: white;
+  color: #3498db;
+  border-bottom: 3px solid #3498db;
+}
+
+.method-tab i {
+  margin-right: 0.5rem;
+}
+
+.method-content {
+  padding: 2rem;
+}
+
+.signing-method-content h4 {
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+  font-size: 1.2rem;
+}
+
+.signing-method-content h4 i {
+  margin-right: 0.5rem;
+  color: #3498db;
+}
+
+.step-by-step {
+  margin-top: 1.5rem;
+}
+
+.step {
+  display: flex;
+  margin-bottom: 2rem;
+  align-items: flex-start;
+}
+
+.step-number {
+  background: #3498db;
+  color: white;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+.step-content {
+  flex: 1;
+}
+
+.step-content strong {
+  color: #2c3e50;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.step-content ul {
+  margin-top: 0.5rem;
+  padding-left: 1.5rem;
+}
+
+.step-content li {
+  margin-bottom: 0.25rem;
+}
+
+.signature-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.signature-option {
+  padding: 1rem;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.signature-option:hover {
+  border-color: #3498db;
+  background: #f8f9fa;
+}
+
+.signature-option i {
+  display: block;
+  font-size: 1.5rem;
+  color: #3498db;
+  margin-bottom: 0.5rem;
+}
+
+.mobile-apps {
+  margin-bottom: 2rem;
+}
+
+.mobile-apps h5 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.app-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.app-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  background: #f8f9fa;
+}
+
+.app-item i {
+  font-size: 1.5rem;
+  color: #3498db;
+  margin-right: 1rem;
+}
+
+.app-item strong {
+  display: block;
+  color: #2c3e50;
+  margin-bottom: 0.25rem;
+}
+
+.software-options {
+  margin-bottom: 2rem;
+}
+
+.software-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  background: #f8f9fa;
+  margin-bottom: 1rem;
+}
+
+.software-item i {
+  font-size: 1.5rem;
+  color: #e74c3c;
+  margin-right: 1rem;
+}
+
+.software-item strong {
+  display: block;
+  color: #2c3e50;
+  margin-bottom: 0.25rem;
+}
+
+.software-item a {
+  color: #3498db;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.software-item a:hover {
+  text-decoration: underline;
+}
+
+.signing-instructions-footer {
+  padding: 1.5rem 2rem;
+  border-top: 1px solid #e9ecef;
+}
+
+.important-notes {
+  margin-bottom: 1.5rem;
+}
+
+.important-notes h4 {
+  color: #e74c3c;
+  margin-bottom: 1rem;
+}
+
+.important-notes h4 i {
+  margin-right: 0.5rem;
+}
+
+.important-notes ul {
+  padding-left: 1.5rem;
+}
+
+.important-notes li {
+  margin-bottom: 0.5rem;
+}
+
+.support-info {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.support-info i {
+  color: #3498db;
+  margin-right: 0.5rem;
+}
+
+.signing-instructions-footer .btn {
+  display: block;
+  margin: 0 auto;
+  padding: 0.75rem 2rem;
+  min-width: 200px;
+}
+
+/* Animation */
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Mobile responsiveness for modals */
+@media (max-width: 768px) {
+  .privacy-policy-modal,
+  .signing-instructions-modal {
+    margin: 1rem;
+    max-width: calc(100% - 2rem);
+    max-height: calc(100vh - 2rem);
+  }
+  
+  .privacy-policy-header,
+  .signing-instructions-header,
+  .method-content,
+  .privacy-policy-footer,
+  .signing-instructions-footer {
+    padding: 1rem;
+  }
+  
+  .privacy-policy-content {
+    padding: 1rem;
+  }
+  
+  .method-tabs {
+    flex-direction: column;
+  }
+  
+  .method-tab {
+    text-align: left;
+  }
+  
+  .signature-options {
+    grid-template-columns: 1fr;
+  }
+  
+  .policy-actions {
+    flex-direction: column;
+  }
+  
+  .step {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .step-number {
+    margin: 0 auto 1rem auto;
+  }
+}
+
+/* Privacy notice styling for Identity Form */
+.privacy-notice {
+  margin-bottom: 30px;
+}
+
+.notice-card {
+  background: linear-gradient(135deg, #e3f2fd 0%, #f1f8e9 100%);
+  border: 2px solid #4caf50;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.notice-card h3 {
+  color: #2e7d32;
+  margin: 0 0 10px 0;
+  font-size: 1.2em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.notice-card h3 i {
+  color: #4caf50;
+}
+
+.notice-card p {
+  color: #333;
+  margin: 0 0 15px 0;
+  line-height: 1.6;
+}
+
+.notice-card strong {
+  color: #2e7d32;
+}
+
+/* Identity form specific styling */
+.identity-form .form-section {
+  background: #fff;
+  border-radius: 8px;
+  padding: 25px;
+  margin-bottom: 25px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+}
+
+.identity-form .form-section h3 {
+  color: #1976d2;
+  margin: 0 0 10px 0;
+  font-size: 1.3em;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e3f2fd;
+}
+
+.identity-form .form-section > p {
+  color: #666;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+.file-uploads {
+  display: grid;
+  gap: 20px;
+}
+
+/* Form grid for emergency contact */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 15px;
+}
+
+.form-grid .full-width {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 768px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .notice-card {
+    padding: 15px;
+  }
+  
+  .notice-card h3 {
+    font-size: 1.1em;
+  }
+}
+
+/* Enhanced form styling for identity form */
+.identity-form .form-group {
+  margin-bottom: 0;
+}
+
+.identity-form .form-group label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.identity-form .form-group input,
+.identity-form .form-group select {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+}
+
+.identity-form .form-group input:focus,
+.identity-form .form-group select:focus {
+  outline: none;
+  border-color: #1976d2;
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
+}
+
+.identity-form .form-group input.error,
+.identity-form .form-group select.error {
+  border-color: #f44336;
+}
+
+.identity-form .error-message {
+  color: #f44336;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+/* Button styling for privacy info */
+.btn-sm {
+  padding: 8px 16px;
+  font-size: 0.9em;
+}
+
+.btn-secondary {
+  background: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-secondary:hover {
+  background: #5a6268;
+  transform: translateY(-1px);
+}
+
+/* Upload status styling */
+.upload-status.success {
+  color: #4caf50;
+  font-weight: 500;
+}
+
+.upload-status.error {
+  color: #f44336;
+  font-weight: 500;
+}

@@ -7,7 +7,7 @@
       "assignedDate": "2025-08-15",
       "completed": true,
       "personalInfo": {
-        "firstName": "Samuel",
+        "firstName": "Kinger Stephen",
         "lastName": "Justin",
         "email": "[EMAIL@COMPANY.COM]"
       },
@@ -20,9 +20,9 @@
       "assignedDate": "2025-08-16",
       "completed": false,
       "personalInfo": {
-        "firstName": "[FIRST_NAME]",
-        "lastName": "[LAST_NAME]",
-        "email": "[EMAIL@COMPANY.COM]"
+        "firstName": "Kinger Stephen",
+        "lastName": "Eric",
+        "email": "stephen.eric243@gmail.com"
       },
       "data": null
     },
@@ -33,9 +33,9 @@
       "assignedDate": "2025-08-17",
       "completed": false,
       "personalInfo": {
-        "firstName": "[FIRST_NAME]",
-        "lastName": "[LAST_NAME]",
-        "email": "[EMAIL@COMPANY.COM]"
+        "firstName": "Ekunola",
+        "lastName": "Paul",
+        "email": "ekunolapaul@gmail.com"
       },
       "data": null
     },
@@ -46,9 +46,9 @@
       "assignedDate": "2025-08-18",
       "completed": false,
       "personalInfo": {
-        "firstName": "[FIRST_NAME]",
-        "lastName": "[LAST_NAME]",
-        "email": "[EMAIL@COMPANY.COM]"
+        "firstName": "Idongesit Samuel",
+        "lastName": "Robson",
+        "email": "robsonidongesitsamuel@gmail.com"
       },
       "data": null
     },

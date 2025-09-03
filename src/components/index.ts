@@ -10,6 +10,8 @@ export { default as Login } from './Login';
 export { default as VirtualInterview } from './VirtualInterview';
 export { default as InterviewSuccess } from './InterviewSuccess';
 export { default as LandingPage } from './LandingPage';
+export { default as PrivacyPolicy } from './PrivacyPolicy';
+export { default as DigitalSigningInstructions } from './DigitalSigningInstructions';
 
 // Re-export types for convenience
 export type { 
