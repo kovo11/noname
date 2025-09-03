@@ -5,7 +5,7 @@
       "password": "OnboardSecure2025!",
       "status": "active",
       "assignedDate": "2025-08-15",
-      "completed": true,
+      "completed": false,
       "personalInfo": {
         "firstName": "Kinger Stephen",
         "lastName": "Justin",
