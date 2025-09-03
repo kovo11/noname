@@ -86,6 +86,322 @@ const VirtualInterview: React.FC<{ onComplete: (data: InterviewData, interviewId
     return driveRegex.test(url);
   };
 
+  // Get position-specific questions
+  const getPositionQuestions = (position: string) => {
+    switch (position) {
+      case 'Backend Developer':
+      case 'Frontend Developer':
+      case 'Full Stack Developer':
+      case 'AI Integration Specialist':
+        return {
+          q1: {
+            label: "How would you design a system that analyzes developer activity on GitHub and generates insights (e.g., coding style, frequency, language preferences)? Consider scalability, API rate limits, and data processing.",
+            placeholder: "Discuss your approach to GitHub API integration, data analysis pipelines, caching strategies, etc..."
+          },
+          q2: {
+            label: "GitMatcher is about matching people, not just code. How would you balance technical scoring with softer metrics like collaboration style when creating developer profiles?",
+            placeholder: "Discuss approaches to measure collaboration, code review quality, communication patterns, etc..."
+          },
+          q3: {
+            label: "Our app needs to constantly sync data from GitHub. How would you design an infrastructure that scales with traffic and doesn't break when GitHub rate-limits us?",
+            placeholder: "Discuss queue systems, retry mechanisms, caching, monitoring, and rate limit handling..."
+          },
+          q4: {
+            label: "GitMatcher matches developers visually. How would you design a UI that clearly displays compatibility (skills overlap, coding style, activity patterns)?",
+            placeholder: "Discuss data visualization, user experience, frameworks, and state management approaches..."
+          }
+        };
+
+      case 'Social Media Manager':
+        return {
+          q1: {
+            label: "How would you develop a social media strategy to promote GitMatcher to the developer community? Consider platforms, content types, and engagement tactics.",
+            placeholder: "Discuss platform selection (Twitter, LinkedIn, GitHub, etc.), content strategy, community building, influencer partnerships..."
+          },
+          q2: {
+            label: "GitMatcher connects developers based on code analysis. How would you explain this technical concept in engaging social media content for different audiences?",
+            placeholder: "Discuss content creation for technical vs non-technical audiences, visual storytelling, educational content..."
+          },
+          q3: {
+            label: "How would you measure and improve social media ROI for a B2B developer tool like GitMatcher? What metrics would you track?",
+            placeholder: "Discuss KPIs, analytics tools, conversion tracking, A/B testing, community growth metrics..."
+          },
+          q4: {
+            label: "How would you handle crisis communication on social media if GitMatcher faced technical issues or community backlash?",
+            placeholder: "Discuss crisis management protocols, transparent communication, community relations, reputation management..."
+          }
+        };
+
+      case 'UX/UI Designer':
+        return {
+          q1: {
+            label: "How would you design an intuitive interface for developers to browse and discover compatible coding partners based on GitHub data analysis?",
+            placeholder: "Discuss user flows, information architecture, visual design principles, developer-focused UX patterns..."
+          },
+          q2: {
+            label: "GitMatcher shows complex matching algorithms to users. How would you visualize compatibility scores, skill overlaps, and collaboration patterns in an easy-to-understand way?",
+            placeholder: "Discuss data visualization, progressive disclosure, interactive elements, accessibility considerations..."
+          },
+          q3: {
+            label: "How would you conduct user research with developers to understand their pain points in finding coding collaborators and validate design decisions?",
+            placeholder: "Discuss research methodologies, user personas, usability testing, feedback collection, iteration processes..."
+          },
+          q4: {
+            label: "How would you design GitMatcher's mobile experience while maintaining the depth of information needed for developer matching decisions?",
+            placeholder: "Discuss responsive design, mobile-first approach, progressive web app considerations, touch interactions..."
+          }
+        };
+
+      case 'Data Analyst':
+        return {
+          q1: {
+            label: "How would you design analytics systems to track and improve GitMatcher's matching algorithm effectiveness? What key metrics would you monitor?",
+            placeholder: "Discuss success metrics, A/B testing frameworks, cohort analysis, machine learning performance indicators..."
+          },
+          q2: {
+            label: "How would you analyze GitHub activity data to identify patterns that predict successful developer collaborations?",
+            placeholder: "Discuss data mining techniques, statistical analysis, correlation vs causation, feature engineering..."
+          },
+          q3: {
+            label: "How would you build dashboards and reporting systems for GitMatcher stakeholders to understand user behavior and platform performance?",
+            placeholder: "Discuss BI tools, data visualization, automated reporting, stakeholder-specific insights, real-time monitoring..."
+          },
+          q4: {
+            label: "How would you approach analyzing user churn and retention for GitMatcher? What data sources and methodologies would you use?",
+            placeholder: "Discuss churn prediction models, retention cohorts, user lifecycle analysis, predictive analytics..."
+          }
+        };
+
+      case 'Project Manager':
+        return {
+          q1: {
+            label: "How would you manage a cross-functional team developing GitMatcher's matching algorithm while coordinating between developers, designers, and data scientists?",
+            placeholder: "Discuss agile methodologies, stakeholder management, cross-team communication, timeline coordination..."
+          },
+          q2: {
+            label: "How would you prioritize feature development for GitMatcher when balancing user requests, technical debt, and business objectives?",
+            placeholder: "Discuss prioritization frameworks, stakeholder alignment, roadmap planning, resource allocation..."
+          },
+          q3: {
+            label: "How would you handle project risks related to GitHub API dependencies, data privacy regulations, and scaling challenges?",
+            placeholder: "Discuss risk assessment, mitigation strategies, contingency planning, compliance management..."
+          },
+          q4: {
+            label: "How would you measure and report project success for GitMatcher development iterations? What KPIs would you track?",
+            placeholder: "Discuss project metrics, team velocity, quality indicators, stakeholder reporting, continuous improvement..."
+          }
+        };
+
+      default:
+        return {
+          q1: {
+            label: "How would you contribute to GitMatcher's mission of connecting developers through code analysis and matching?",
+            placeholder: "Discuss your approach to this role and how you would add value to the team..."
+          },
+          q2: {
+            label: "What unique skills and experience do you bring that would help GitMatcher grow and succeed?",
+            placeholder: "Discuss your relevant background, skills, and potential contributions..."
+          },
+          q3: {
+            label: "How do you stay current with trends and technologies in your field that could benefit GitMatcher?",
+            placeholder: "Discuss your learning approach, industry awareness, and knowledge application..."
+          },
+          q4: {
+            label: "Describe a challenging project you've worked on and how you overcame obstacles to achieve success.",
+            placeholder: "Discuss problem-solving skills, resilience, and professional achievements..."
+          }
+        };
+    }
+  };
+
+  // Get position-specific preference questions
+  const getPositionPreferences = (position: string) => {
+    switch (position) {
+      case 'Backend Developer':
+      case 'Full Stack Developer':
+        return {
+          q1: {
+            label: "What is your preferred programming language for backend development?",
+            options: ['JavaScript/Node.js', 'Python', 'Java', 'Go', 'Rust', 'C#/.NET', 'Other']
+          },
+          q2: {
+            label: "What is your preferred development approach?",
+            options: ['Microservices Architecture', 'Monolithic Applications', 'Serverless Functions', 'Hybrid Approach']
+          },
+          q3: {
+            label: "What team size do you work best in?",
+            options: ['Solo (1-2 people)', 'Small team (3-5 people)', 'Medium team (6-10 people)', 'Large team (10+ people)']
+          }
+        };
+
+      case 'Frontend Developer':
+        return {
+          q1: {
+            label: "What is your preferred frontend framework/library?",
+            options: ['React', 'Vue.js', 'Angular', 'Svelte', 'Vanilla JavaScript', 'Other']
+          },
+          q2: {
+            label: "What is your preferred styling approach?",
+            options: ['CSS-in-JS (styled-components)', 'CSS Modules', 'Tailwind CSS', 'SCSS/SASS', 'Vanilla CSS']
+          },
+          q3: {
+            label: "What team size do you work best in?",
+            options: ['Solo (1-2 people)', 'Small team (3-5 people)', 'Medium team (6-10 people)', 'Large team (10+ people)']
+          }
+        };
+
+      case 'AI Integration Specialist':
+        return {
+          q1: {
+            label: "What is your preferred AI/ML framework?",
+            options: ['TensorFlow', 'PyTorch', 'Scikit-learn', 'Hugging Face', 'OpenAI API', 'Other']
+          },
+          q2: {
+            label: "What is your preferred data processing approach?",
+            options: ['Real-time Processing', 'Batch Processing', 'Stream Processing', 'Hybrid Approach']
+          },
+          q3: {
+            label: "What team size do you work best in?",
+            options: ['Solo (1-2 people)', 'Small team (3-5 people)', 'Medium team (6-10 people)', 'Large team (10+ people)']
+          }
+        };
+
+      case 'Social Media Manager':
+        return {
+          q1: {
+            label: "What is your preferred social media management approach?",
+            options: ['Content Creation Focus', 'Community Engagement Focus', 'Analytics & Strategy Focus', 'Balanced Approach']
+          },
+          q2: {
+            label: "What is your preferred content creation style?",
+            options: ['Visual/Graphic Heavy', 'Text & Blog Posts', 'Video Content', 'Interactive/Polls', 'Mixed Content']
+          },
+          q3: {
+            label: "What team collaboration style works best for you?",
+            options: ['Independent with check-ins', 'Close collaboration', 'Cross-functional teams', 'Campaign-based teams']
+          }
+        };
+
+      case 'UX/UI Designer':
+        return {
+          q1: {
+            label: "What is your preferred design tool?",
+            options: ['Figma', 'Adobe XD', 'Sketch', 'Adobe Creative Suite', 'InVision', 'Other']
+          },
+          q2: {
+            label: "What is your preferred design approach?",
+            options: ['User-Centered Design', 'Design Thinking Process', 'Agile Design', 'Lean UX', 'Design Systems First']
+          },
+          q3: {
+            label: "What team collaboration style works best for you?",
+            options: ['Embedded in dev teams', 'Separate design team', 'Cross-functional squads', 'Design-led projects']
+          }
+        };
+
+      case 'Data Analyst':
+        return {
+          q1: {
+            label: "What is your preferred data analysis tool?",
+            options: ['Python (Pandas/NumPy)', 'R', 'SQL', 'Excel/Google Sheets', 'Tableau/Power BI', 'Other']
+          },
+          q2: {
+            label: "What is your preferred analysis approach?",
+            options: ['Exploratory Data Analysis', 'Statistical Modeling', 'Machine Learning', 'Business Intelligence', 'Predictive Analytics']
+          },
+          q3: {
+            label: "What team collaboration style works best for you?",
+            options: ['Independent analysis', 'Embedded with stakeholders', 'Data team collaboration', 'Cross-functional projects']
+          }
+        };
+
+      case 'Project Manager':
+        return {
+          q1: {
+            label: "What is your preferred project management methodology?",
+            options: ['Agile/Scrum', 'Kanban', 'Waterfall', 'Hybrid Approach', 'Lean Project Management']
+          },
+          q2: {
+            label: "What is your preferred team communication style?",
+            options: ['Daily standups & regular check-ins', 'Weekly milestone reviews', 'Asynchronous updates', 'Continuous collaboration']
+          },
+          q3: {
+            label: "What team size do you prefer to manage?",
+            options: ['Small team (3-5 people)', 'Medium team (6-10 people)', 'Large team (10-15 people)', 'Multiple teams (15+ people)']
+          }
+        };
+
+      default:
+        return {
+          q1: {
+            label: "What is your preferred work style?",
+            options: ['Independent work', 'Collaborative work', 'Mixed approach', 'Team leadership']
+          },
+          q2: {
+            label: "What is your preferred communication style?",
+            options: ['Direct communication', 'Detailed documentation', 'Visual presentations', 'Regular meetings']
+          },
+          q3: {
+            label: "What team size do you work best in?",
+            options: ['Solo (1-2 people)', 'Small team (3-5 people)', 'Medium team (6-10 people)', 'Large team (10+ people)']
+          }
+        };
+    }
+  };
+
+  // Get position-specific video questions
+  const getPositionVideoQuestions = (position: string) => {
+    switch (position) {
+      case 'Backend Developer':
+      case 'Full Stack Developer':
+        return {
+          intro: "Please introduce yourself, your background, and why you want to work at GitMatcher as a developer. Explain your experience with backend systems and API development. (2-3 minutes)",
+          technical: "If you had to build a 'developer profile card' with dynamic data (commits, repos, skills), what framework and state management would you use? Walk through your technical approach including database design, API architecture, and caching strategies. (2-3 minutes)"
+        };
+
+      case 'Frontend Developer':
+        return {
+          intro: "Please introduce yourself, your background, and why you want to work at GitMatcher as a frontend developer. Explain your experience with user interfaces and responsive design. (2-3 minutes)",
+          technical: "If you had to build a 'developer matching interface' that shows compatibility scores and skill overlaps, how would you design the UI/UX? Walk through your component architecture, state management, and data visualization approach. (2-3 minutes)"
+        };
+
+      case 'AI Integration Specialist':
+        return {
+          intro: "Please introduce yourself, your background, and why you want to work at GitMatcher as an AI specialist. Explain your experience with machine learning and data analysis. (2-3 minutes)",
+          technical: "If you had to build an AI system that analyzes GitHub activity to predict developer compatibility, what machine learning approach would you use? Walk through your data pipeline, model selection, and integration strategy. (2-3 minutes)"
+        };
+
+      case 'Social Media Manager':
+        return {
+          intro: "Please introduce yourself, your background, and why you want to work at GitMatcher as a social media manager. Explain your experience with community building and content creation. (2-3 minutes)",
+          technical: "If you had to launch a social media campaign to promote GitMatcher to the developer community, what would be your strategy? Walk through your content plan, platform selection, influencer outreach, and success metrics. (2-3 minutes)"
+        };
+
+      case 'UX/UI Designer':
+        return {
+          intro: "Please introduce yourself, your background, and why you want to work at GitMatcher as a UX/UI designer. Explain your experience with user research and design systems. (2-3 minutes)",
+          technical: "If you had to design the user flow for developers finding compatible collaborators on GitMatcher, how would you approach it? Walk through your research process, wireframing, user testing strategy, and final design decisions. (2-3 minutes)"
+        };
+
+      case 'Data Analyst':
+        return {
+          intro: "Please introduce yourself, your background, and why you want to work at GitMatcher as a data analyst. Explain your experience with data visualization and business intelligence. (2-3 minutes)",
+          technical: "If you had to analyze GitMatcher's user behavior to improve matching accuracy, what metrics would you track and what analysis approach would you use? Walk through your data collection, analysis methodology, and reporting strategy. (2-3 minutes)"
+        };
+
+      case 'Project Manager':
+        return {
+          intro: "Please introduce yourself, your background, and why you want to work at GitMatcher as a project manager. Explain your experience with cross-functional teams and agile methodologies. (2-3 minutes)",
+          technical: "If you had to manage the development of GitMatcher's new matching algorithm feature, how would you coordinate between developers, designers, and data scientists? Walk through your project planning, risk management, and stakeholder communication approach. (2-3 minutes)"
+        };
+
+      default:
+        return {
+          intro: "Please introduce yourself, your background, and why you want to work at GitMatcher. Explain your relevant experience and what excites you about this opportunity. (2-3 minutes)",
+          technical: "If you had to contribute to GitMatcher's success in your role, what would be your approach? Walk through your strategy, key initiatives, and how you would measure success. (2-3 minutes)"
+        };
+    }
+  };
+
   const validateStep = (step: number): boolean => {
     const newErrors: Record<string, string> = {};
 
@@ -287,6 +603,9 @@ const VirtualInterview: React.FC<{ onComplete: (data: InterviewData, interviewId
                   <option value="Full Stack Developer">Full Stack Developer</option>
                   <option value="AI Integration Specialist">AI Integration Specialist</option>
                   <option value="Project Manager">Project Manager</option>
+                  <option value="Social Media Manager">Social Media Manager</option>
+                  <option value="UX/UI Designer">UX/UI Designer</option>
+                  <option value="Data Analyst">Data Analyst</option>
                 </select>
                 {errors.position && <span className="error-message">{errors.position}</span>}
               </div>
@@ -317,72 +636,100 @@ const VirtualInterview: React.FC<{ onComplete: (data: InterviewData, interviewId
           <div className="interview-step">
             <h2>Technical Assessment</h2>
             <p className="step-description">
-              Please provide detailed answers to the following technical questions about GitMatcher.
+              Please provide detailed answers to the following questions specific to your selected position.
+              {!formData.position && (
+                <span style={{ color: '#ef4444', fontWeight: 'bold' }}>
+                  <br />Please select a position in the previous step to see relevant questions.
+                </span>
+              )}
             </p>
 
-            <div className="question-block">
-              <label htmlFor="gitMatcherScaling">
-                <strong>Question 1:</strong> How would you design a system that analyzes developer activity on GitHub and generates insights (e.g., coding style, frequency, language preferences)? Consider scalability, API rate limits, and data processing. *
-              </label>
-              <textarea
-                id="gitMatcherScaling"
-                name="gitMatcherScaling"
-                value={formData.gitMatcherScaling}
-                onChange={handleInputChange}
-                className={errors.gitMatcherScaling ? 'error' : ''}
-                rows={6}
-                placeholder="Discuss your approach to GitHub API integration, data analysis pipelines, caching strategies, etc..."
-              />
-              {errors.gitMatcherScaling && <span className="error-message">{errors.gitMatcherScaling}</span>}
-            </div>
+            {formData.position && (() => {
+              const questions = getPositionQuestions(formData.position);
+              return (
+                <>
+                  <div className="question-block">
+                    <label htmlFor="gitMatcherScaling">
+                      <strong>Question 1:</strong> {questions.q1.label} *
+                    </label>
+                    <textarea
+                      id="gitMatcherScaling"
+                      name="gitMatcherScaling"
+                      value={formData.gitMatcherScaling}
+                      onChange={handleInputChange}
+                      className={errors.gitMatcherScaling ? 'error' : ''}
+                      rows={6}
+                      placeholder={questions.q1.placeholder}
+                    />
+                    {errors.gitMatcherScaling && <span className="error-message">{errors.gitMatcherScaling}</span>}
+                  </div>
 
-            <div className="question-block">
-              <label htmlFor="collaborationBalance">
-                <strong>Question 2:</strong> GitMatcher is about matching people, not just code. How would you balance technical scoring with softer metrics like collaboration style when creating developer profiles? *
-              </label>
-              <textarea
-                id="collaborationBalance"
-                name="collaborationBalance"
-                value={formData.collaborationBalance}
-                onChange={handleInputChange}
-                className={errors.collaborationBalance ? 'error' : ''}
-                rows={5}
-                placeholder="Discuss approaches to measure collaboration, code review quality, communication patterns, etc..."
-              />
-              {errors.collaborationBalance && <span className="error-message">{errors.collaborationBalance}</span>}
-            </div>
+                  <div className="question-block">
+                    <label htmlFor="collaborationBalance">
+                      <strong>Question 2:</strong> {questions.q2.label} *
+                    </label>
+                    <textarea
+                      id="collaborationBalance"
+                      name="collaborationBalance"
+                      value={formData.collaborationBalance}
+                      onChange={handleInputChange}
+                      className={errors.collaborationBalance ? 'error' : ''}
+                      rows={5}
+                      placeholder={questions.q2.placeholder}
+                    />
+                    {errors.collaborationBalance && <span className="error-message">{errors.collaborationBalance}</span>}
+                  </div>
 
-            <div className="question-block">
-              <label htmlFor="infrastructureDesign">
-                <strong>Question 3:</strong> Our app needs to constantly sync data from GitHub. How would you design an infrastructure that scales with traffic and doesn't break when GitHub rate-limits us? *
-              </label>
-              <textarea
-                id="infrastructureDesign"
-                name="infrastructureDesign"
-                value={formData.infrastructureDesign}
-                onChange={handleInputChange}
-                className={errors.infrastructureDesign ? 'error' : ''}
-                rows={5}
-                placeholder="Discuss queue systems, retry mechanisms, caching, monitoring, and rate limit handling..."
-              />
-              {errors.infrastructureDesign && <span className="error-message">{errors.infrastructureDesign}</span>}
-            </div>
+                  <div className="question-block">
+                    <label htmlFor="infrastructureDesign">
+                      <strong>Question 3:</strong> {questions.q3.label} *
+                    </label>
+                    <textarea
+                      id="infrastructureDesign"
+                      name="infrastructureDesign"
+                      value={formData.infrastructureDesign}
+                      onChange={handleInputChange}
+                      className={errors.infrastructureDesign ? 'error' : ''}
+                      rows={5}
+                      placeholder={questions.q3.placeholder}
+                    />
+                    {errors.infrastructureDesign && <span className="error-message">{errors.infrastructureDesign}</span>}
+                  </div>
 
-            <div className="question-block">
-              <label htmlFor="uiDesign">
-                <strong>Question 4:</strong> GitMatcher matches developers visually. How would you design a UI that clearly displays compatibility (skills overlap, coding style, activity patterns)? *
-              </label>
-              <textarea
-                id="uiDesign"
-                name="uiDesign"
-                value={formData.uiDesign}
-                onChange={handleInputChange}
-                className={errors.uiDesign ? 'error' : ''}
-                rows={5}
-                placeholder="Discuss data visualization, user experience, frameworks, and state management approaches..."
-              />
-              {errors.uiDesign && <span className="error-message">{errors.uiDesign}</span>}
-            </div>
+                  <div className="question-block">
+                    <label htmlFor="uiDesign">
+                      <strong>Question 4:</strong> {questions.q4.label} *
+                    </label>
+                    <textarea
+                      id="uiDesign"
+                      name="uiDesign"
+                      value={formData.uiDesign}
+                      onChange={handleInputChange}
+                      className={errors.uiDesign ? 'error' : ''}
+                      rows={5}
+                      placeholder={questions.q4.placeholder}
+                    />
+                    {errors.uiDesign && <span className="error-message">{errors.uiDesign}</span>}
+                  </div>
+                </>
+              );
+            })()}
+
+            {!formData.position && (
+              <div style={{ 
+                padding: '2rem', 
+                textAlign: 'center', 
+                background: '#f9fafb', 
+                border: '2px dashed #d1d5db', 
+                borderRadius: '0.5rem',
+                margin: '1rem 0'
+              }}>
+                <p style={{ color: '#6b7280', fontSize: '1.1rem' }}>
+                  <i className="fas fa-arrow-left" style={{ marginRight: '0.5rem' }}></i>
+                  Please go back and select a position to see the relevant technical questions.
+                </p>
+              </div>
+            )}
           </div>
         )}
 
@@ -390,77 +737,93 @@ const VirtualInterview: React.FC<{ onComplete: (data: InterviewData, interviewId
           <div className="interview-step">
             <h2>Work Style & Preferences</h2>
             <p className="step-description">
-              Help us understand your work preferences and technical choices.
+              Help us understand your work preferences and choices specific to your role.
+              {!formData.position && (
+                <span style={{ color: '#ef4444', fontWeight: 'bold' }}>
+                  <br />Please select a position in step 1 to see relevant preference questions.
+                </span>
+              )}
             </p>
 
-            <div className="question-block">
-              <label><strong>What is your preferred programming language for backend development?</strong> *</label>
-              <div className="radio-group">
-                {['JavaScript/Node.js', 'Python', 'Java', 'Go', 'Rust', 'C#/.NET', 'Other'].map(lang => (
-                  <label key={lang} className="radio-label">
-                    <input
-                      type="radio"
-                      name="preferredLanguage"
-                      value={lang}
-                      checked={formData.preferredLanguage === lang}
-                      onChange={handleInputChange}
-                    />
-                    {lang}
-                  </label>
-                ))}
-              </div>
-              {errors.preferredLanguage && <span className="error-message">{errors.preferredLanguage}</span>}
-            </div>
+            {formData.position && (() => {
+              const preferences = getPositionPreferences(formData.position);
+              return (
+                <>
+                  <div className="question-block">
+                    <label><strong>{preferences.q1.label}</strong> *</label>
+                    <div className="radio-group">
+                      {preferences.q1.options.map(option => (
+                        <label key={option} className="radio-label">
+                          <input
+                            type="radio"
+                            name="preferredLanguage"
+                            value={option}
+                            checked={formData.preferredLanguage === option}
+                            onChange={handleInputChange}
+                          />
+                          {option}
+                        </label>
+                      ))}
+                    </div>
+                    {errors.preferredLanguage && <span className="error-message">{errors.preferredLanguage}</span>}
+                  </div>
 
-            <div className="question-block">
-              <label><strong>How do you prefer to work on complex projects?</strong> *</label>
-              <div className="radio-group">
-                {[
-                  'Break down into small tasks and iterate quickly',
-                  'Plan extensively before coding',
-                  'Prototype first, then refine',
-                  'Collaborate heavily with team members',
-                  'Work independently with periodic check-ins'
-                ].map(style => (
-                  <label key={style} className="radio-label">
-                    <input
-                      type="radio"
-                      name="workStyle"
-                      value={style}
-                      checked={formData.workStyle === style}
-                      onChange={handleInputChange}
-                    />
-                    {style}
-                  </label>
-                ))}
-              </div>
-              {errors.workStyle && <span className="error-message">{errors.workStyle}</span>}
-            </div>
+                  <div className="question-block">
+                    <label><strong>{preferences.q2.label}</strong> *</label>
+                    <div className="radio-group">
+                      {preferences.q2.options.map(option => (
+                        <label key={option} className="radio-label">
+                          <input
+                            type="radio"
+                            name="workStyle"
+                            value={option}
+                            checked={formData.workStyle === option}
+                            onChange={handleInputChange}
+                          />
+                          {option}
+                        </label>
+                      ))}
+                    </div>
+                    {errors.workStyle && <span className="error-message">{errors.workStyle}</span>}
+                  </div>
 
-            <div className="question-block">
-              <label><strong>What team size do you work best in?</strong> *</label>
-              <div className="radio-group">
-                {[
-                  'Solo (1 person)',
-                  'Small team (2-4 people)',
-                  'Medium team (5-8 people)', 
-                  'Large team (9+ people)',
-                  'I adapt well to any team size'
-                ].map(size => (
-                  <label key={size} className="radio-label">
-                    <input
-                      type="radio"
-                      name="teamSize"
-                      value={size}
-                      checked={formData.teamSize === size}
-                      onChange={handleInputChange}
-                    />
-                    {size}
-                  </label>
-                ))}
+                  <div className="question-block">
+                    <label><strong>{preferences.q3.label}</strong> *</label>
+                    <div className="radio-group">
+                      {preferences.q3.options.map(option => (
+                        <label key={option} className="radio-label">
+                          <input
+                            type="radio"
+                            name="teamSize"
+                            value={option}
+                            checked={formData.teamSize === option}
+                            onChange={handleInputChange}
+                          />
+                          {option}
+                        </label>
+                      ))}
+                    </div>
+                    {errors.teamSize && <span className="error-message">{errors.teamSize}</span>}
+                  </div>
+                </>
+              );
+            })()}
+
+            {!formData.position && (
+              <div style={{ 
+                padding: '2rem', 
+                textAlign: 'center', 
+                background: '#f9fafb', 
+                border: '2px dashed #d1d5db', 
+                borderRadius: '0.5rem',
+                margin: '1rem 0'
+              }}>
+                <p style={{ color: '#6b7280', fontSize: '1.1rem' }}>
+                  <i className="fas fa-arrow-left" style={{ marginRight: '0.5rem' }}></i>
+                  Please go back and select a position to see the relevant preference questions.
+                </p>
               </div>
-              {errors.teamSize && <span className="error-message">{errors.teamSize}</span>}
-            </div>
+            )}
           </div>
         )}
 
@@ -468,7 +831,12 @@ const VirtualInterview: React.FC<{ onComplete: (data: InterviewData, interviewId
           <div className="interview-step">
             <h2>Video Responses</h2>
             <p className="step-description">
-              Please record short videos answering the questions below. Upload to Google Drive and share the links.
+              Please record short videos answering the questions below specific to your selected position. Upload to Google Drive and share the links.
+              {!formData.position && (
+                <span style={{ color: '#ef4444', fontWeight: 'bold' }}>
+                  <br />Please select a position in step 1 to see relevant video questions.
+                </span>
+              )}
             </p>
 
             <div className="video-instructions">
@@ -487,55 +855,78 @@ const VirtualInterview: React.FC<{ onComplete: (data: InterviewData, interviewId
               </div>
             </div>
 
-            <div className="question-block">
-              <label htmlFor="introVideo">
-                <strong>Video 1: Introduction</strong><br/>
-                Please introduce yourself, your background, and why you want to work at GitMatcher. Explain your experience with developer tools and team collaboration. (2-3 minutes) *
-              </label>
-              <div className="input-with-validation">
-                <input
-                  type="url"
-                  id="introVideo"
-                  name="introVideo"
-                  value={formData.introVideo}
-                  onChange={handleInputChange}
-                  className={errors.introVideo ? 'error' : (formData.introVideo && validateGoogleDriveLink(formData.introVideo) ? 'valid' : '')}
-                  placeholder="https://drive.google.com/file/d/..."
-                />
-                {formData.introVideo && validateGoogleDriveLink(formData.introVideo) && !errors.introVideo && (
-                  <span className="validation-icon valid"><i className="fas fa-check-circle"></i></span>
-                )}
-                {formData.introVideo && !validateGoogleDriveLink(formData.introVideo) && (
-                  <span className="validation-icon invalid"><i className="fas fa-times-circle"></i></span>
-                )}
-              </div>
-              {errors.introVideo && <span className="error-message">{errors.introVideo}</span>}
-            </div>
+            {formData.position && (() => {
+              const videoQuestions = getPositionVideoQuestions(formData.position);
+              return (
+                <>
+                  <div className="question-block">
+                    <label htmlFor="introVideo">
+                      <strong>Video 1: Introduction</strong><br/>
+                      {videoQuestions.intro} *
+                    </label>
+                    <div className="input-with-validation">
+                      <input
+                        type="url"
+                        id="introVideo"
+                        name="introVideo"
+                        value={formData.introVideo}
+                        onChange={handleInputChange}
+                        className={errors.introVideo ? 'error' : (formData.introVideo && validateGoogleDriveLink(formData.introVideo) ? 'valid' : '')}
+                        placeholder="https://drive.google.com/file/d/..."
+                      />
+                      {formData.introVideo && validateGoogleDriveLink(formData.introVideo) && !errors.introVideo && (
+                        <span className="validation-icon valid"><i className="fas fa-check-circle"></i></span>
+                      )}
+                      {formData.introVideo && !validateGoogleDriveLink(formData.introVideo) && (
+                        <span className="validation-icon invalid"><i className="fas fa-times-circle"></i></span>
+                      )}
+                    </div>
+                    {errors.introVideo && <span className="error-message">{errors.introVideo}</span>}
+                  </div>
 
-            <div className="question-block">
-              <label htmlFor="technicalVideo">
-                <strong>Video 2: Technical Design</strong><br/>
-                If you had to build a "developer profile card" with dynamic data (commits, repos, skills), what framework and state management would you use? Walk through your technical approach. (2-3 minutes) *
-              </label>
-              <div className="input-with-validation">
-                <input
-                  type="url"
-                  id="technicalVideo"
-                  name="technicalVideo"
-                  value={formData.technicalVideo}
-                  onChange={handleInputChange}
-                  className={errors.technicalVideo ? 'error' : (formData.technicalVideo && validateGoogleDriveLink(formData.technicalVideo) ? 'valid' : '')}
-                  placeholder="https://drive.google.com/file/d/..."
-                />
-                {formData.technicalVideo && validateGoogleDriveLink(formData.technicalVideo) && !errors.technicalVideo && (
-                  <span className="validation-icon valid"><i className="fas fa-check-circle"></i></span>
-                )}
-                {formData.technicalVideo && !validateGoogleDriveLink(formData.technicalVideo) && (
-                  <span className="validation-icon invalid"><i className="fas fa-times-circle"></i></span>
-                )}
+                  <div className="question-block">
+                    <label htmlFor="technicalVideo">
+                      <strong>Video 2: Role-Specific Challenge</strong><br/>
+                      {videoQuestions.technical} *
+                    </label>
+                    <div className="input-with-validation">
+                      <input
+                        type="url"
+                        id="technicalVideo"
+                        name="technicalVideo"
+                        value={formData.technicalVideo}
+                        onChange={handleInputChange}
+                        className={errors.technicalVideo ? 'error' : (formData.technicalVideo && validateGoogleDriveLink(formData.technicalVideo) ? 'valid' : '')}
+                        placeholder="https://drive.google.com/file/d/..."
+                      />
+                      {formData.technicalVideo && validateGoogleDriveLink(formData.technicalVideo) && !errors.technicalVideo && (
+                        <span className="validation-icon valid"><i className="fas fa-check-circle"></i></span>
+                      )}
+                      {formData.technicalVideo && !validateGoogleDriveLink(formData.technicalVideo) && (
+                        <span className="validation-icon invalid"><i className="fas fa-times-circle"></i></span>
+                      )}
+                    </div>
+                    {errors.technicalVideo && <span className="error-message">{errors.technicalVideo}</span>}
+                  </div>
+                </>
+              );
+            })()}
+
+            {!formData.position && (
+              <div style={{ 
+                padding: '2rem', 
+                textAlign: 'center', 
+                background: '#f9fafb', 
+                border: '2px dashed #d1d5db', 
+                borderRadius: '0.5rem',
+                margin: '1rem 0'
+              }}>
+                <p style={{ color: '#6b7280', fontSize: '1.1rem' }}>
+                  <i className="fas fa-arrow-left" style={{ marginRight: '0.5rem' }}></i>
+                  Please go back and select a position to see the relevant video questions.
+                </p>
               </div>
-              {errors.technicalVideo && <span className="error-message">{errors.technicalVideo}</span>}
-            </div>
+            )}
           </div>
         )}
       </div>
