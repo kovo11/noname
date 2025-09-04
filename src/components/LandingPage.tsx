@@ -14,14 +14,13 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStartInterview, onGoToOnboa
             <i className="fas fa-code-branch" aria-hidden="true"></i>
             <h1>GitMatcher</h1>
           </div>
-          <p className="company-tagline">Revolutionizing Git Repository Management</p>
+          <p className="company-tagline">Git Repository Management</p>
         </div>
 
         <div className="welcome-section">
-          <h2>Welcome to GitMatcher Career Portal</h2>
+          <h2>GitMatcher Career Portal</h2>
           <p className="welcome-description">
-            Join our innovative team and help shape the future of version control and collaboration. 
-            Choose your path below to continue your journey with GitMatcher.
+            Join our team and shape the future of collaboration. Choose your path below.
           </p>
         </div>
 
