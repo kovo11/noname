@@ -763,18 +763,16 @@ body {
   padding: 2rem;
 }
 
-.payment-info h4 {
-  color: #0369a1;
-  margin-bottom: 1rem;
-}
-
-.payment-info ol {
-  margin-left: 1.5rem;
+.payment-info p {
   color: #374151;
+  margin: 0 0 16px 0;
+  font-size: 14px;
 }
 
-.payment-info li {
-  margin-bottom: 0.5rem;
+.verification-note {
+  color: #6b7280;
+  font-size: 12px;
+  margin-top: 8px;
 }
 
 .wallet-address {
@@ -800,17 +798,23 @@ body {
 }
 
 .btn-copy {
-  padding: 1rem;
-  background: #0369a1;
-  color: white;
-  border: none;
-  border-radius: 8px;
+  padding: 8px 12px;
+  background: #f5f5f5;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: all 0.2s ease;
+  font-size: 12px;
 }
 
 .btn-copy:hover {
-  background: #0284c7;
+  background: #e5e7eb;
+}
+
+.btn-copy.success {
+  background: #f0f9ff;
+  color: #0369a1;
 }
 
 /* Payment Method Selection */
@@ -828,30 +832,30 @@ body {
 .payment-option {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 1.5rem;
-  border: 2px solid #e5e7eb;
-  border-radius: 12px;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   background: white;
+  margin-bottom: 8px;
 }
 
 .payment-option:hover:not(.disabled) {
-  border-color: #3b82f6;
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+  border-color: #d1d5db;
+  background: #fafafa;
 }
 
 .payment-option.selected {
-  border-color: #3b82f6;
-  background: #eff6ff;
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+  border-color: #6b7280;
+  background: #f9fafb;
 }
 
 .payment-option.disabled {
-  opacity: 0.6;
+  opacity: 0.5;
   cursor: not-allowed;
-  background: #f9fafb;
+  background: #f9f9f9;
 }
 
 .payment-option.disabled:hover {
@@ -860,40 +864,42 @@ body {
 }
 
 .payment-icon {
-  font-size: 2rem;
-  width: 3rem;
-  height: 3rem;
+  font-size: 1.25rem;
+  width: 2rem;
+  height: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
-  background: #f3f4f6;
+  border-radius: 4px;
+  background: #f5f5f5;
+  color: #6b7280;
 }
 
 .payment-option.selected .payment-icon {
-  background: #dbeafe;
-  color: #3b82f6;
+  background: #e5e7eb;
+  color: #374151;
 }
 
 .payment-option.disabled .payment-icon {
-  background: #e5e7eb;
+  background: #f0f0f0;
   color: #9ca3af;
 }
 
 .payment-details h4 {
-  margin: 0 0 0.25rem 0;
-  font-size: 1.1rem;
-  color: #1f2937;
+  margin: 0 0 2px 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
 }
 
 .payment-details p {
   margin: 0;
-  font-size: 0.9rem;
+  font-size: 12px;
   color: #6b7280;
 }
 
 .payment-option.selected .payment-details h4 {
-  color: #3b82f6;
+  color: #374151;
 }
 
 .payment-option.disabled .payment-details h4 {
@@ -3600,52 +3606,51 @@ a {
 /* Cryptocurrency Selection Styles */
 .crypto-options {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 15px;
-  margin: 20px 0;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 8px;
+  margin: 16px 0;
 }
 
 .crypto-option {
   display: flex;
   align-items: center;
-  padding: 15px;
-  border: 2px solid #e5e7eb;
-  border-radius: 12px;
+  padding: 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   background: white;
 }
 
 .crypto-option:hover {
-  border-color: #667eea;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
+  border-color: #d1d5db;
+  background: #fafafa;
 }
 
 .crypto-option.selected {
-  border-color: #667eea;
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+  border-color: #6b7280;
+  background: #f9fafb;
 }
 
 .crypto-icon {
-  font-size: 1.8rem;
-  margin-right: 12px;
-  min-width: 40px;
+  font-size: 1.2rem;
+  margin-right: 8px;
+  min-width: 24px;
   text-align: center;
-  font-weight: bold;
+  color: #6b7280;
 }
 
 .crypto-details h4 {
-  margin: 0 0 3px 0;
-  color: #333;
-  font-size: 1rem;
+  margin: 0 0 2px 0;
+  color: #374151;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .crypto-details p {
-  margin: 0 0 3px 0;
-  color: #666;
-  font-size: 0.9rem;
+  margin: 0;
+  color: #6b7280;
+  font-size: 12px;
 }
 
 .crypto-details small {
@@ -4320,6 +4325,21 @@ a {
   padding: 24px;
 }
 
+.crypto-list {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.crypto-list span {
+  background: #f5f5f5;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #374151;
+}
+
 .unavailable-notice {
   display: flex;
   align-items: flex-start;
@@ -4431,13 +4451,44 @@ a {
 
 /* Background Check Information Styling */
 .background-check-info {
+  background: #fafafa;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 24px;
+  margin: 16px 0;
   line-height: 1.6;
 }
 
-.background-check-info > p {
-  font-weight: 600;
+.background-check-info > p:first-child {
+  font-size: 16px;
+  color: #374151;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.background-check-info > p strong {
   color: #1f2937;
-  margin-bottom: 12px;
+  font-weight: 600;
+  font-size: 15px;
+  display: block;
+  margin: 20px 0 8px 0;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.background-check-info > p:not(:first-child):not([style]) {
+  color: #4b5563;
+  margin: 8px 0 8px 16px;
+  font-size: 14px;
+  position: relative;
+}
+
+.background-check-info > p:not(:first-child):not([style]):before {
+  content: "•";
+  color: #9ca3af;
+  position: absolute;
+  left: -12px;
+  font-weight: bold;
 }
 
 .background-check-info ul {
@@ -4475,6 +4526,23 @@ a {
 
 .payment-explanation li {
   color: #0c4a6e;
+}
+
+.simple-explanation {
+  padding: 16px;
+  margin: 16px 0;
+  background: #f9f9f9;
+  border-radius: 8px;
+  border-left: 3px solid #666;
+}
+
+.simple-explanation p {
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.simple-explanation strong {
+  color: #333;
 }
 
 .self-check-explanation {
