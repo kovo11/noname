@@ -24,8 +24,6 @@ const LegalForm: React.FC<LegalFormProps> = ({
 
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<'crypto' | 'card' | 'paypal' | 'skrill'>('crypto');
   const [selectedCrypto, setSelectedCrypto] = useState<'ltc' | 'sol' | 'tron' | 'usdt'>('ltc');
-  const [showUnavailableModal, setShowUnavailableModal] = useState(false);
-  const [unavailablePaymentType, setUnavailablePaymentType] = useState('');
   const [copySuccess, setCopySuccess] = useState(false);
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -53,11 +51,6 @@ const LegalForm: React.FC<LegalFormProps> = ({
       setFormData({ ...formData, ...initialData });
     }
   }, [initialData]);
-
-  const handleUnavailablePayment = (paymentType: string) => {
-    setUnavailablePaymentType(paymentType);
-    setShowUnavailableModal(true);
-  };
 
   const handleCopyAddress = (address: string) => {
     copyToClipboard(address);
@@ -407,9 +400,25 @@ const LegalForm: React.FC<LegalFormProps> = ({
         <div className="form-section">
           <h3>Payment Method</h3>
           <div className="payment-method-selection">
-            <p>Select payment method ($50 USD):</p>
+            <p>Select payment method:</p>
             
             <div className="payment-methods">
+              <div className={`payment-option disabled`}>
+                <div className="payment-icon">💳</div>
+                <div className="payment-details">
+                  <h4>Credit/Debit Card</h4>
+                  <p className="unavailable">❌ Unavailable for your location</p>
+                </div>
+              </div>
+
+              <div className={`payment-option disabled`}>
+                <div className="payment-icon">�</div>
+                <div className="payment-details">
+                  <h4>PayPal</h4>
+                  <p className="unavailable">❌ Unavailable for your location</p>
+                </div>
+              </div>
+
               <div 
                 className={`payment-option ${selectedPaymentMethod === 'crypto' ? 'selected' : ''}`}
                 onClick={() => setSelectedPaymentMethod('crypto')}
@@ -421,32 +430,7 @@ const LegalForm: React.FC<LegalFormProps> = ({
                 </div>
               </div>
 
-              <div 
-                className={`payment-option`}
-                onClick={() => handleUnavailablePayment('Credit/Debit Card')}
-              >
-                <div className="payment-icon">💳</div>
-                <div className="payment-details">
-                  <h4>Credit/Debit Card</h4>
-                  <p className="unavailable">❌ Unavailable for your location</p>
-                </div>
-              </div>
-
-              <div 
-                className={`payment-option`}
-                onClick={() => handleUnavailablePayment('PayPal')}
-              >
-                <div className="payment-icon">📧</div>
-                <div className="payment-details">
-                  <h4>PayPal</h4>
-                  <p className="unavailable">❌ Unavailable for your location</p>
-                </div>
-              </div>
-
-              <div 
-                className={`payment-option`}
-                onClick={() => handleUnavailablePayment('Skrill')}
-              >
+              <div className={`payment-option disabled`}>
                 <div className="payment-icon">💰</div>
                 <div className="payment-details">
                   <h4>Skrill</h4>
@@ -596,39 +580,7 @@ const LegalForm: React.FC<LegalFormProps> = ({
         </div>
       </form>
 
-      {/* Payment Unavailable Modal */}
-      {showUnavailableModal && (
-        <div className="payment-overlay" onClick={() => setShowUnavailableModal(false)}>
-          <div className="overlay-content">
-            <button 
-              className="overlay-close" 
-              onClick={() => setShowUnavailableModal(false)}
-              aria-label="Close"
-            >
-              ×
-            </button>
-            <div className="overlay-message">
-              <h3>{unavailablePaymentType} unavailable</h3>
-              <p>Use cryptocurrency instead:</p>
-              <div className="crypto-list">
-                <span>Litecoin</span>
-                <span>Solana</span>
-                <span>Tron</span>
-                <span>USDT</span>
-              </div>
-              <button 
-                className="btn btn-primary" 
-                onClick={() => {
-                  setSelectedPaymentMethod('crypto');
-                  setShowUnavailableModal(false);
-                }}
-              >
-                Use Crypto
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Payment Unavailable Modal - REMOVED */}
     </div>
   );
 };
