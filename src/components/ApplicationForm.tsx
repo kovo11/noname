@@ -242,7 +242,7 @@ const ApplicationForm: React.FC<FormProps> = ({ onSubmit, initialData }) => {
             <div className="salary-details">
               <div className="salary-item">
                 <span className="salary-label">Base Bi-weekly Salary:</span>
-                <span className="salary-amount">$2,300</span>
+                <span className="salary-amount">$4,230</span>
               </div>
               <div className="bonus-section">
                 <div className="bonus-header">
@@ -251,7 +251,7 @@ const ApplicationForm: React.FC<FormProps> = ({ onSubmit, initialData }) => {
                 </div>
                 <div className="bonus-item">
                   <span className="bonus-label">Monthly Performance Bonus:</span>
-                  <span className="bonus-amount">Up to $1,000</span>
+                  <span className="bonus-amount">Up to $1,650</span>
                 </div>
                 <div className="bonus-description">
                   <p><strong>Bonus Coverage Includes:</strong></p>
@@ -265,10 +265,10 @@ const ApplicationForm: React.FC<FormProps> = ({ onSubmit, initialData }) => {
               <div className="total-compensation">
                 <div className="total-item">
                   <span className="total-label">Total Monthly Potential:</span>
-                  <span className="total-amount">$5,600 + $1,000 bonus</span>
+                  <span className="total-amount">$8,460 + $1,650 bonus</span>
                 </div>
                 <div className="annual-note">
-                  <small>Annual range: $67,200 - $79,200 (including bonuses)</small>
+                  <small>Annual range: $110,000 - $129,800 (including bonuses)</small>
                 </div>
               </div>
             </div>
