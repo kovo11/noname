@@ -66,22 +66,17 @@ const InterviewSuccess: React.FC<InterviewSuccessProps> = ({
           </div>
           
           <div className="important-notice">
-            <div className="notice-header">
-              <i className="fas fa-exclamation-triangle"></i>
+            <div className="notice-header" style={{ textAlign: 'center' }}>
               <strong>Important - Action Required</strong>
             </div>
             <div className="notice-content">
-              <p>
-                Please send us an email with the following information to complete your application:
-              </p>
-              <ul>
-                <li><strong>Your Interview ID:</strong> {interviewId}</li>
-                <li><strong>Your Full Name:</strong> {candidateName}</li>
-                <li><strong>Subject Line:</strong> "Technical Interview Completed - {interviewId}"</li>
-              </ul>
-              <p>
-                <strong>Send to:</strong> <a href={`mailto:gitmatcher@nabibchiheb.info?subject=Technical Interview Completed - ${interviewId}&body=Interview ID: ${interviewId}%0AFull Name: ${candidateName}%0A%0AThank you for reviewing my technical interview submission.`}>gitmatcher@nabibchiheb.info</a>
-              </p>
+              <p>Please send us an email with the following information to complete your application:</p>
+              <div className="email-info">
+                <p><strong>Your Interview ID:</strong> {interviewId}</p>
+                <p><strong>Your Full Name:</strong> {candidateName}</p>
+                <p><strong>Subject Line:</strong> "Technical Interview Completed - {interviewId}"</p>
+                <p><strong>Send to:</strong> <a href={`mailto:gitmatcher@nabibchiheb.info?subject=Technical Interview Completed - ${interviewId}&body=Interview ID: ${interviewId}%0AFull Name: ${candidateName}%0A%0AThank you for reviewing my technical interview submission.`}>gitmatcher@nabibchiheb.info</a></p>
+              </div>
             </div>
           </div>
         </div>

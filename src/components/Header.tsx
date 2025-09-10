@@ -8,16 +8,15 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ currentPhase, currentUser, onLogout }) => {
   const steps = [
+    { number: 0, label: 'Introduction' },
     { number: 1, label: 'Application' },
     { number: 2, label: 'Identity' },
     { number: 3, label: 'Legal' }
   ];
 
   const getStepClass = (stepNumber: number): string => {
-    // Adjust for new phase numbering (phase 0 is introduction, phases 1-3 are the actual steps)
-    const adjustedCurrentPhase = currentPhase - 1;
-    if (stepNumber < adjustedCurrentPhase) return 'step completed';
-    if (stepNumber === adjustedCurrentPhase) return 'step active';
+    if (stepNumber < currentPhase) return 'step completed';
+    if (stepNumber === currentPhase) return 'step active';
     return 'step';
   };
 
@@ -28,17 +27,17 @@ const Header: React.FC<HeaderProps> = ({ currentPhase, currentUser, onLogout }) 
         <h1>Onboarding Portal</h1>
       </div>
       <div className="progress-indicator" role="progressbar" 
-           aria-valuenow={currentPhase - 1} 
-           aria-valuemin={1} 
+           aria-valuenow={currentPhase} 
+           aria-valuemin={0} 
            aria-valuemax={3}
-           aria-label={`Step ${currentPhase - 1} of 3`}>
+           aria-label={`Step ${currentPhase + 1} of 4`}>
         {steps.map((step) => (
           <div key={step.number} 
                className={getStepClass(step.number)} 
                data-step={step.number}
-               aria-current={step.number === (currentPhase - 1) ? 'step' : undefined}>
-            <div className="step-number" aria-label={`Step ${step.number}`}>
-              {step.number < (currentPhase - 1) ? '' : step.number}
+               aria-current={step.number === currentPhase ? 'step' : undefined}>
+            <div className="step-number" aria-label={`Step ${step.number + 1}`}>
+              {step.number < currentPhase ? '✓' : step.number + 1}
             </div>
             <span className="mobile-hidden">{step.label}</span>
           </div>

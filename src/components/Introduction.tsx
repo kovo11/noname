@@ -1,5 +1,6 @@
 import React from 'react';
 import userData from '../data/users.json';
+import HRVideoMessage from './HRVideoMessage';
 
 interface TeamMember {
   name: string;
@@ -59,6 +60,7 @@ const Introduction: React.FC<IntroductionProps> = ({ onContinue, currentUser }) 
     {
       name: "Christian Ostmo",
       role: "Head of HR",
+      image: "/images/christian-ostmo.jpeg",
       bio: "Building amazing teams and fostering company culture"
     },
     {
@@ -145,6 +147,9 @@ const Introduction: React.FC<IntroductionProps> = ({ onContinue, currentUser }) 
           </p>
         </div>
 
+        {/* HR Video Message */}
+        <HRVideoMessage />
+
         {/* Company Story Section */}
         <div className="company-story" style={{
           background: '#f7fafc',
@@ -200,7 +205,7 @@ const Introduction: React.FC<IntroductionProps> = ({ onContinue, currentUser }) 
               <p style={{ color: '#4a5568', lineHeight: '1.6', margin: '0' }}>
                 We've secured over <strong>$21 million in investment</strong> from top angel investors who believe in 
                 our mission. This funding allows us to scale from our current small but mighty team to 
-                <strong> 120+ employees</strong> by next year!
+                <strong> 150+ employees</strong> by next year!
               </p>
             </div>
           </div>
@@ -407,7 +412,7 @@ const Introduction: React.FC<IntroductionProps> = ({ onContinue, currentUser }) 
               fontWeight: '500'
             }}>
               <i className="fas fa-heart" style={{ marginRight: '8px' }}></i>
-              Soon to be 120+ strong! We're partnering with several tech institutions all over the world to achieve this goal, as this is a very important next step for scaling. Your skills and passion will help us reach this milestone.
+              Soon to be 150+ strong! We're partnering with several tech institutions all over the world to achieve this goal, as this is a very important next step for scaling. Your skills and passion will help us reach this milestone.
             </p>
           </div>
         </div>

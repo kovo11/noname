@@ -486,8 +486,8 @@ GitMatcher US Department - Technical Interview System
     return (
       <div className="app">
         <div className="container">
-          {/* Only show header for phases 1-3 (Application, Identity, Legal) */}
-          {currentPhase >= 1 && currentPhase <= 3 && (
+          {/* Show header for phases 0-3 (Introduction, Application, Identity, Legal) */}
+          {currentPhase >= 0 && currentPhase <= 3 && (
             <Header currentPhase={currentPhase} currentUser={currentUser} onLogout={handleLogout} />
           )}
           {renderCurrentPhase()}
