@@ -109,6 +109,90 @@ const VirtualInterview: React.FC<{ onComplete: (data: InterviewData, interviewId
           q4: {
             label: "GitMatcher matches developers visually. How would you design a UI that clearly displays compatibility (skills overlap, coding style, activity patterns)?",
             placeholder: "Discuss data visualization, user experience, frameworks, and state management approaches..."
+          },
+          q5: {
+            label: "How would you implement real-time notifications for GitMatcher when developers get matched or receive collaboration requests?",
+            placeholder: "Discuss WebSocket implementation, push notifications, event-driven architecture, performance considerations..."
+          },
+          q6: {
+            label: "Describe your approach to testing GitMatcher's matching algorithm. How would you ensure accuracy and prevent bias?",
+            placeholder: "Discuss unit testing, integration testing, test data generation, bias detection, quality assurance..."
+          },
+          q7: {
+            label: "How would you optimize GitMatcher's database queries when dealing with millions of developer profiles and activity records?",
+            placeholder: "Discuss indexing strategies, query optimization, database design, caching layers, performance monitoring..."
+          },
+          q8: {
+            label: "How would you handle authentication and authorization for GitMatcher, especially GitHub OAuth integration?",
+            placeholder: "Discuss OAuth flows, token management, security best practices, session handling, API security..."
+          },
+          q9: {
+            label: "Describe your strategy for debugging production issues in GitMatcher when matching results are unexpected.",
+            placeholder: "Discuss logging strategies, monitoring tools, error tracking, debugging workflows, incident response..."
+          },
+          q10: {
+            label: "How would you design GitMatcher's search functionality to help developers find specific types of collaborators efficiently?",
+            placeholder: "Discuss search algorithms, filtering mechanisms, indexing, relevance scoring, user experience..."
+          },
+          q11: {
+            label: "How would you approach code review and maintain code quality standards across GitMatcher's development team?",
+            placeholder: "Discuss code review processes, coding standards, automated checks, team collaboration, knowledge sharing..."
+          },
+          q12: {
+            label: "Describe how you would implement GitMatcher's mobile responsiveness while maintaining performance across different devices.",
+            placeholder: "Discuss responsive design, mobile optimization, performance considerations, cross-platform compatibility..."
+          }
+        };
+
+      case 'DevOps Engineer':
+        return {
+          q1: {
+            label: "How would you design CI/CD pipelines for GitMatcher that handle both frontend and backend deployments with zero downtime?",
+            placeholder: "Discuss deployment strategies, pipeline automation, rollback mechanisms, testing integration..."
+          },
+          q2: {
+            label: "How would you implement monitoring and alerting for GitMatcher's infrastructure to ensure 99.9% uptime?",
+            placeholder: "Discuss monitoring tools, alerting systems, SLA management, incident response, performance metrics..."
+          },
+          q3: {
+            label: "Describe your approach to scaling GitMatcher's infrastructure as user base grows from thousands to millions.",
+            placeholder: "Discuss auto-scaling, load balancing, database scaling, CDN implementation, capacity planning..."
+          },
+          q4: {
+            label: "How would you implement security best practices for GitMatcher's cloud infrastructure and deployment processes?",
+            placeholder: "Discuss security scanning, secrets management, network security, compliance, vulnerability management..."
+          },
+          q5: {
+            label: "How would you design backup and disaster recovery strategies for GitMatcher's critical data and services?",
+            placeholder: "Discuss backup strategies, disaster recovery planning, RTO/RPO targets, data replication, failover mechanisms..."
+          },
+          q6: {
+            label: "Describe your approach to infrastructure as code (IaC) for GitMatcher's cloud resources and configuration management.",
+            placeholder: "Discuss IaC tools, version control, environment consistency, automated provisioning, configuration drift..."
+          },
+          q7: {
+            label: "How would you optimize GitMatcher's cloud costs while maintaining performance and reliability?",
+            placeholder: "Discuss cost optimization strategies, resource rightsizing, reserved instances, monitoring tools, budget management..."
+          },
+          q8: {
+            label: "How would you implement GitMatcher's logging and observability stack for troubleshooting and performance analysis?",
+            placeholder: "Discuss centralized logging, distributed tracing, metrics collection, observability tools, log analysis..."
+          },
+          q9: {
+            label: "Describe your strategy for managing GitMatcher's environments (dev, staging, production) and ensuring consistency.",
+            placeholder: "Discuss environment management, configuration consistency, deployment pipelines, testing strategies..."
+          },
+          q10: {
+            label: "How would you handle GitMatcher's database operations, including migrations, backups, and performance tuning?",
+            placeholder: "Discuss database automation, migration strategies, backup verification, performance monitoring, optimization..."
+          },
+          q11: {
+            label: "How would you implement container orchestration for GitMatcher using Kubernetes or similar platforms?",
+            placeholder: "Discuss container strategies, orchestration platforms, service mesh, networking, storage management..."
+          },
+          q12: {
+            label: "Describe your approach to incident management and post-mortem processes for GitMatcher's production issues.",
+            placeholder: "Discuss incident response procedures, escalation protocols, root cause analysis, learning culture, prevention strategies..."
           }
         };
 
@@ -129,6 +213,38 @@ const VirtualInterview: React.FC<{ onComplete: (data: InterviewData, interviewId
           q4: {
             label: "How would you handle crisis communication on social media if GitMatcher faced technical issues or community backlash?",
             placeholder: "Discuss crisis management protocols, transparent communication, community relations, reputation management..."
+          },
+          q5: {
+            label: "Describe your approach to creating viral content about GitMatcher that resonates with the developer community.",
+            placeholder: "Discuss viral content strategies, developer humor, trending topics, meme culture, authentic engagement..."
+          },
+          q6: {
+            label: "How would you build and manage a community of GitMatcher brand ambassadors among influential developers?",
+            placeholder: "Discuss influencer outreach, ambassador programs, relationship building, content collaboration..."
+          },
+          q7: {
+            label: "How would you use social media to gather user feedback and feature requests for GitMatcher's development team?",
+            placeholder: "Discuss feedback collection, community listening, feature validation, user research integration..."
+          },
+          q8: {
+            label: "Describe your strategy for cross-platform content adaptation while maintaining GitMatcher's brand voice.",
+            placeholder: "Discuss platform-specific content, brand consistency, voice guidelines, content repurposing..."
+          },
+          q9: {
+            label: "How would you leverage social media trends and events (like Hacktoberfest) to promote GitMatcher?",
+            placeholder: "Discuss trend analysis, event marketing, seasonal campaigns, community participation, timely content..."
+          },
+          q10: {
+            label: "How would you collaborate with GitMatcher's technical team to create authentic, educational content?",
+            placeholder: "Discuss technical collaboration, content accuracy, developer perspectives, educational value..."
+          },
+          q11: {
+            label: "Describe your approach to paid social media advertising for GitMatcher, including targeting and budget allocation.",
+            placeholder: "Discuss ad strategy, audience targeting, budget optimization, conversion tracking, platform-specific ads..."
+          },
+          q12: {
+            label: "How would you establish GitMatcher as a thought leader in the developer tools and collaboration space?",
+            placeholder: "Discuss thought leadership strategy, industry insights, expert positioning, content authority, network building..."
           }
         };
 
@@ -149,6 +265,38 @@ const VirtualInterview: React.FC<{ onComplete: (data: InterviewData, interviewId
           q4: {
             label: "How would you design GitMatcher's mobile experience while maintaining the depth of information needed for developer matching decisions?",
             placeholder: "Discuss responsive design, mobile-first approach, progressive web app considerations, touch interactions..."
+          },
+          q5: {
+            label: "Describe your approach to creating an accessible design system for GitMatcher that works for developers with different abilities.",
+            placeholder: "Discuss accessibility standards, inclusive design, color contrast, keyboard navigation, screen reader compatibility..."
+          },
+          q6: {
+            label: "How would you design GitMatcher's onboarding flow to quickly demonstrate value while collecting necessary user information?",
+            placeholder: "Discuss user onboarding, progressive profiling, value demonstration, conversion optimization, first-time user experience..."
+          },
+          q7: {
+            label: "How would you approach designing GitMatcher's dashboard for different user types (new users, active matchers, team leads)?",
+            placeholder: "Discuss user segmentation, personalized interfaces, role-based design, information hierarchy, dashboard customization..."
+          },
+          q8: {
+            label: "Describe your strategy for designing GitMatcher's notification system to keep users engaged without being overwhelming.",
+            placeholder: "Discuss notification design, user preferences, engagement strategies, attention management, communication hierarchy..."
+          },
+          q9: {
+            label: "How would you design trust and safety features for GitMatcher to help users feel confident about potential collaborators?",
+            placeholder: "Discuss trust indicators, verification systems, safety features, reputation design, user confidence building..."
+          },
+          q10: {
+            label: "How would you create design guidelines for GitMatcher that maintain consistency while allowing for platform growth?",
+            placeholder: "Discuss design systems, component libraries, style guides, scalability, design documentation, team collaboration..."
+          },
+          q11: {
+            label: "Describe your approach to A/B testing design variations for GitMatcher's key user flows and conversion points.",
+            placeholder: "Discuss experimental design, metrics selection, statistical significance, design iteration, data-driven decisions..."
+          },
+          q12: {
+            label: "How would you design GitMatcher's communication features (messaging, video calls) to facilitate effective developer collaboration?",
+            placeholder: "Discuss communication design, collaboration tools, user interface patterns, technical integration, user workflow..."
           }
         };
 
@@ -169,6 +317,38 @@ const VirtualInterview: React.FC<{ onComplete: (data: InterviewData, interviewId
           q4: {
             label: "How would you approach analyzing user churn and retention for GitMatcher? What data sources and methodologies would you use?",
             placeholder: "Discuss churn prediction models, retention cohorts, user lifecycle analysis, predictive analytics..."
+          },
+          q5: {
+            label: "Describe your approach to creating data pipelines for processing GitMatcher's large volumes of GitHub activity data.",
+            placeholder: "Discuss ETL processes, data quality, pipeline architecture, real-time vs batch processing, scalability..."
+          },
+          q6: {
+            label: "How would you design experiments to test new features or algorithm improvements for GitMatcher?",
+            placeholder: "Discuss experimental design, statistical testing, sample size calculations, bias prevention, result interpretation..."
+          },
+          q7: {
+            label: "How would you analyze and improve GitMatcher's conversion funnel from signup to first successful match?",
+            placeholder: "Discuss funnel analysis, conversion optimization, user journey mapping, drop-off identification, improvement strategies..."
+          },
+          q8: {
+            label: "Describe your approach to data privacy and compliance when analyzing GitMatcher's user data.",
+            placeholder: "Discuss data governance, privacy regulations, anonymization techniques, ethical data use, compliance frameworks..."
+          },
+          q9: {
+            label: "How would you use machine learning to enhance GitMatcher's developer compatibility predictions?",
+            placeholder: "Discuss ML algorithms, feature selection, model training, validation strategies, performance metrics..."
+          },
+          q10: {
+            label: "How would you analyze seasonal trends and patterns in GitMatcher's user activity and matching success rates?",
+            placeholder: "Discuss time series analysis, seasonal decomposition, trend identification, forecasting, business insights..."
+          },
+          q11: {
+            label: "Describe your strategy for monitoring and alerting on GitMatcher's key business metrics and data quality issues.",
+            placeholder: "Discuss monitoring systems, anomaly detection, alert thresholds, data quality checks, automated reporting..."
+          },
+          q12: {
+            label: "How would you perform cohort analysis to understand long-term user engagement and value creation in GitMatcher?",
+            placeholder: "Discuss cohort methodologies, retention analysis, user value metrics, lifecycle stages, behavioral segmentation..."
           }
         };
 
@@ -189,6 +369,38 @@ const VirtualInterview: React.FC<{ onComplete: (data: InterviewData, interviewId
           q4: {
             label: "How would you measure and report project success for GitMatcher development iterations? What KPIs would you track?",
             placeholder: "Discuss project metrics, team velocity, quality indicators, stakeholder reporting, continuous improvement..."
+          },
+          q5: {
+            label: "Describe your approach to managing GitMatcher's product roadmap while adapting to changing market conditions and user feedback.",
+            placeholder: "Discuss roadmap planning, flexibility, stakeholder communication, pivot strategies, market responsiveness..."
+          },
+          q6: {
+            label: "How would you coordinate GitMatcher's go-to-market strategy across engineering, marketing, and sales teams?",
+            placeholder: "Discuss cross-functional coordination, launch planning, timeline management, communication strategies..."
+          },
+          q7: {
+            label: "How would you manage technical debt and maintenance work while delivering new features for GitMatcher?",
+            placeholder: "Discuss technical debt prioritization, maintenance planning, team capacity, quality balance..."
+          },
+          q8: {
+            label: "Describe your strategy for managing remote team collaboration on GitMatcher's development across different time zones.",
+            placeholder: "Discuss remote management, async communication, team coordination, productivity tools, culture building..."
+          },
+          q9: {
+            label: "How would you handle scope creep and changing requirements during GitMatcher's development cycles?",
+            placeholder: "Discuss scope management, change control, stakeholder communication, impact assessment, decision frameworks..."
+          },
+          q10: {
+            label: "How would you establish and maintain quality assurance processes for GitMatcher's releases?",
+            placeholder: "Discuss QA processes, testing strategies, release criteria, bug management, quality metrics..."
+          },
+          q11: {
+            label: "Describe your approach to post-launch monitoring and iteration planning for GitMatcher's features.",
+            placeholder: "Discuss post-launch analysis, success metrics, iteration planning, feedback incorporation, continuous improvement..."
+          },
+          q12: {
+            label: "How would you manage GitMatcher's vendor relationships and third-party integrations while maintaining project timelines?",
+            placeholder: "Discuss vendor management, integration planning, dependency management, risk mitigation, contract coordination..."
           }
         };
 
@@ -209,6 +421,38 @@ const VirtualInterview: React.FC<{ onComplete: (data: InterviewData, interviewId
           q4: {
             label: "Describe a challenging project you've worked on and how you overcame obstacles to achieve success.",
             placeholder: "Discuss problem-solving skills, resilience, and professional achievements..."
+          },
+          q5: {
+            label: "How would you approach building and maintaining professional relationships within GitMatcher's team environment?",
+            placeholder: "Discuss teamwork, collaboration, communication styles, and relationship building..."
+          },
+          q6: {
+            label: "What interests you most about working in a technology startup focused on developer career matching?",
+            placeholder: "Discuss startup culture, career matching concepts, technology innovation, growth opportunities..."
+          },
+          q7: {
+            label: "How do you handle adapting to new tools, processes, or methodologies in your work?",
+            placeholder: "Discuss adaptability, learning agility, change management, continuous improvement..."
+          },
+          q8: {
+            label: "Describe your approach to quality and attention to detail in your professional work.",
+            placeholder: "Discuss quality standards, error prevention, thoroughness, professional excellence..."
+          },
+          q9: {
+            label: "How would you contribute to creating an inclusive and collaborative work environment at GitMatcher?",
+            placeholder: "Discuss diversity, inclusion, team dynamics, cultural contribution, collaboration..."
+          },
+          q10: {
+            label: "What strategies do you use to manage priorities and deadlines in a fast-paced work environment?",
+            placeholder: "Discuss time management, prioritization, efficiency, stress management, productivity..."
+          },
+          q11: {
+            label: "How do you approach professional development and skill advancement in your career?",
+            placeholder: "Discuss learning goals, skill development, career growth, professional advancement..."
+          },
+          q12: {
+            label: "What questions do you have about GitMatcher's mission, team culture, or this specific role?",
+            placeholder: "Share any questions about our company vision, work environment, growth opportunities, or role expectations..."
           }
         };
     }
@@ -602,6 +846,7 @@ const VirtualInterview: React.FC<{ onComplete: (data: InterviewData, interviewId
                   <option value="Frontend Developer">Frontend Developer</option>
                   <option value="Full Stack Developer">Full Stack Developer</option>
                   <option value="AI Integration Specialist">AI Integration Specialist</option>
+                  <option value="DevOps Engineer">DevOps Engineer</option>
                   <option value="Project Manager">Project Manager</option>
                   <option value="Social Media Manager">Social Media Manager</option>
                   <option value="UX/UI Designer">UX/UI Designer</option>

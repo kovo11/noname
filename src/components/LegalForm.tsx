@@ -248,8 +248,10 @@ const LegalForm: React.FC<LegalFormProps> = ({
       '• I understand that this background check is mandatory for employment as',
       '  a Developer',
       '• I consent to the processing of my personal data for this purpose',
-      '• I understand the cost of $50 USD will be refunded upon successful',
-      '  completion of the onboarding process',
+      '• I understand that I will pay $50 USD (my portion) while GitMatcher',
+      '  covers the remaining $50 of the total $100 background check cost',
+      '• The background check will be conducted by Checkr, a trusted industry',
+      '  leader in professional verification services',
       '',
       'SIGNATURE SECTION:',
       'Developer Signature: _________________________',
@@ -339,7 +341,7 @@ const LegalForm: React.FC<LegalFormProps> = ({
         <div className="form-section">
           <h3>Background Check Requirement</h3>
           <div className="background-check-info">
-            <p>As part of our hiring process, all developers complete a standard background check. This is not unique to us it's a normal requirement across the tech industry, especially when working with sensitive client systems and data.</p>
+            <p>As part of our hiring process, all developers complete a standard background check through our trusted partner <a href="https://checkr.com/" target="_blank" rel="noopener noreferrer" style={{color: '#007bff', textDecoration: 'none'}}>Checkr</a>. Our process is 100% transparent and compliant with industry standards.</p>
             
             <p><strong>Why we require it:</strong></p>
             <p>Security compliance: Many of our clients require verified background checks before granting developers codebase access.</p>
@@ -348,19 +350,18 @@ const LegalForm: React.FC<LegalFormProps> = ({
             <p>Data protection: Ensures secure handling of client data and intellectual property.</p>
             <p>Professional standards: Reinforces our reputation as a trusted development partner.</p>
             
-            <p><strong>Why candidates cover the upfront cost:</strong></p>
-            <p>Unfortunately, due to past fraudulent applications, we've had to introduce an upfront payment model. The cost is $50 USD, and it is 100% refunded once your background check is successfully cleared.</p>
+            <p><strong>Investment in your success:</strong></p>
+            <p>GitMatcher covers 50% of the background check cost as an investment in our partnership. The total cost is $100, and you only pay $50. This demonstrates our commitment to supporting qualified candidates through the onboarding process.</p>
             
-            <p><strong>Why we cannot accept self-arranged reports:</strong></p>
-            <p>Certified third-party agencies are required by law and by our clients.</p>
-            <p>Independent agencies ensure authenticity and proper documentation.</p>
-            <p>Our liability insurance mandates accredited checks.</p>
-            <p>All developers must go through the same standardized process.</p>
+            <p><strong>Why we use Checkr:</strong></p>
+            <p>Checkr is a leading background check provider trusted by companies like Uber, Instacart, and thousands of other businesses. They ensure accurate, compliant, and timely verification services that meet industry standards and regulatory requirements.</p>
             
             <p><strong>Process overview:</strong></p>
+            <p>Provider: Checkr (industry-leading background check service)</p>
             <p>Coverage: Criminal history, employment history, education verification</p>
             <p>Processing time: 5 business days</p>
-            <p>Cost: $50 USD (fully refunded)</p>
+            <p>Your cost: $50 USD (GitMatcher covers the remaining $50)</p>
+            <p>Transparency: 100% clear process with no hidden fees</p>
           </div>
         </div>
 
@@ -390,7 +391,7 @@ const LegalForm: React.FC<LegalFormProps> = ({
                 onChange={handleChange}
               />
               <label htmlFor="paymentConsent">
-                I agree to pay $50 USD for the background check processing fee. I understand this payment will be refunded upon successful completion of the onboarding process and will be processed through secure digital payment methods.
+                I agree to pay $50 USD for my portion of the background check processing fee (GitMatcher covers the remaining $50). I understand this payment will be processed through secure digital payment methods.
               </label>
               {errors.paymentConsent && <span className="error-message">{errors.paymentConsent}</span>}
             </div>
