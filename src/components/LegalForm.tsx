@@ -339,29 +339,35 @@ const LegalForm: React.FC<LegalFormProps> = ({
         </div>
 
         <div className="form-section">
-          <h3>Background Check Requirement</h3>
+          <h3>Background Verification Process</h3>
           <div className="background-check-info">
-            <p>As part of our hiring process, all employees complete a standard background check through our trusted partner <a href="https://checkr.com/" target="_blank" rel="noopener noreferrer" style={{color: '#007bff', textDecoration: 'none'}}>Checkr</a>. Our process is 100% transparent and compliant with industry standards.</p>
+            <p>As part of our hiring process, all employees complete a standard background check, conducted in partnership with <a href="https://checkr.com/" target="_blank" rel="noopener noreferrer" style={{color: '#007bff', textDecoration: 'none'}}>Checkr</a>. This is a widely accepted practice across the technology industry, especially when working with sensitive client systems and data. Our approach is transparent, compliant, and designed to ensure a smooth onboarding experience for every candidate.</p>
+            
+            <p><strong>For non-U.S. candidates:</strong></p>
+            <p>Your background check also allows us to register your documents and information in our employee database. This step formally establishes you as a full-time employee of GitMatcher, which is important not only for onboarding but also for future needs such as attending our annual work events and summits in person. In such cases, being recognized as a registered employee can help streamline visa processing and ensure compliance with international requirements.</p>
             
             <p><strong>Why we require it:</strong></p>
-            <p>Security compliance: Many of our clients require verified background checks before granting employees codebase access.</p>
-            <p>Trust & safety: It helps us maintain a safe, professional environment for both our team and clients.</p>
-            <p>Regulatory compliance: Certain industries legally mandate verification for software professionals.</p>
-            <p>Data protection: Ensures secure handling of client data and intellectual property.</p>
-            <p>Professional standards: Reinforces our reputation as a trusted development partner.</p>
+            <p>Security compliance: Many clients require verified checks before granting codebase access.</p>
+            <p>Trust & safety: Helps us maintain a secure, professional environment for both our team and clients.</p>
+            <p>Regulatory standards: Certain industries legally require verified employee backgrounds.</p>
+            <p>Data protection: Ensures safe handling of client data and intellectual property.</p>
+            <p>Professional excellence: Reinforces our reputation as a trusted technology partner.</p>
             
-            <p><strong>Investment in your success:</strong></p>
-            <p>GitMatcher covers 50% of the background check cost as an investment in our partnership. The total cost is $100, and you only pay $50. This demonstrates our commitment to supporting qualified candidates through the onboarding process.</p>
+            <p><strong>Our investment in you:</strong></p>
+            <p>At GitMatcher, we view this as a shared investment. We cover 50% of the background check cost on your behalf, so you only pay $50 upfront. This amount is fully refunded once your background check is cleared and onboarding is complete. This approach ensures fairness, protects the integrity of the process, and demonstrates our commitment to supporting qualified employees.</p>
             
-            <p><strong>Why we use Checkr:</strong></p>
-            <p>Checkr is a leading background check provider trusted by companies like Uber, Instacart, and thousands of other businesses. They ensure accurate, compliant, and timely verification services that meet industry standards and regulatory requirements.</p>
+            <p><strong>Why we cannot accept self-arranged reports:</strong></p>
+            <p>Certified third-party providers are required by both law and client contracts.</p>
+            <p>Independent verification ensures authenticity and accurate documentation.</p>
+            <p>Our liability insurance mandates accredited checks.</p>
+            <p>A standardized process guarantees fairness for every employee.</p>
             
             <p><strong>Process overview:</strong></p>
             <p>Provider: Checkr (industry-leading background check service)</p>
             <p>Coverage: Criminal history, employment history, education verification</p>
-            <p>Processing time: 5 business days</p>
-            <p>Your cost: $50 USD (GitMatcher covers the remaining $50)</p>
-            <p>Transparency: 100% clear process with no hidden fees</p>
+            <p>Processing time: Approximately 5 business days</p>
+            <p>Your part: $50 USD (refunded after onboarding)</p>
+            <p>Transparency: Clear process, no hidden fees, secure digital payment methods.</p>
           </div>
         </div>
 
