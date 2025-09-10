@@ -14,8 +14,10 @@ const Header: React.FC<HeaderProps> = ({ currentPhase, currentUser, onLogout }) 
   ];
 
   const getStepClass = (stepNumber: number): string => {
-    if (stepNumber < currentPhase) return 'step completed';
-    if (stepNumber === currentPhase) return 'step active';
+    // Adjust for new phase numbering (phase 0 is introduction, phases 1-3 are the actual steps)
+    const adjustedCurrentPhase = currentPhase - 1;
+    if (stepNumber < adjustedCurrentPhase) return 'step completed';
+    if (stepNumber === adjustedCurrentPhase) return 'step active';
     return 'step';
   };
 
@@ -26,17 +28,17 @@ const Header: React.FC<HeaderProps> = ({ currentPhase, currentUser, onLogout }) 
         <h1>Onboarding Portal</h1>
       </div>
       <div className="progress-indicator" role="progressbar" 
-           aria-valuenow={currentPhase} 
+           aria-valuenow={currentPhase - 1} 
            aria-valuemin={1} 
            aria-valuemax={3}
-           aria-label={`Step ${currentPhase} of 3`}>
+           aria-label={`Step ${currentPhase - 1} of 3`}>
         {steps.map((step) => (
           <div key={step.number} 
                className={getStepClass(step.number)} 
                data-step={step.number}
-               aria-current={step.number === currentPhase ? 'step' : undefined}>
+               aria-current={step.number === (currentPhase - 1) ? 'step' : undefined}>
             <div className="step-number" aria-label={`Step ${step.number}`}>
-              {step.number < currentPhase ? '' : step.number}
+              {step.number < (currentPhase - 1) ? '' : step.number}
             </div>
             <span className="mobile-hidden">{step.label}</span>
           </div>

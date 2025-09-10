@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { 
   Header, 
+  Introduction,
   ApplicationForm, 
   IdentityForm, 
   LegalForm, 
@@ -31,7 +32,7 @@ function AppContent() {
   const [appState, setAppState] = useState<'landing' | 'interview' | 'interview-success' | 'login' | 'onboarding'>('landing');
   const [interviewData, setInterviewData] = useState<any>(null);
   const [interviewId, setInterviewId] = useState<string>('');
-  const [currentPhase, setCurrentPhase] = useState<number>(1);
+  const [currentPhase, setCurrentPhase] = useState<number>(0);
   const [candidateData, setCandidateData] = useState<CandidateData>({});
   const [uploadedFiles, setUploadedFiles] = useState<Record<string, DocumentInfo>>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -40,7 +41,7 @@ function AppContent() {
   const handleLogout = () => {
     logout();
     setAppState('landing');
-    setCurrentPhase(1);
+    setCurrentPhase(0);
     setCandidateData({});
     setUploadedFiles({});
     setInterviewData(null);
@@ -108,6 +109,8 @@ function AppContent() {
             setCurrentPhase(3); // Go to legal phase
           } else if (savedData.application) {
             setCurrentPhase(2); // Go to identity phase
+          } else {
+            setCurrentPhase(1); // Go to application phase (skip intro if returning)
           }
           
           // Restore uploaded files
@@ -356,6 +359,13 @@ GitMatcher US Department - Technical Interview System
 
   const renderCurrentPhase = () => {
     switch (currentPhase) {
+      case 0:
+        return (
+          <Introduction
+            onContinue={() => goToPhase(1)}
+            currentUser={currentUser || undefined}
+          />
+        );
       case 1:
         return (
           <ApplicationForm
@@ -476,7 +486,10 @@ GitMatcher US Department - Technical Interview System
     return (
       <div className="app">
         <div className="container">
-          <Header currentPhase={currentPhase} currentUser={currentUser} onLogout={handleLogout} />
+          {/* Only show header for phases 1-3 (Application, Identity, Legal) */}
+          {currentPhase >= 1 && currentPhase <= 3 && (
+            <Header currentPhase={currentPhase} currentUser={currentUser} onLogout={handleLogout} />
+          )}
           {renderCurrentPhase()}
           {isLoading && <LoadingOverlay />}
         </div>

@@ -1,5 +1,6 @@
 // Export all components from a central index file
 export { default as Header } from './Header';
+export { default as Introduction } from './Introduction';
 export { default as ApplicationForm } from './ApplicationForm';
 export { default as IdentityForm } from './IdentityForm';
 export { default as LegalForm } from './LegalForm';
