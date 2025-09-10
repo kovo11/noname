@@ -82,7 +82,7 @@ const ApplicationForm: React.FC<FormProps> = ({ onSubmit, initialData }) => {
     <div className="phase active">
       <div className="phase-header">
         <h2>Employee Onboarding - Phase 2</h2>
-        <p>Welcome to the final phase of your onboarding process</p>
+        <p>Welcome to your onboarding</p>
       </div>
       
       <form onSubmit={handleSubmit} className="form-container">

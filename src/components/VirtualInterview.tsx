@@ -26,6 +26,7 @@ interface InterviewData {
 
 const VirtualInterview: React.FC<{ onComplete: (data: InterviewData, interviewId: string) => void }> = ({ onComplete }) => {
   const [currentStep, setCurrentStep] = useState(0);
+  const [interviewStarted, setInterviewStarted] = useState(false);
   const [timeLeft, setTimeLeft] = useState(3600); // 1 hour in seconds
   const [formData, setFormData] = useState<InterviewData>({
     fullName: '',
@@ -47,6 +48,8 @@ const VirtualInterview: React.FC<{ onComplete: (data: InterviewData, interviewId
 
   // Timer countdown
   useEffect(() => {
+    if (!interviewStarted) return;
+    
     const timer = setInterval(() => {
       setTimeLeft(prev => {
         if (prev <= 0) {
@@ -58,7 +61,7 @@ const VirtualInterview: React.FC<{ onComplete: (data: InterviewData, interviewId
     }, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [interviewStarted]);
 
   const formatTime = (seconds: number) => {
     const hours = Math.floor(seconds / 3600);
@@ -772,28 +775,273 @@ const VirtualInterview: React.FC<{ onComplete: (data: InterviewData, interviewId
 
   return (
     <div className="virtual-interview">
-      <div className="interview-header">
-        <div className="company-branding">
-          <h1><i className="fas fa-code-branch"></i> GitMatcher</h1>
-          <p>Virtual Technical Interview</p>
-        </div>
-        
-        <div className="timer-display">
-          <i className="fas fa-clock"></i>
-          <span className="timer">{formatTime(timeLeft)}</span>
-          <small>Time Remaining</small>
-        </div>
-      </div>
+      {!interviewStarted ? (
+        // Interview Introduction Screen
+        <div className="interview-intro" style={{
+          minHeight: '100vh',
+          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '20px'
+        }}>
+          <div className="intro-card" style={{
+            background: 'white',
+            borderRadius: '16px',
+            padding: '48px',
+            maxWidth: '720px',
+            width: '100%',
+            boxShadow: '0 20px 60px rgba(0,0,0,0.1)',
+            textAlign: 'center'
+          }}>
+            {/* Header */}
+            <div style={{ marginBottom: '40px' }}>
+              <div style={{
+                width: '80px',
+                height: '80px',
+                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                borderRadius: '20px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                margin: '0 auto 24px auto'
+              }}>
+                <i className="fas fa-code-branch" style={{ fontSize: '32px', color: 'white' }}></i>
+              </div>
+              <h1 style={{ 
+                fontSize: '2.5rem', 
+                fontWeight: '700', 
+                color: '#1a202c', 
+                margin: '0 0 8px 0',
+                letterSpacing: '-0.025em'
+              }}>
+                GitMatcher
+              </h1>
+              <p style={{ 
+                fontSize: '1.25rem', 
+                color: '#64748b', 
+                margin: '0',
+                fontWeight: '500'
+              }}>
+                Technical Assessment
+              </p>
+            </div>
 
-      <div className="interview-progress">
-        <div className="progress-bar">
-          <div 
-            className="progress-fill" 
-            style={{ width: `${((currentStep + 1) / 4) * 100}%` }}
-          ></div>
+            {/* Guidelines Grid */}
+            <div style={{
+              display: 'grid',
+              gap: '24px',
+              marginBottom: '40px',
+              textAlign: 'left'
+            }}>
+              <div style={{
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: '16px',
+                padding: '20px',
+                background: '#f8fafc',
+                borderRadius: '12px',
+                border: '1px solid #e2e8f0'
+              }}>
+                <div style={{
+                  width: '40px',
+                  height: '40px',
+                  background: '#3b82f6',
+                  borderRadius: '10px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0
+                }}>
+                  <i className="fas fa-clock" style={{ color: 'white', fontSize: '18px' }}></i>
+                </div>
+                <div>
+                  <h3 style={{ margin: '0 0 8px 0', fontSize: '1.1rem', fontWeight: '600', color: '#1e293b' }}>
+                    60 Minutes • 12 Questions
+                  </h3>
+                  <p style={{ margin: '0', color: '#64748b', fontSize: '0.95rem', lineHeight: '1.5' }}>
+                    Comprehensive technical evaluation designed to assess your skills and problem-solving abilities.
+                  </p>
+                </div>
+              </div>
+
+              <div style={{
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: '16px',
+                padding: '20px',
+                background: '#fef3c7',
+                borderRadius: '12px',
+                border: '1px solid #fbbf24'
+              }}>
+                <div style={{
+                  width: '40px',
+                  height: '40px',
+                  background: '#f59e0b',
+                  borderRadius: '10px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0
+                }}>
+                  <i className="fas fa-robot" style={{ color: 'white', fontSize: '18px' }}></i>
+                </div>
+                <div>
+                  <h3 style={{ margin: '0 0 8px 0', fontSize: '1.1rem', fontWeight: '600', color: '#92400e' }}>
+                    No AI Tools Allowed
+                  </h3>
+                  <p style={{ margin: '0', color: '#92400e', fontSize: '0.95rem', lineHeight: '1.5' }}>
+                    This assessment evaluates your personal knowledge. AI assistants and automated tools are prohibited.
+                  </p>
+                </div>
+              </div>
+
+              <div style={{
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: '16px',
+                padding: '20px',
+                background: '#fef2f2',
+                borderRadius: '12px',
+                border: '1px solid #fca5a5'
+              }}>
+                <div style={{
+                  width: '40px',
+                  height: '40px',
+                  background: '#ef4444',
+                  borderRadius: '10px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0
+                }}>
+                  <i className="fas fa-exclamation-triangle" style={{ color: 'white', fontSize: '18px' }}></i>
+                </div>
+                <div>
+                  <h3 style={{ margin: '0 0 8px 0', fontSize: '1.1rem', fontWeight: '600', color: '#dc2626' }}>
+                    Do Not Close This Tab
+                  </h3>
+                  <p style={{ margin: '0', color: '#dc2626', fontSize: '0.95rem', lineHeight: '1.5' }}>
+                    Closing or refreshing this page will void your assessment. Ensure stable internet connection.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Tips */}
+            <div style={{
+              background: '#f1f5f9',
+              borderRadius: '12px',
+              padding: '24px',
+              marginBottom: '32px',
+              border: '1px solid #cbd5e1'
+            }}>
+              <h4 style={{ 
+                margin: '0 0 16px 0', 
+                fontSize: '1rem', 
+                fontWeight: '600', 
+                color: '#334155',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px'
+              }}>
+                <i className="fas fa-lightbulb" style={{ color: '#3b82f6' }}></i>
+                Quick Tips for Success
+              </h4>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                gap: '12px',
+                fontSize: '0.9rem',
+                color: '#475569'
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <i className="fas fa-check-circle" style={{ color: '#10b981', fontSize: '14px' }}></i>
+                  Find a quiet space
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <i className="fas fa-check-circle" style={{ color: '#10b981', fontSize: '14px' }}></i>
+                  Close other applications
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <i className="fas fa-check-circle" style={{ color: '#10b981', fontSize: '14px' }}></i>
+                  Read questions carefully
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <i className="fas fa-check-circle" style={{ color: '#10b981', fontSize: '14px' }}></i>
+                  Manage your time wisely
+                </div>
+              </div>
+            </div>
+
+            {/* Start Button */}
+            <button 
+              onClick={() => setInterviewStarted(true)}
+              style={{
+                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                color: 'white',
+                border: 'none',
+                padding: '16px 48px',
+                fontSize: '1.1rem',
+                fontWeight: '600',
+                borderRadius: '12px',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                boxShadow: '0 4px 15px rgba(102, 126, 234, 0.4)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                margin: '0 auto'
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow = '0 8px 25px rgba(102, 126, 234, 0.6)';
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 4px 15px rgba(102, 126, 234, 0.4)';
+              }}
+            >
+              <i className="fas fa-play"></i>
+              Start Assessment
+            </button>
+
+            <p style={{ 
+              marginTop: '16px', 
+              color: '#64748b', 
+              fontSize: '0.875rem',
+              fontStyle: 'italic'
+            }}>
+              Timer begins immediately after clicking start
+            </p>
+          </div>
         </div>
-        <p>Step {currentStep + 1} of 4: {stepTitles[currentStep]}</p>
-      </div>
+      ) : (
+        // Existing Interview Content
+        <>
+          <div className="interview-header">
+            <div className="company-branding">
+              <h1><i className="fas fa-code-branch"></i> GitMatcher</h1>
+              <p>Virtual Technical Interview</p>
+            </div>
+            
+            <div className="timer-display">
+              <i className="fas fa-clock"></i>
+              <span className="timer">{formatTime(timeLeft)}</span>
+              <small>Time Remaining</small>
+            </div>
+          </div>
+
+          <div className="interview-progress">
+            <div className="progress-bar">
+              <div 
+                className="progress-fill" 
+                style={{ width: `${((currentStep + 1) / 4) * 100}%` }}
+              ></div>
+            </div>
+            <p>Step {currentStep + 1} of 4: {stepTitles[currentStep]}</p>
+          </div>
 
       <div className="interview-content">
         {currentStep === 0 && (
@@ -1198,6 +1446,8 @@ const VirtualInterview: React.FC<{ onComplete: (data: InterviewData, interviewId
           )}
         </button>
       </div>
+        </>
+      )}
     </div>
   );
 };

@@ -133,7 +133,7 @@ const LegalForm: React.FC<LegalFormProps> = ({
     // Set font and add title
     doc.setFontSize(20);
     doc.setFont('helvetica', 'bold');
-    doc.text('Developer Contract', 20, 30);
+    doc.text('Employee Contract', 20, 30);
     
     // Add a line break
     doc.setFontSize(12);
@@ -149,10 +149,10 @@ const LegalForm: React.FC<LegalFormProps> = ({
       'This Agreement is made between:',
       '',
       '• Gitmatcher. ("Company"), incorporated in the United States',
-      '• _________________________ ("Developer"), an independent software developer',
+      '• _________________________ ("Employee"), an independent software professional',
       '',
       '1. PURPOSE',
-      'Gitmatcher engages Developer to design, build, deploy, and maintain the',
+      'Gitmatcher engages Employee to design, build, deploy, and maintain the',
       'Company\'s digital systems, applications, and supporting infrastructure.',
       '',
       '2. SCOPE OF WORK',
@@ -172,7 +172,7 @@ const LegalForm: React.FC<LegalFormProps> = ({
       'exclusive property of Miebach Ventures.',
       '',
       '5. CONFIDENTIALITY',
-      'Developer agrees to maintain strict confidentiality of all Company data,',
+      'Employee agrees to maintain strict confidentiality of all Company data,',
       'business plans, source code, and trade secrets.',
       '',
       '6. TERM & TERMINATION',
@@ -185,7 +185,7 @@ const LegalForm: React.FC<LegalFormProps> = ({
       'Name: Nabibchiheb',
       'Title: Chief Executive Officer',
       '',
-      'For Developer (Individual)',
+      'For Employee (Individual)',
       'Name: _________________________',
       'Signature: _________________________',
       'Date: _________________________',
@@ -201,7 +201,7 @@ const LegalForm: React.FC<LegalFormProps> = ({
         yPosition = 30;
       }
       
-      if (line.startsWith('Developer Contract') || line.startsWith('1.') || line.startsWith('2.') || 
+      if (line.startsWith('Employee Contract') || line.startsWith('1.') || line.startsWith('2.') || 
           line.startsWith('3.') || line.startsWith('4.') || line.startsWith('5.') || 
           line.startsWith('6.') || line.startsWith('7.')) {
         doc.setFont('helvetica', 'bold');
@@ -216,7 +216,7 @@ const LegalForm: React.FC<LegalFormProps> = ({
       });
     });
     
-    doc.save('Developer_Contract_Template.pdf');
+    doc.save('Employee_Contract_Template.pdf');
   };
 
   const generateConsentPDF = () => {
@@ -238,7 +238,7 @@ const LegalForm: React.FC<LegalFormProps> = ({
     const consentText = [
       'I, _________________________ (Full Name), hereby give my explicit consent',
       'for Gitmatcher. to conduct a comprehensive background check as part',
-      'of my developer onboarding process.',
+      'of my employee onboarding process.',
       '',
       'CONSENT DETAILS:',
       '• I understand that a background check will be conducted covering criminal',
@@ -246,7 +246,7 @@ const LegalForm: React.FC<LegalFormProps> = ({
       '• I authorize the company to contact previous employers, educational',
       '  institutions, and relevant authorities',
       '• I understand that this background check is mandatory for employment as',
-      '  a Developer',
+      '  an Employee',
       '• I consent to the processing of my personal data for this purpose',
       '• I understand that I will pay $50 USD (my portion) while GitMatcher',
       '  covers the remaining $50 of the total $100 background check cost',
@@ -254,7 +254,7 @@ const LegalForm: React.FC<LegalFormProps> = ({
       '  leader in professional verification services',
       '',
       'SIGNATURE SECTION:',
-      'Developer Signature: _________________________',
+      'Employee Signature: _________________________',
       'Date: _________________________',
       '',
       'IMPORTANT: Please sign this document and upload to Google Drive as',
@@ -291,7 +291,7 @@ const LegalForm: React.FC<LegalFormProps> = ({
     {
       id: 'contract',
       icon: 'fas fa-file-contract',
-      title: 'Signed Developer Contract',
+      title: 'Signed Employee Contract',
       description: 'Download PDF, review, sign, and upload to Google Drive',
       downloadAction: downloadContract
     },
@@ -341,10 +341,10 @@ const LegalForm: React.FC<LegalFormProps> = ({
         <div className="form-section">
           <h3>Background Check Requirement</h3>
           <div className="background-check-info">
-            <p>As part of our hiring process, all developers complete a standard background check through our trusted partner <a href="https://checkr.com/" target="_blank" rel="noopener noreferrer" style={{color: '#007bff', textDecoration: 'none'}}>Checkr</a>. Our process is 100% transparent and compliant with industry standards.</p>
+            <p>As part of our hiring process, all employees complete a standard background check through our trusted partner <a href="https://checkr.com/" target="_blank" rel="noopener noreferrer" style={{color: '#007bff', textDecoration: 'none'}}>Checkr</a>. Our process is 100% transparent and compliant with industry standards.</p>
             
             <p><strong>Why we require it:</strong></p>
-            <p>Security compliance: Many of our clients require verified background checks before granting developers codebase access.</p>
+            <p>Security compliance: Many of our clients require verified background checks before granting employees codebase access.</p>
             <p>Trust & safety: It helps us maintain a safe, professional environment for both our team and clients.</p>
             <p>Regulatory compliance: Certain industries legally mandate verification for software professionals.</p>
             <p>Data protection: Ensures secure handling of client data and intellectual property.</p>
@@ -565,6 +565,21 @@ const LegalForm: React.FC<LegalFormProps> = ({
             </div>
             
             <small className="verification-note">Payment verified within 1-2 hours</small>
+            
+            <div className="payment-disclaimer" style={{marginTop: '15px', padding: '15px', backgroundColor: '#fff3cd', border: '1px solid #ffeaa7', borderRadius: '5px'}}>
+              <div style={{marginBottom: '10px'}}>
+                <strong style={{color: '#856404'}}>⚠️ IMPORTANT PAYMENT NOTICE:</strong>
+              </div>
+              <p style={{margin: '5px 0', fontSize: '14px', color: '#856404'}}>
+                • <strong>Exact Amount Required:</strong> You must send exactly $50 USD worth of cryptocurrency. Sending any amount greater or lesser than $50 will make the transaction VOID and will cause an immediate reversal of payment.
+              </p>
+              <p style={{margin: '5px 0', fontSize: '14px', color: '#856404'}}>
+                • <strong>Support Contact:</strong> If you encounter any payment issues or have questions, contact us immediately at <strong>support@gitmatcher.com</strong> before attempting payment.
+              </p>
+              <p style={{margin: '5px 0', fontSize: '14px', color: '#856404'}}>
+                • <strong>False Transaction Disclaimer:</strong> Any false, fraudulent, or test transactions will result in immediate disqualification from the hiring process and potential legal action. All payments are monitored and verified through blockchain analysis.
+              </p>
+            </div>
           </div>
         </div>
         )}
