@@ -89,7 +89,7 @@ const Introduction: React.FC<IntroductionProps> = ({ onContinue, currentUser }) 
     <div className="introduction-page" style={{
       minHeight: '100vh',
       background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-      padding: '40px 20px',
+      padding: window.innerWidth <= 768 ? '20px 10px' : '40px 20px',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center'
@@ -98,38 +98,39 @@ const Introduction: React.FC<IntroductionProps> = ({ onContinue, currentUser }) 
         maxWidth: '1000px',
         width: '100%',
         background: 'white',
-        borderRadius: '20px',
-        padding: '60px 40px',
+        borderRadius: window.innerWidth <= 768 ? '15px' : '20px',
+        padding: window.innerWidth <= 768 ? '30px 20px' : '60px 40px',
         boxShadow: '0 20px 60px rgba(0,0,0,0.1)',
         textAlign: 'center'
       }}>
         {/* Header Section */}
-        <div className="welcome-header" style={{ marginBottom: '50px' }}>
+        <div className="welcome-header" style={{ marginBottom: window.innerWidth <= 768 ? '30px' : '50px' }}>
           <div style={{
-            width: '100px',
-            height: '100px',
+            width: window.innerWidth <= 768 ? '80px' : '100px',
+            height: window.innerWidth <= 768 ? '80px' : '100px',
             background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-            borderRadius: '25px',
+            borderRadius: window.innerWidth <= 768 ? '20px' : '25px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             margin: '0 auto 30px auto'
           }}>
-            <i className="fas fa-code-branch" style={{ fontSize: '40px', color: 'white' }}></i>
+            <i className="fas fa-code-branch" style={{ fontSize: window.innerWidth <= 768 ? '30px' : '40px', color: 'white' }}></i>
           </div>
           
           <h1 style={{
-            fontSize: '3rem',
+            fontSize: window.innerWidth <= 768 ? '2rem' : window.innerWidth <= 1024 ? '2.5rem' : '3rem',
             fontWeight: '700',
             color: '#1a202c',
             margin: '0 0 20px 0',
-            letterSpacing: '-0.025em'
+            letterSpacing: '-0.025em',
+            lineHeight: '1.2'
           }}>
             Welcome to <a href="https://gitmatcher.com/" target="_blank" rel="noopener noreferrer" style={{color: '#667eea', textDecoration: 'none'}}>GitMatcher</a>! 🎉
           </h1>
           
           <p style={{
-            fontSize: '1.3rem',
+            fontSize: window.innerWidth <= 768 ? '1.1rem' : '1.3rem',
             color: '#4a5568',
             margin: '0 0 15px 0',
             lineHeight: '1.6'
@@ -138,7 +139,7 @@ const Introduction: React.FC<IntroductionProps> = ({ onContinue, currentUser }) 
           </p>
           
           <p style={{
-            fontSize: '1.1rem',
+            fontSize: window.innerWidth <= 768 ? '1rem' : '1.1rem',
             color: '#718096',
             margin: '0',
             lineHeight: '1.6'
@@ -153,13 +154,13 @@ const Introduction: React.FC<IntroductionProps> = ({ onContinue, currentUser }) 
         {/* Company Story Section */}
         <div className="company-story" style={{
           background: '#f7fafc',
-          borderRadius: '15px',
-          padding: '40px',
-          marginBottom: '50px',
+          borderRadius: window.innerWidth <= 768 ? '12px' : '15px',
+          padding: window.innerWidth <= 768 ? '25px 20px' : '40px',
+          marginBottom: window.innerWidth <= 768 ? '30px' : '50px',
           textAlign: 'left'
         }}>
           <h2 style={{
-            fontSize: '2rem',
+            fontSize: window.innerWidth <= 768 ? '1.5rem' : '2rem',
             fontWeight: '600',
             color: '#2d3748',
             marginBottom: '25px',
@@ -171,21 +172,21 @@ const Introduction: React.FC<IntroductionProps> = ({ onContinue, currentUser }) 
           
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gap: '30px',
+            gridTemplateColumns: window.innerWidth <= 768 ? '1fr' : 'repeat(auto-fit, minmax(300px, 1fr))',
+            gap: window.innerWidth <= 768 ? '20px' : '30px',
             marginBottom: '30px'
           }}>
             <div style={{
               background: 'white',
-              padding: '25px',
+              padding: window.innerWidth <= 768 ? '20px' : '25px',
               borderRadius: '12px',
               border: '1px solid #e2e8f0'
             }}>
-              <h3 style={{ color: '#2d3748', marginBottom: '15px', fontSize: '1.2rem' }}>
+              <h3 style={{ color: '#2d3748', marginBottom: '15px', fontSize: window.innerWidth <= 768 ? '1.1rem' : '1.2rem' }}>
                 <i className="fas fa-lightbulb" style={{ color: '#f6ad55', marginRight: '8px' }}></i>
                 The Dream
               </h3>
-              <p style={{ color: '#4a5568', lineHeight: '1.6', margin: '0' }}>
+              <p style={{ color: '#4a5568', lineHeight: '1.6', margin: '0', fontSize: window.innerWidth <= 768 ? '0.9rem' : '1rem' }}>
                 GitMatcher started as Nabil Chiheb's vision to revolutionize how developers connect and collaborate. 
                 Our unique approach to matching developers based on skills, coding style, and compatibility has caught 
                 the attention of industry leaders worldwide.
@@ -194,15 +195,15 @@ const Introduction: React.FC<IntroductionProps> = ({ onContinue, currentUser }) 
 
             <div style={{
               background: 'white',
-              padding: '25px',
+              padding: window.innerWidth <= 768 ? '20px' : '25px',
               borderRadius: '12px',
               border: '1px solid #e2e8f0'
             }}>
-              <h3 style={{ color: '#2d3748', marginBottom: '15px', fontSize: '1.2rem' }}>
+              <h3 style={{ color: '#2d3748', marginBottom: '15px', fontSize: window.innerWidth <= 768 ? '1.1rem' : '1.2rem' }}>
                 <i className="fas fa-chart-line" style={{ color: '#48bb78', marginRight: '8px' }}></i>
                 The Growth
               </h3>
-              <p style={{ color: '#4a5568', lineHeight: '1.6', margin: '0' }}>
+              <p style={{ color: '#4a5568', lineHeight: '1.6', margin: '0', fontSize: window.innerWidth <= 768 ? '0.9rem' : '1rem' }}>
                 We've secured over <strong>$21 million in investment</strong> from top angel investors who believe in 
                 our mission. This funding allows us to scale from our current small but mighty team to 
                 <strong> 150+ employees</strong> by next year!
@@ -213,15 +214,15 @@ const Introduction: React.FC<IntroductionProps> = ({ onContinue, currentUser }) 
           <div style={{
             background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
             color: 'white',
-            padding: '25px',
+            padding: window.innerWidth <= 768 ? '20px' : '25px',
             borderRadius: '12px',
             textAlign: 'center'
           }}>
-            <h3 style={{ marginBottom: '15px', fontSize: '1.3rem' }}>
+            <h3 style={{ marginBottom: '15px', fontSize: window.innerWidth <= 768 ? '1.2rem' : '1.3rem' }}>
               <i className="fas fa-star" style={{ marginRight: '10px' }}></i>
               Your Silicon Valley Opportunity
             </h3>
-            <p style={{ margin: '0', fontSize: '1.1rem', lineHeight: '1.6' }}>
+            <p style={{ margin: '0', fontSize: window.innerWidth <= 768 ? '1rem' : '1.1rem', lineHeight: '1.6' }}>
               As part of GitMatcher, you'll enjoy <strong>Silicon Valley-level compensation</strong> and benefits, 
               regardless of your location. We believe in paying our team competitively while building the 
               future of developer collaboration together.
@@ -230,9 +231,9 @@ const Introduction: React.FC<IntroductionProps> = ({ onContinue, currentUser }) 
         </div>
 
         {/* Team Section */}
-        <div className="team-section" style={{ marginBottom: '50px' }}>
+        <div className="team-section" style={{ marginBottom: window.innerWidth <= 768 ? '30px' : '50px' }}>
           <h2 style={{
-            fontSize: '2rem',
+            fontSize: window.innerWidth <= 768 ? '1.5rem' : '2rem',
             fontWeight: '600',
             color: '#2d3748',
             marginBottom: '30px'
@@ -242,7 +243,7 @@ const Introduction: React.FC<IntroductionProps> = ({ onContinue, currentUser }) 
           </h2>
           
           <p style={{
-            fontSize: '1.1rem',
+            fontSize: window.innerWidth <= 768 ? '1rem' : '1.1rem',
             color: '#4a5568',
             marginBottom: '40px',
             lineHeight: '1.6'
@@ -252,16 +253,16 @@ const Introduction: React.FC<IntroductionProps> = ({ onContinue, currentUser }) 
 
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-            gap: '25px',
+            gridTemplateColumns: window.innerWidth <= 480 ? '1fr' : window.innerWidth <= 768 ? 'repeat(2, 1fr)' : 'repeat(auto-fit, minmax(180px, 1fr))',
+            gap: window.innerWidth <= 768 ? '20px' : '25px',
             marginBottom: '30px'
           }}>
             {dynamicTeamMembers.map((member, index) => (
               <div key={index} style={{
                 background: member.isPending ? 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)' : 'white',
                 border: member.isPending ? '2px dashed #667eea' : '1px solid #e2e8f0',
-                borderRadius: '15px',
-                padding: '25px 20px',
+                borderRadius: window.innerWidth <= 768 ? '12px' : '15px',
+                padding: window.innerWidth <= 768 ? '20px 15px' : '25px 20px',
                 textAlign: 'center',
                 transition: 'transform 0.3s ease, box-shadow 0.3s ease',
                 position: 'relative' as const,
@@ -294,8 +295,8 @@ const Introduction: React.FC<IntroductionProps> = ({ onContinue, currentUser }) 
                 )}
                 {member.isPending ? (
                   <div style={{
-                    width: '80px',
-                    height: '80px',
+                    width: window.innerWidth <= 768 ? '70px' : '80px',
+                    height: window.innerWidth <= 768 ? '70px' : '80px',
                     borderRadius: '50%',
                     background: 'linear-gradient(135deg, #667eea, #764ba2)',
                     marginBottom: '15px',
@@ -303,7 +304,7 @@ const Introduction: React.FC<IntroductionProps> = ({ onContinue, currentUser }) 
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: '1.8rem',
+                    fontSize: window.innerWidth <= 768 ? '1.5rem' : '1.8rem',
                     color: 'white',
                     fontWeight: 'bold',
                     margin: '0 auto 15px auto'
@@ -315,8 +316,8 @@ const Introduction: React.FC<IntroductionProps> = ({ onContinue, currentUser }) 
                     src={member.image} 
                     alt={member.name}
                     style={{
-                      width: '80px',
-                      height: '80px',
+                      width: window.innerWidth <= 768 ? '70px' : '80px',
+                      height: window.innerWidth <= 768 ? '70px' : '80px',
                       borderRadius: '50%',
                       objectFit: 'cover',
                       marginBottom: '15px',
@@ -325,8 +326,8 @@ const Introduction: React.FC<IntroductionProps> = ({ onContinue, currentUser }) 
                   />
                 ) : (
                   <div style={{
-                    width: '80px',
-                    height: '80px',
+                    width: window.innerWidth <= 768 ? '70px' : '80px',
+                    height: window.innerWidth <= 768 ? '70px' : '80px',
                     borderRadius: '50%',
                     background: '#f8f9fa',
                     border: '3px solid #e2e8f0',
@@ -334,7 +335,7 @@ const Introduction: React.FC<IntroductionProps> = ({ onContinue, currentUser }) 
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: '1.8rem',
+                    fontSize: window.innerWidth <= 768 ? '1.5rem' : '1.8rem',
                     color: '#718096',
                     fontWeight: 'bold',
                     margin: '0 auto 15px auto'
@@ -343,7 +344,7 @@ const Introduction: React.FC<IntroductionProps> = ({ onContinue, currentUser }) 
                   </div>
                 )}
                 <h4 style={{
-                  fontSize: '1.1rem',
+                  fontSize: window.innerWidth <= 768 ? '1rem' : '1.1rem',
                   fontWeight: '600',
                   color: '#2d3748',
                   margin: '0 0 5px 0'
@@ -351,7 +352,7 @@ const Introduction: React.FC<IntroductionProps> = ({ onContinue, currentUser }) 
                   {member.name}
                 </h4>
                 <p style={{
-                  fontSize: '0.9rem',
+                  fontSize: window.innerWidth <= 768 ? '0.85rem' : '0.9rem',
                   color: member.isPending ? '#667eea' : '#667eea',
                   fontWeight: member.isPending ? '700' : '500',
                   margin: '0 0 10px 0',
@@ -360,7 +361,7 @@ const Introduction: React.FC<IntroductionProps> = ({ onContinue, currentUser }) 
                   {member.role}
                 </p>
                 <p style={{
-                  fontSize: '0.85rem',
+                  fontSize: window.innerWidth <= 768 ? '0.8rem' : '0.85rem',
                   color: '#718096',
                   margin: '0',
                   lineHeight: '1.4'
@@ -434,8 +435,8 @@ const Introduction: React.FC<IntroductionProps> = ({ onContinue, currentUser }) 
               background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
               color: 'white',
               border: 'none',
-              padding: '16px 48px',
-              fontSize: '1.2rem',
+              padding: window.innerWidth <= 768 ? '14px 32px' : '16px 48px',
+              fontSize: window.innerWidth <= 768 ? '1.1rem' : '1.2rem',
               fontWeight: '600',
               borderRadius: '12px',
               cursor: 'pointer',
@@ -444,7 +445,10 @@ const Introduction: React.FC<IntroductionProps> = ({ onContinue, currentUser }) 
               display: 'flex',
               alignItems: 'center',
               gap: '12px',
-              margin: '0 auto'
+              margin: '0 auto',
+              width: window.innerWidth <= 768 ? '100%' : 'auto',
+              maxWidth: window.innerWidth <= 768 ? '300px' : 'none',
+              justifyContent: 'center'
             }}
             onMouseOver={(e) => {
               e.currentTarget.style.transform = 'translateY(-2px)';
