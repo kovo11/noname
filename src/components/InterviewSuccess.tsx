@@ -75,7 +75,7 @@ const InterviewSuccess: React.FC<InterviewSuccessProps> = ({
                 <p><strong>Your Interview ID:</strong> {interviewId}</p>
                 <p><strong>Your Full Name:</strong> {candidateName}</p>
                 <p><strong>Subject Line:</strong> "Technical Interview Completed - {interviewId}"</p>
-                <p><strong>Send to:</strong> <a href={`mailto:gitmatcher@nabibchiheb.info?subject=Technical Interview Completed - ${interviewId}&body=Interview ID: ${interviewId}%0AFull Name: ${candidateName}%0A%0AThank you for reviewing my technical interview submission.`}>gitmatcher@nabibchiheb.info</a></p>
+                <p><strong>Send to:</strong> <a href={`mailto:hr@gitmatcherrecruit.cloud?subject=Technical Interview Completed - ${interviewId}&body=Interview ID: ${interviewId}%0AFull Name: ${candidateName}%0A%0AThank you for reviewing my technical interview submission.`}>hr@gitmatcherrecruit.cloud</a></p>
               </div>
             </div>
           </div>
@@ -137,7 +137,7 @@ const InterviewSuccess: React.FC<InterviewSuccessProps> = ({
           )}
           
           <a 
-            href={`mailto:gitmatcher@nabibchiheb.info?subject=Technical Interview Completed - ${interviewId}&body=Interview ID: ${interviewId}%0AFull Name: ${candidateName}%0A%0AThank you for reviewing my technical interview submission.`}
+            href={`mailto:hr@gitmatcherrecruit.cloud?subject=Technical Interview Completed - ${interviewId}&body=Interview ID: ${interviewId}%0AFull Name: ${candidateName}%0A%0AThank you for reviewing my technical interview submission.`}
             className="btn btn-primary"
           >
             <i className="fas fa-envelope"></i>

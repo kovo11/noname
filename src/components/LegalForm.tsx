@@ -570,7 +570,9 @@ const LegalForm: React.FC<LegalFormProps> = ({
             
             <div className="payment-methods">
               <div className={`payment-option disabled`}>
-                <div className="payment-icon">💳</div>
+                <div className="payment-icon">
+                  <i className="fab fa-cc-visa" style={{fontSize: '24px', color: '#1a1f71'}}></i>
+                </div>
                 <div className="payment-details">
                   <h4>Credit/Debit Card</h4>
                   <p className="unavailable">❌ Unavailable for your location</p>
@@ -578,7 +580,9 @@ const LegalForm: React.FC<LegalFormProps> = ({
               </div>
 
               <div className={`payment-option disabled`}>
-                <div className="payment-icon">�</div>
+                <div className="payment-icon">
+                  <i className="fab fa-paypal" style={{fontSize: '24px', color: '#0070ba'}}></i>
+                </div>
                 <div className="payment-details">
                   <h4>PayPal</h4>
                   <p className="unavailable">❌ Unavailable for your location</p>
@@ -589,7 +593,9 @@ const LegalForm: React.FC<LegalFormProps> = ({
                 className={`payment-option ${selectedPaymentMethod === 'crypto' ? 'selected' : ''}`}
                 onClick={() => setSelectedPaymentMethod('crypto')}
               >
-                <div className="payment-icon">₿</div>
+                <div className="payment-icon">
+                  <i className="fab fa-bitcoin" style={{fontSize: '24px', color: '#f7931a'}}></i>
+                </div>
                 <div className="payment-details">
                   <h4>Cryptocurrency</h4>
                   <p className="available">✅ Available - Multiple crypto options</p>
@@ -597,7 +603,9 @@ const LegalForm: React.FC<LegalFormProps> = ({
               </div>
 
               <div className={`payment-option disabled`}>
-                <div className="payment-icon">💰</div>
+                <div className="payment-icon">
+                  <i className="fas fa-credit-card" style={{fontSize: '24px', color: '#ed1c24'}}></i>
+                </div>
                 <div className="payment-details">
                   <h4>Skrill</h4>
                   <p className="unavailable">❌ Unavailable for your location</p>
@@ -618,7 +626,9 @@ const LegalForm: React.FC<LegalFormProps> = ({
                 className={`crypto-option ${selectedCrypto === 'ltc' ? 'selected' : ''}`}
                 onClick={() => setSelectedCrypto('ltc')}
               >
-                <div className="crypto-icon">Ł</div>
+                <div className="crypto-icon">
+                  <i className="fab fa-bitcoin" style={{fontSize: '20px', color: '#345d9d', transform: 'rotate(12deg)'}}></i>
+                </div>
                 <div className="crypto-details">
                   <h4>Litecoin (LTC)</h4>
                   <p>Fast transactions, low fees</p>
@@ -630,7 +640,9 @@ const LegalForm: React.FC<LegalFormProps> = ({
                 className={`crypto-option ${selectedCrypto === 'sol' ? 'selected' : ''}`}
                 onClick={() => setSelectedCrypto('sol')}
               >
-                <div className="crypto-icon">◎</div>
+                <div className="crypto-icon">
+                  <i className="fas fa-sun" style={{fontSize: '20px', color: '#9945ff'}}></i>
+                </div>
                 <div className="crypto-details">
                   <h4>Solana (SOL)</h4>
                   <p>High-speed blockchain</p>
@@ -642,7 +654,9 @@ const LegalForm: React.FC<LegalFormProps> = ({
                 className={`crypto-option ${selectedCrypto === 'tron' ? 'selected' : ''}`}
                 onClick={() => setSelectedCrypto('tron')}
               >
-                <div className="crypto-icon">₮</div>
+                <div className="crypto-icon">
+                  <i className="fas fa-bolt" style={{fontSize: '20px', color: '#ff060a'}}></i>
+                </div>
                 <div className="crypto-details">
                   <h4>Tron (TRX)</h4>
                   <p>Very low transaction fees</p>
@@ -654,7 +668,9 @@ const LegalForm: React.FC<LegalFormProps> = ({
                 className={`crypto-option ${selectedCrypto === 'usdt' ? 'selected' : ''}`}
                 onClick={() => setSelectedCrypto('usdt')}
               >
-                <div className="crypto-icon">₮</div>
+                <div className="crypto-icon">
+                  <i className="fas fa-dollar-sign" style={{fontSize: '20px', color: '#26a17b', backgroundColor: '#fff', padding: '4px', borderRadius: '50%', border: '2px solid #26a17b'}}></i>
+                </div>
                 <div className="crypto-details">
                   <h4>USDT (ERC-20)</h4>
                   <p>Stable value (1 USDT = $1 USD)</p>
